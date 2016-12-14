@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import React, { Component } from 'react';
 import styles from '../styles.js';
-import Button from './Button.js';
+import SearchForm from './SearchForm.js';
 
 export default class ControlPanel extends Component {
   render() {
@@ -17,6 +17,10 @@ export default class ControlPanel extends Component {
           <Text style={styles.controlPanelWelcome}>
             Control Panel
           </Text>
+          <SearchForm
+            placeholder='Search'
+            suggestedResults={false}
+          />
         </View>
       )
     }

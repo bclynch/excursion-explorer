@@ -22,7 +22,7 @@ export class ExcursionExplorer extends Component {
     super(props, context);
     this.state = {
       drawerType: 'overlay',
-      openDrawerOffset:100,
+      openDrawerOffset:100, //Incr to make the drawer smaller. Set to zero for full screen
       closedDrawerOffset:0,
       panOpenMask: .18,
       panCloseMask: .8,
@@ -36,7 +36,7 @@ export class ExcursionExplorer extends Component {
       acceptDoubleTap: false,
       acceptTap: false,
       acceptPan: true,
-      tapToClose: true,
+      tapToClose: false,
       negotiatePan: false,
       rightSide: false,
     };
@@ -95,16 +95,15 @@ export class ExcursionExplorer extends Component {
         side={this.state.rightSide ? 'right' : 'left'}
         >
         <ScrollableTabView
-          style={{marginTop: 20, }}
           renderTabBar={() => <DefaultTabBar />}
         >
-          <View style={{height: 300}} tabLabel='Tab #1'>
+          <View style={{height: 300}} tabLabel='Facts'>
             <View style={{flex: 1, backgroundColor: 'powderblue'}} />
             <View style={{flex: 2, backgroundColor: 'skyblue'}} />
             <View style={{flex: 1, backgroundColor: 'steelblue'}} />
           </View>
-          <Home tabLabel='Tab #2' title='Bitch' />
-          <Text tabLabel='Tab #3'>project</Text>
+          <Home tabLabel='Geography + Climate' title='Bitch' />
+          <Text tabLabel='Travel Information'>project</Text>
         </ScrollableTabView>
       </Drawer>
     );

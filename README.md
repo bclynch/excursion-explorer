@@ -8,5 +8,5 @@
 - Open up Android Studio
 - Configure > SDK Manager > Launch Standalone Manager
 - Tools > Manage AVDs > Select + Start Environment
-- In project folder: $ react-native Start
+- In project folder: $ react-native start
 - In separate terminal $ react-native run-android
