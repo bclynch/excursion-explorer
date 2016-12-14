@@ -10,7 +10,9 @@
     "react": "15.4.1",
     "react-native": "0.39.2",
     "react-native-app-intro": "^1.1.5",
-    "react-native-scrollable-tab-view": "^0.7.0"
+    "react-native-drawer": "^2.3.0",
+    "react-native-scrollable-tab-view": "^0.7.0",
+    "react-native-slider": "^0.9.1"
   },
   "devDependencies": {
     "babel-jest": "17.0.2",

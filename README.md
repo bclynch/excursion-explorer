@@ -1,5 +1,9 @@
 #Setup
 
+##Installation
+- git clone https://github.com/bclynch/excursion-explorer
+- cd excursion-explorer && npm install
+
 ##Running In Virtual Environment
 - Open up Android Studio
 - Configure > SDK Manager > Launch Standalone Manager
