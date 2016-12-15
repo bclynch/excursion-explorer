@@ -20,6 +20,7 @@ export default class ControlPanel extends Component {
           <SearchForm
             placeholder='Search'
             suggestedResults={false}
+            searchSubmit={this.props.searchSubmit}
           />
         </View>
       )
