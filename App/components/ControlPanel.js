@@ -15,7 +15,7 @@ export default class ControlPanel extends Component {
       return (
         <View style={styles.controlPanel}>
           <Text style={styles.controlPanelWelcome}>
-            Control Panel
+            Excursion Explorer
           </Text>
           <SearchForm
             placeholder='Search'
