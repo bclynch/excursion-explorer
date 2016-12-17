@@ -313,6 +313,14 @@ const getSceneStyle = (/* NavigationSceneRendererProps */ props, computedProps) 
 };
 
 export default class ExcursionExplorer extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+
+    }
+  }
+
   render() {
     return (
       <Router createReducer={reducerCreate} getSceneStyle={getSceneStyle}>

@@ -14,8 +14,9 @@ export default class CountrySplash extends Component {
   render() {
     return (
       <View>
-        <Text>Country Splash {this.props.selectedCountry}</Text>
+        <Text>Country Splash {this.props.selectedCountry.name}</Text>
         <Button onPress={Actions.home} title='Home' />
+        <Button onPress={Actions.pop} title='Back' />
       </View>
     )
   }

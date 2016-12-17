@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {View, Text, StyleSheet, TextInput} from "react-native";
+import {View, Text, StyleSheet, TextInput, Button} from "react-native";
 import {Actions} from "react-native-router-flux";
 import SuggestedResults from './SuggestedResults.js';
 import FilterRegion from './FilterRegion';
@@ -33,6 +33,7 @@ export default class Search extends Component {
     }
 
     this.onTextChange = this.onTextChange.bind(this);
+    this.handleSelection = this.handleSelection.bind(this);
   }
 
   //Setting the state for the search input on each keypress so we can clear it on submit
@@ -40,18 +41,23 @@ export default class Search extends Component {
     this.setState({query: e.nativeEvent.text});
   }
 
+  handleSelection(data) {
+    Actions.countrysplash({selectedCountry: this.props.allCountries[data]});
+  }
+
   render(){
     return (
       <View>
+        <Button onPress={Actions.pop} title='Back' />
         <TextInput
           autoFocus={true}
           placeholder='Search Countries'
           onChange={this.onTextChange}
-          onSubmitEditing={() => Actions.countrysplash({selectedCountry: this.state.query})}
+          onSubmitEditing={() => Actions.countrysplash({selectedCountry: this.props.allCountries[this.state.query]})}
           blurOnSubmit={true}
           value={this.state.query}
          />
-         {this.state.query === '' ? <FilterRegion /> : <SuggestedResults />}
+         {this.state.query === '' ? <FilterRegion countryRegions={this.props.countryRegions} /> : <SuggestedResults allCountries={this.props.allCountries} query={this.state.query} handleSelection={this.handleSelection} />}
       </View>
     );
   }
