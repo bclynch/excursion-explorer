@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { AppRegistry, Text, View, ListView, TouchableHighlight } from 'react-native';
+import { AppRegistry, Text, View, ListView, TouchableHighlight, Dimensions } from 'react-native';
 
 const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+const width = Dimensions.get('window').width;
 
 export default class FilterRegion extends Component {
   constructor(props) {
@@ -17,14 +18,12 @@ export default class FilterRegion extends Component {
     //Could have accordian look with the rest of the subregions/countries displayed on click
     return (
       <TouchableHighlight>
-        <View style={{height: 300}} tabLabel='Tab #1'>
-          <View style={{flex: 1, backgroundColor: 'powderblue'}} />
-          <View style={{flex: 2, backgroundColor: 'skyblue', alignItems: 'center', justifyContent: 'center'}}>
+        <View style={{}} tabLabel='Tab #1'>
+          <View style={{backgroundColor: 'skyblue', flex:1, justifyContent: 'center', width: width*.85, alignItems:'center', marginBottom:10, paddingTop: 10, paddingBottom: 10}}>
             <Text>
               {data}
             </Text>
           </View>
-          <View style={{flex: 1, backgroundColor: 'steelblue'}} />
         </View>
       </TouchableHighlight>
     );
@@ -32,14 +31,14 @@ export default class FilterRegion extends Component {
 
   render() {
     return (
-      <View>
-        <Text>Filter By Region</Text>
-
-          <ListView
-            dataSource={ds.cloneWithRows(['Africa', 'Americas', 'Asia', 'Europe', 'Oceania', 'Polar'])}
-            renderRow={this.renderRow}
-          />
-
+      <View style={{alignItems: 'center'}}>
+        <View style={{flexDirection: 'row', marginTop: 20, width: width*.85, alignSelf: 'center', justifyContent: 'flex-start'}}>
+          <Text>Filter By Region</Text>
+        </View>
+        <ListView
+          dataSource={ds.cloneWithRows(['Africa', 'Americas', 'Asia', 'Europe', 'Oceania', 'Polar'])}
+          renderRow={this.renderRow}
+        />
       </View>
     )
   }

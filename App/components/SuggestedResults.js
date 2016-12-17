@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { AppRegistry, Text, View, ListView, TouchableHighlight } from 'react-native';
+import { AppRegistry, Text, View, ListView, TouchableHighlight, Dimensions } from 'react-native';
 
 const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+const width = Dimensions.get('window').width;
 
 export default class SuggestedResults extends Component {
   constructor(props) {
@@ -16,12 +17,10 @@ export default class SuggestedResults extends Component {
 
   componentDidMount() {
     this.setState({countryKeys: Object.keys(this.props.allCountries)});
+    this.setState({allCountries: this.props.allCountries});
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps.query);
-    // this.setState({query: nextProps.query});
-
     this.onSearchInput(nextProps.query);
   }
 
@@ -34,20 +33,20 @@ export default class SuggestedResults extends Component {
           if(this.state.countryKeys[j].toLowerCase().indexOf(query.toLowerCase()) !== -1) {
              tempArr.push(this.state.countryKeys[j]) ;
           }
-          if(tempArr.length === 10) {
-              break;
-          }
       }
       this.setState({resultOptions: ds.cloneWithRows(tempArr)});
-      console.log(tempArr);
   }
 
   renderRow(data) {
+    if(!data) return null;
     return (
       <TouchableHighlight onPress={this.props.handleSelection.bind(null, data)}>
-        <View>
-          <Text>
+        <View style={{padding: 30, borderBottomWidth: 1, borderColor: '#cecece', width: width*.85}}>
+          <Text style={{fontSize: 25}}>
             {data}
+          </Text>
+          <Text>
+            {this.state.allCountries[data].subregion}
           </Text>
         </View>
       </TouchableHighlight>
@@ -56,12 +55,14 @@ export default class SuggestedResults extends Component {
 
   render() {
     return (
-      <View>
-        <Text>Results</Text>
-          <ListView
-            dataSource={this.state.resultOptions}
-            renderRow={this.renderRow}
-          />
+      <View style={{alignItems: 'center'}}>
+        <View style={{flexDirection: 'row', marginTop: 20, width: width*.85, alignSelf: 'center', justifyContent: 'flex-start'}}>
+          <Text style={{fontSize: 20}}>Results</Text>
+        </View>
+        <ListView
+          dataSource={this.state.resultOptions}
+          renderRow={this.renderRow}
+        />
       </View>
     )
   }

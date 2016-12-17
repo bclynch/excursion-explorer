@@ -326,9 +326,9 @@ export default class ExcursionExplorer extends Component {
       <Router createReducer={reducerCreate} getSceneStyle={getSceneStyle}>
         <Scene key="modal" component={Modal} >
           <Scene key="root" hideNavBar hideTabBar>
-            <Scene key="home" component={Home} title="Home" initial />
+            <Scene key="home" component={Home} hideNavBar title="Home" initial />
             <Scene key="search" component={Search} title="Search" />
-            <Scene key="countrysplash" component={CountrySplash} title="CountrySplash" />
+            <Scene key="countrysplash" component={CountrySplash} title="CountrySplash" hideNavBar={false} />
             <Scene key="tabbar" component={NavigationDrawer}>
               <Scene
                 key="main"

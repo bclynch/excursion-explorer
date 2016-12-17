@@ -16,7 +16,6 @@ export default class CountrySplash extends Component {
       <View>
         <Text>Country Splash {this.props.selectedCountry.name}</Text>
         <Button onPress={Actions.home} title='Home' />
-        <Button onPress={Actions.pop} title='Back' />
       </View>
     )
   }
