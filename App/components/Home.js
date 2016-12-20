@@ -4,16 +4,17 @@ import {Actions} from "react-native-router-flux";
 import store from 'react-native-simple-store';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
+import HomeNavBar from './HomeNavBar.js';
+import FavoriteLocations from './FavoriteLocations.js';
+
 import API from '../api.js';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
     backgroundColor: "transparent",
-    borderWidth: 2,
-    borderColor: 'red',
+    alignItems: 'center',
+    justifyContent: 'flex-start'
   }
 });
 
@@ -28,12 +29,14 @@ export default class Home extends Component {
     super(props);
 
     this.state = {
-
+      favorites: []
     }
   }
 
   componentDidMount() {
     const self = this;
+
+    //store.delete('allCountries');
 
     //Checking local storage for existing data, if any
     store.get('allCountries')
@@ -49,6 +52,11 @@ export default class Home extends Component {
               self.setState({countryRegions: regions});
               console.log(regions);
               console.log(countries);
+              store.get('favorites')
+                .then((favorites) => {
+                  console.log(favorites);
+                  self.setState({favorites: favorites});
+                });
             });
         } else {
           API.grabAllCountries().then((data) => {
@@ -57,9 +65,11 @@ export default class Home extends Component {
             store.save('allCountries', countryData.allCountries);
             console.log('Saving allCountries to storage');
             self.setState({regionData: countryData.regions});
+            self.setState({favorites: []});
             //saving our chopped data as well to avoid the loop parsing on every refresh
             store.save('countryRegions', countryData.regions);
             store.save('countries', {});
+            store.save('favorites', []);
           });
         }
       })
@@ -95,19 +105,11 @@ export default class Home extends Component {
     return {allCountries: countryObj, regions: regionArchitecture};
   }
 
-  test() {
-    console.log('clicked');
-  }
-
   render() {
     return (
       <View {...this.props}  style={styles.container}>
-        <Text>Home page</Text>
-        <Button onPress={Actions.tabbar} title='Go to country splash' />
-        <Button onPress={() => Actions.search({allCountries: this.state.allCountries, countryRegions: this.state.countryRegions})} title='Search' />
-        <TouchableHighlight onPress={this.test}>
-          <Icon name="rocket" size={30} color="#900" />
-        </TouchableHighlight>
+        <HomeNavBar allCountries={this.state.allCountries} countryRegions={this.state.countryRegions} favorites={this.state.favorites} />
+        <FavoriteLocations favorites={this.state.favorites} />
       </View>
     );
   }

@@ -40,6 +40,18 @@ const styles = {
 }
 
 export default class SwiperCarousel extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      renderSwiper: this.props.slides
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log(nextProps);
+    this.setState({renderSwiper: nextProps.slides})
+  }
 
   renderSlides(slides) {
     return slides.map(function(slide, i){
@@ -59,9 +71,10 @@ export default class SwiperCarousel extends Component {
   render() {
     return (
       <View>
+        {this.state.renderSwiper ?
         <Swiper style={styles.wrapper} height={this.props.height} horizontal={this.props.horizontal} autoPlayTimeout={this.props.autoplaySpeed} autoplay>
-          {this.renderSlides(this.props.slides)}
-        </Swiper>
+          {this.renderSlides(this.state.renderSwiper)}
+        </Swiper> : <Text>Nada</Text> }
       </View>
     )
   }

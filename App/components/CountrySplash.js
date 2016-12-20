@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { AppRegistry, Text, View, Button } from 'react-native';
 import {Actions} from "react-native-router-flux";
 import store from 'react-native-simple-store';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import SwiperCarousel from './SwiperCarousel.js';
 
 import API from '../api.js';
@@ -12,12 +13,18 @@ export default class CountrySplash extends Component {
     super(props);
 
     this.state = {
-      selectedCountryData: null
+      selectedCountryData: null,
+      favorites: props.favorites
     }
+    this.toggleFavorite = this.toggleFavorite.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.snagData(nextProps.selectedCountry.alpha3Code, nextProps.selectedCountry.name);
   }
 
   componentDidMount() {
-    this.snagData(this.props.selectedCountry.alpha3Code, this.props.selectedCountry.name)
+    this.snagData(this.props.selectedCountry.alpha3Code, this.props.selectedCountry.name);
   }
 
   snagData(countryCode, name) {
@@ -25,6 +32,7 @@ export default class CountrySplash extends Component {
   //Perform API call if necessary
    store.get('countries')
      .then((countries) => {
+       console.log(countries);
        if(countries[name]) {
          //if the data is over 24 hours old refresh it
          //logic: Current time - lastUpdated time > 24 hours then grab new data
@@ -49,57 +57,61 @@ export default class CountrySplash extends Component {
              general: this.props.selectedCountry
            }
            self.setState({selectedCountryData: newCountryData});
-           const existingCountries = countries;
-           existingCountries[this.props.selectedCountry.name] = newCountryData;
            console.log(`saving ${this.props.selectedCountry.name} information to cache`);
-           store.save('countries', existingCountries);
+           const abc = countries;
+           abc[name] = newCountryData;
+           store.save('countries', abc);
          });
        }
      }).catch(function(err) {
        console.log(err);
      });
   }
-    //     const self = this;
-    //
-    //     let dataObj = {};
-    //
-    //     store.get('countries')
-    //       .then((countries) => {
-    //         if(countries[name]) {
-    //           //if the data is over 24 hours old refresh it
-    //           //logic: Current time - lastUpdated time > 24 hours then grab new data
-    //           if(countries[name][lastUpdated] > ) {
-    //             console.log('Data too old, grabbing fresh data');
-    //             API.fetchTheGoods(countryCode, name);
-    //           } else {
-    //             //Use the data we already have
-    //             console.log('Grabbing existing data');
-    //             self.setState({selectedCountryData: countries[name]});
-    //             console.log(JSON.parse(sessionStorage.getItem(countryCode)));
-    //           }
-    //         } else {
-    //           //Doesn't exist so grab data
-    //           API.fetchTheGoods(countryCode, name);
-    //         }
-    //       }
-    //     }
-    // }
 
-  render() {
+  chopPictures(picInfo) {
+    console.log(picInfo);
+    if(picInfo === null) {
+      return null;
+    }
     let slides = [];
     for(var i = 0; i < 5; i++) {
-      if(this.state.selectedCountryData === null) {
-        break;
-      }
-      const data = this.state.selectedCountryData.flickr.photos.photo[i];
+      const data = picInfo.flickr.photos.photo[i];
       const obj = {src: `https://farm${data.farm}.staticflickr.com/${data.server}/${data.id}_${data.secret}_b.jpg`, country: this.props.selectedCountry.name, subregion: this.props.selectedCountry.subregion}
       slides.push(obj);
     }
+    return slides;
+  }
+
+  toggleFavorite() {
+    const self = this;
+    store.get('favorites')
+      .then((favorites) => {
+        console.log(favorites);
+        if(this.state.favorites.indexOf(this.props.selectedCountry.name) === -1) {
+          //adding to our store + update state
+          console.log('Adding to favorites');
+          let newArr = favorites;
+          newArr.push(this.props.selectedCountry.name);
+          store.save('favorites', newArr);
+          self.setState({favorites: newArr});
+        } else {
+          let newArr = favorites;
+          newArr.splice(this.state.favorites.indexOf(this.props.selectedCountry.name), 1);
+            console.log('Removing from favorites');
+          store.save('favorites', newArr);
+          self.setState({favorites: newArr});
+        }
+      })
+  }
+
+  render() {
     return (
       <View>
-        <Text>Country Splash {this.props.selectedCountry.name}</Text>
-        <SwiperCarousel height={250} horizontal={true} autoPlaySpeed={5} slides={slides} />
+        <SwiperCarousel height={250} horizontal={true} autoPlaySpeed={5} slides={this.chopPictures(this.state.selectedCountryData)} />
         <Button onPress={Actions.home} title='Home' />
+        <Icon.Button name="star" backgroundColor="#3b5998" onPress={this.toggleFavorite}>
+          {this.state.favorites.indexOf(this.props.selectedCountry.name) !== -1 ? 'Remove From Favorites' : 'Add To Favorites'}
+        </Icon.Button>
       </View>
     )
   }

@@ -265,7 +265,7 @@
 // // }
 
 import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, TouchableHighlight } from 'react-native';
 import { Scene, Reducer, Router, Switch, Modal, Actions, ActionConst, Button } from 'react-native-router-flux';
 import Home from './components/Home';
 import Search from './components/Search';
@@ -274,6 +274,7 @@ import Error from './components/Error';
 import TabView from './components/TabView';
 import TabIcon from './components/TabIcon';
 import NavigationDrawer from './components/NavigationDrawer';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: 'transparent', justifyContent: 'center',
@@ -328,7 +329,12 @@ export default class ExcursionExplorer extends Component {
           <Scene key="root" hideNavBar hideTabBar>
             <Scene key="home" component={Home} hideNavBar title="Home" initial />
             <Scene key="search" component={Search} title="Search" />
-            <Scene key="countrysplash" component={CountrySplash} title="CountrySplash" hideNavBar={false} />
+            <Scene
+              key="countrysplash"
+              component={CountrySplash}
+              title="CountrySplash"
+              hideNavBar={false}
+            />
             <Scene key="tabbar" component={NavigationDrawer}>
               <Scene
                 key="main"
