@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import {View, Text, StyleSheet, TextInput, Button, Dimensions} from "react-native";
+import {View, Text, StyleSheet, TextInput, TouchableHighlight, Dimensions, Keyboard} from "react-native";
 import {Actions} from "react-native-router-flux";
+import Icon from 'react-native-vector-icons/FontAwesome';
 import SuggestedResults from './SuggestedResults.js';
 import FilterRegion from './FilterRegion';
 
@@ -42,19 +43,25 @@ export default class Search extends Component {
   }
 
   handleSelection(data) {
-    Actions.countrysplash({selectedCountry: this.props.allCountries[data]});
+    Actions.countrysplash({selectedCountry: this.props.allCountries[data], allCountries: this.props.allCountries, countryRegions: this.props.countryRegions});
+  }
+
+  goBack() {
+    Keyboard.dismiss();
+    Actions.pop();
   }
 
   render(){
     return (
       <View style={{alignItems:'center'}}>
-        <View style={{flexDirection: 'row', width: width*.85}}>
-          <Button onPress={Actions.pop} title='Back' style={{flex:1}} />
+        <View style={{flexDirection: 'row', alignItems:'center', width: width*.85}}>
+          <TouchableHighlight onPress={this.goBack} title='Back' style={{flex:1}} activeOpacity={0.1} underlayColor={'#eee'}>
+            <Icon name="arrow-left" size={30} color="#cecece" />
+          </TouchableHighlight>
           <TextInput
-            autoFocus={true}
             placeholder='Search Countries'
             onChange={this.onTextChange}
-            onSubmitEditing={() => Actions.countrysplash({selectedCountry: this.props.allCountries[this.state.query.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();})]})}
+            onSubmitEditing={() => Actions.countrysplash({selectedCountry: this.props.allCountries[this.state.query.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();})], allCountries: this.props.allCountries, countryRegions: this.props.countryRegions})}
             blurOnSubmit={true}
             value={this.state.query}
             style={{flex: 4}}

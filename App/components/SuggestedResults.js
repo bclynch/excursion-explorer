@@ -40,7 +40,7 @@ export default class SuggestedResults extends Component {
   renderRow(data) {
     if(!data) return null;
     return (
-      <TouchableHighlight onPress={this.props.handleSelection.bind(null, data)}>
+      <TouchableHighlight onPress={this.props.handleSelection.bind(null, data)} activeOpacity={0.1} underlayColor={'#eee'}>
         <View style={{padding: 30, borderBottomWidth: 1, borderColor: '#cecece', width: width*.85}}>
           <Text style={{fontSize: 25}}>
             {data}

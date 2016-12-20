@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
-import {View, Text, StyleSheet, Button} from "react-native";
+import {View, Text, StyleSheet, Button, TouchableHighlight} from "react-native";
 import {Actions} from "react-native-router-flux";
 import store from 'react-native-simple-store';
+import Icon from 'react-native-vector-icons/FontAwesome';
+
+import API from '../api.js';
 
 const styles = StyleSheet.create({
   container: {
@@ -56,6 +59,7 @@ export default class Home extends Component {
             self.setState({regionData: countryData.regions});
             //saving our chopped data as well to avoid the loop parsing on every refresh
             store.save('countryRegions', countryData.regions);
+            store.save('countries', {});
           });
         }
       })
@@ -91,12 +95,19 @@ export default class Home extends Component {
     return {allCountries: countryObj, regions: regionArchitecture};
   }
 
+  test() {
+    console.log('clicked');
+  }
+
   render() {
     return (
       <View {...this.props}  style={styles.container}>
         <Text>Home page</Text>
         <Button onPress={Actions.tabbar} title='Go to country splash' />
         <Button onPress={() => Actions.search({allCountries: this.state.allCountries, countryRegions: this.state.countryRegions})} title='Search' />
+        <TouchableHighlight onPress={this.test}>
+          <Icon name="rocket" size={30} color="#900" />
+        </TouchableHighlight>
       </View>
     );
   }

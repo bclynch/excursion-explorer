@@ -1,8 +1,32 @@
 import React, { Component } from 'react';
-import { AppRegistry, Text, View, ListView, TouchableHighlight, Dimensions } from 'react-native';
+import { AppRegistry, Text, View, ListView, TouchableHighlight, Dimensions, Image } from 'react-native';
 
 const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 const width = Dimensions.get('window').width;
+
+const styles = {
+  textContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  text: {
+    color: '#fff',
+    fontSize: 30,
+    fontWeight: 'bold',
+    textShadowColor: 'black',
+    textShadowRadius: 1,
+    textShadowOffset: {width: 2, height: 2}
+  },
+  image: {
+    width: width*.85,
+    flex: 1,
+    height: 125
+  },
+  filterOption: {
+    marginTop: 15
+  }
+}
 
 export default class FilterRegion extends Component {
   constructor(props) {
@@ -17,14 +41,12 @@ export default class FilterRegion extends Component {
     //Would be nice to have a banner type look for each of the regions
     //Could have accordian look with the rest of the subregions/countries displayed on click
     return (
-      <TouchableHighlight>
-        <View style={{}} tabLabel='Tab #1'>
-          <View style={{backgroundColor: 'skyblue', flex:1, justifyContent: 'center', width: width*.85, alignItems:'center', marginBottom:10, paddingTop: 10, paddingBottom: 10}}>
-            <Text>
-              {data}
-            </Text>
+      <TouchableHighlight activeOpacity={0} style={styles.filterOption}>
+        <Image resizeMode='stretch' style={styles.image} source={data.src}>
+          <View style={styles.textContainer}>
+            <Text style={styles.text}>{data.text}</Text>
           </View>
-        </View>
+        </Image>
       </TouchableHighlight>
     );
   }
@@ -35,8 +57,8 @@ export default class FilterRegion extends Component {
         <View style={{flexDirection: 'row', marginTop: 20, width: width*.85, alignSelf: 'center', justifyContent: 'flex-start'}}>
           <Text>Filter By Region</Text>
         </View>
-        <ListView
-          dataSource={ds.cloneWithRows(['Africa', 'Americas', 'Asia', 'Europe', 'Oceania', 'Polar'])}
+        <ListView style={{marginTop: 10, marginBottom: 100}}
+          dataSource={ds.cloneWithRows([{src: require('../img/africa.jpg'), text: 'Africa'}, {src: require('../img/americas.jpeg'), text: 'Americas'}, {src:require('../img/asia.jpg'), text: 'Asia'}, {src: require('../img/europe.jpg'), text: 'Europe'}, {src: require('../img/oceania.jpg'), text: 'Oceania'}, {src: require('../img/polar.jpg'), text: 'Polar'}])}
           renderRow={this.renderRow}
         />
       </View>
