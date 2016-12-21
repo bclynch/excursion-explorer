@@ -34,12 +34,7 @@ export default class Search extends Component {
       query: ''
     }
 
-    this.onTextChange = this.onTextChange.bind(this);
     this.handleSelection = this.handleSelection.bind(this);
-  }
-
-  onTextChange(e) {
-    this.setState({query: e.nativeEvent.text});
   }
 
   handleSelection(data) {
@@ -60,7 +55,7 @@ export default class Search extends Component {
           </TouchableHighlight>
           <TextInput
             placeholder='Search Countries'
-            onChange={this.onTextChange}
+            onChangeText={(text) => this.setState({query: text})}
             onSubmitEditing={() => Actions.countrysplash({selectedCountry: this.props.allCountries[this.state.query.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();})], allCountries: this.props.allCountries, countryRegions: this.props.countryRegions, favorites: this.props.favorites, cachedCountries: this.props.cachedCountries})}
             blurOnSubmit={true}
             value={this.state.query}

@@ -15,23 +15,24 @@ export default class SuggestedResults extends Component {
     this.renderRow = this.renderRow.bind(this);
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.setState({countryKeys: Object.keys(this.props.allCountries)});
     this.setState({allCountries: this.props.allCountries});
+    this.onSearchInput(this.props.query, Object.keys(this.props.allCountries));
   }
 
   componentWillReceiveProps(nextProps) {
-    this.onSearchInput(nextProps.query);
+    this.onSearchInput(nextProps.query, this.state.countryKeys);
   }
 
-  onSearchInput(query) {
+  onSearchInput(query, keys) {
       if(!query) {
         return;
       }
       var tempArr = [];
-      for(var j = 0; j < this.state.countryKeys.length; j++) {
-          if(this.state.countryKeys[j].toLowerCase().indexOf(query.toLowerCase()) !== -1) {
-             tempArr.push(this.state.countryKeys[j]) ;
+      for(var j = 0; j < keys.length; j++) {
+          if(keys[j].toLowerCase().indexOf(query.toLowerCase()) !== -1) {
+             tempArr.push(keys[j]) ;
           }
       }
       this.setState({resultOptions: ds.cloneWithRows(tempArr)});
@@ -62,6 +63,7 @@ export default class SuggestedResults extends Component {
         <ListView
           dataSource={this.state.resultOptions}
           renderRow={this.renderRow}
+          enableEmptySections
         />
       </View>
     )

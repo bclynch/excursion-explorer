@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AppRegistry, Text, View, Dimensions, Image } from 'react-native';
+import { AppRegistry, Text, View, Dimensions, Image, ActivityIndicator } from 'react-native';
 import {Actions} from "react-native-router-flux";
 import Swiper from 'react-native-swiper';
 const { width } = Dimensions.get('window');
@@ -74,7 +74,7 @@ export default class SwiperCarousel extends Component {
         {this.state.renderSwiper ?
         <Swiper style={styles.wrapper} height={this.props.height} horizontal={this.props.horizontal} autoPlayTimeout={this.props.autoplaySpeed} autoplay>
           {this.renderSlides(this.state.renderSwiper)}
-        </Swiper> : <Text>Nada</Text> }
+        </Swiper> : <ActivityIndicator style={[styles.centering, {height: 125}]} size="large" /> }
       </View>
     )
   }
