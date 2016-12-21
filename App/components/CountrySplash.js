@@ -29,43 +29,79 @@ export default class CountrySplash extends Component {
 
   snagData(countryCode, name) {
     const self = this;
-  //Perform API call if necessary
-   store.get('countries')
-     .then((countries) => {
-       console.log(countries);
-       if(countries[name]) {
-         //if the data is over 24 hours old refresh it
-         //logic: Current time - lastUpdated time > 24 hours then grab new data
-        //  if(countries[selectedCountry][lastUpdated] > 1) {
-        //    console.log('Data too old, grabbing fresh data');
-        //    API.all(countryCode, name, Keys.flickr.key).then((data) => {
-        //      console.log(data);
-        //    });
-        //  } else {
-           //Use the data we already have
-           console.log('Grabbing existing data');
-           self.setState({selectedCountryData: countries[name]});
-         //}
-       } else {
-         //Doesn't exist so grab data
-         console.log('grabbing new data');
-         API.all(countryCode, name, Keys.flickr.key).then((data) => {
-           const newCountryData = {
-             agInfo: data[0],
-             frstInfo: data[1],
-             flickr: data[2],
-             general: this.props.selectedCountry
-           }
-           self.setState({selectedCountryData: newCountryData});
-           console.log(`saving ${this.props.selectedCountry.name} information to cache`);
-           const abc = countries;
-           abc[name] = newCountryData;
-           store.save('countries', abc);
-         });
-       }
-     }).catch(function(err) {
-       console.log(err);
-     });
+    console.log(this.props.cachedCountries);
+  // Perform API call if necessary
+  if(this.props.cachedCountries[name]) {
+    //if the data is over 24 hours old refresh it
+    //logic: Current time - lastUpdated time > 24 hours then grab new data
+   //  if(countries[selectedCountry][lastUpdated] > 1) {
+   //    console.log('Data too old, grabbing fresh data');
+   //    API.all(countryCode, name, Keys.flickr.key).then((data) => {
+   //      console.log(data);
+   //    });
+   //  } else {
+      //Use the data we already have
+      console.log('Grabbing existing data');
+      self.setState({selectedCountryData: this.props.cachedCountries[name]});
+    //}
+  } else {
+    //Doesn't exist so grab data
+    console.log('grabbing new data');
+    API.all(countryCode, name, Keys.flickr.key).then((data) => {
+      const newCountryData = {
+        agInfo: data[0],
+        frstInfo: data[1],
+        flickr: data[2],
+        general: this.props.selectedCountry
+      }
+      self.setState({selectedCountryData: newCountryData});
+      console.log(`saving ${this.props.selectedCountry.name} information to cache`);
+      const abc = this.props.cachedCountries;
+      abc[name] = newCountryData;
+      store.save('countries', abc);
+    });
+  }
+
+
+
+
+  // }
+  //  store.get('countries')
+  //    .then((countries) => {
+  //      console.log(countries);
+  //      if(countries[name]) {
+  //        //if the data is over 24 hours old refresh it
+  //        //logic: Current time - lastUpdated time > 24 hours then grab new data
+  //       //  if(countries[selectedCountry][lastUpdated] > 1) {
+  //       //    console.log('Data too old, grabbing fresh data');
+  //       //    API.all(countryCode, name, Keys.flickr.key).then((data) => {
+  //       //      console.log(data);
+  //       //    });
+  //       //  } else {
+  //          //Use the data we already have
+  //          console.log('Grabbing existing data');
+  //          self.setState({selectedCountryData: countries[name]});
+  //        //}
+  //      } else {
+  //        //Doesn't exist so grab data
+  //        console.log('grabbing new data');
+  //        API.all(countryCode, name, Keys.flickr.key).then((data) => {
+  //          const newCountryData = {
+  //            agInfo: data[0],
+  //            frstInfo: data[1],
+  //            flickr: data[2],
+  //            general: this.props.selectedCountry
+  //          }
+  //          self.setState({selectedCountryData: newCountryData});
+  //          console.log(`saving ${this.props.selectedCountry.name} information to cache`);
+  //          const abc = countries;
+  //          abc[name] = newCountryData;
+  //          store.save('countries', abc);
+  //        });
+  //      }
+  //    }).catch(function(err) {
+  //      console.log(err);
+  //    });
   }
 
   chopPictures(picInfo) {

@@ -28,7 +28,7 @@ export default class HomeNavBar extends Component {
     }
     return (
       <View style={styles.container}>
-        <TouchableHighlight activeOpacity={0.1} underlayColor={'#eee'} onPress={() => Actions.search({allCountries: this.props.allCountries, countryRegions: this.props.countryRegions, favorites: this.props.favorites})}>
+        <TouchableHighlight activeOpacity={0.1} underlayColor={'#eee'} onPress={() => Actions.search({allCountries: this.props.allCountries, countryRegions: this.props.countryRegions, favorites: this.props.favorites, cachedCountries: this.props.cachedCountries})}>
           <Icon name="search" size={30} color="#cecece" />
         </TouchableHighlight>
         <Text>ExcExp</Text>

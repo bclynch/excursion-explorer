@@ -43,7 +43,7 @@ export default class Search extends Component {
   }
 
   handleSelection(data) {
-    Actions.countrysplash({selectedCountry: this.props.allCountries[data], allCountries: this.props.allCountries, countryRegions: this.props.countryRegions, favorites: this.props.favorites});
+    Actions.countrysplash({selectedCountry: this.props.allCountries[data], allCountries: this.props.allCountries, countryRegions: this.props.countryRegions, favorites: this.props.favorites, cachedCountries: this.props.cachedCountries});
   }
 
   goBack() {
@@ -61,7 +61,7 @@ export default class Search extends Component {
           <TextInput
             placeholder='Search Countries'
             onChange={this.onTextChange}
-            onSubmitEditing={() => Actions.countrysplash({selectedCountry: this.props.allCountries[this.state.query.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();})], allCountries: this.props.allCountries, countryRegions: this.props.countryRegions, favorites: this.props.favorites})}
+            onSubmitEditing={() => Actions.countrysplash({selectedCountry: this.props.allCountries[this.state.query.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();})], allCountries: this.props.allCountries, countryRegions: this.props.countryRegions, favorites: this.props.favorites, cachedCountries: this.props.cachedCountries})}
             blurOnSubmit={true}
             value={this.state.query}
             style={{flex: 4}}

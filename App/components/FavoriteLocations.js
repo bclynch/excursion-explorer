@@ -1,50 +1,103 @@
 import React, { Component } from 'react';
-import { AppRegistry, Text, View, TouchableHighlight, Dimensions, ListView } from 'react-native';
+import { AppRegistry, Text, View, Image, TouchableHighlight, Dimensions, ScrollView } from 'react-native';
 import {Actions} from "react-native-router-flux";
 import Icon from 'react-native-vector-icons/FontAwesome';
+import GridView from 'react-native-grid-view';
 
-const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 const width = Dimensions.get('window').width;
+
+const styles = {
+  textContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  text: {
+    color: '#fff',
+    fontSize: 20,
+    fontWeight: 'bold',
+    textShadowColor: 'black',
+    textShadowRadius: 1,
+    textShadowOffset: {width: 2, height: 2}
+  },
+  image: {
+    height: 200,
+    width: width * .4
+  },
+  favoriteContainer: {
+    flex:1,
+    marginTop: 10,
+    alignItems: 'center'
+  },
+  listView: {
+    width: width * .85,
+    marginBottom: 200
+  }
+}
 
 export default class FavoriteLocations extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      favorites: []
+      data: null
     }
+    this.renderFavorites = this.renderFavorites.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({favorites: nextProps.favorites});
+    if(nextProps.favorites.length > 0) {
+      let data = [];
+      for(var i = 0; i < nextProps.favorites.length; i++) {
+          let obj = {};
+          const country = nextProps.favorites[i];
+          const photoData = nextProps.cachedCountries[country].flickr.photos.photo[0];
+          obj.text = country;
+          obj.src = `https://farm${photoData.farm}.staticflickr.com/${photoData.server}/${photoData.id}_${photoData.secret}_b.jpg`;
+          data.push(obj);
+      }
+      this.setState({data: data});
+    }
   }
 
-  renderRow(data) {
-    //Would be nice to have a banner type look for each of the regions
-    //Could have accordian look with the rest of the subregions/countries displayed on click
+  renderFavorites(data) {
+    // const self = this;
     return (
-
-          <View >
-            <Text >{data}</Text>
-          </View>
-
+      <View style={styles.favoriteContainer} key={data.text}>
+        <TouchableHighlight activeOpacity={0} onPress={() => this.goToCountry(data.text)}>
+          <Image resizeMode='cover' style={styles.image} source={{uri: data.src}}>
+            <View style={styles.textContainer}>
+              <Text style={styles.text}>{data.text}</Text>
+            </View>
+          </Image>
+        </TouchableHighlight>
+      </View>
     );
   }
 
+  goToCountry(country) {
+    Actions.countrysplash({selectedCountry: this.props.allCountries[country], allCountries: this.props.allCountries, countryRegions: this.props.countryRegions, favorites: this.props.favorites, cachedCountries: this.props.cachedCountries});
+  }
+
   render() {
-    const styles = {
-      container: {
-        alignItems: 'space-around',
-        width: width * .85,
-      }
+    if (this.state.data === null) {
+      return null;
     }
     return (
       <View>
-        <ListView style={{marginTop: 10, marginBottom: 100}}
-          dataSource={ds.cloneWithRows(this.state.favorites)}
-          renderRow={this.renderRow}
+        <View style={{alignItems: 'center', marginTop: 15, marginBottom: 15}}>
+          <Text style={{fontSize: 25}}>Favorite Places</Text>
+        </View>
+        <View style={{justifyContent: 'center'}}>
+        <GridView
+          items={this.state.data}
+          itemsPerRow={2}
+          renderItem={this.renderFavorites}
+          style={styles.listView}
         />
+        </View>
       </View>
     )
+
   }
 }

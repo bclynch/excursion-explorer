@@ -29,7 +29,8 @@ export default class Home extends Component {
     super(props);
 
     this.state = {
-      favorites: []
+      favorites: [],
+      cachedCountries: {}
     }
   }
 
@@ -50,12 +51,17 @@ export default class Home extends Component {
           store.get('countryRegions')
             .then((regions) => {
               self.setState({countryRegions: regions});
-              console.log(regions);
-              console.log(countries);
-              store.get('favorites')
-                .then((favorites) => {
-                  console.log(favorites);
-                  self.setState({favorites: favorites});
+              console.log('Regions: ', regions);
+              console.log('All countries: ', countries);
+              store.get('countries')
+                .then((cachedCountries) => {
+                  console.log('Cached countries: ', cachedCountries);
+                  self.setState({cachedCountries: cachedCountries});
+                  store.get('favorites')
+                    .then((favorites) => {
+                      console.log('Favorites: ', favorites);
+                      self.setState({favorites: favorites});
+                    });
                 });
             });
         } else {
@@ -108,8 +114,8 @@ export default class Home extends Component {
   render() {
     return (
       <View {...this.props}  style={styles.container}>
-        <HomeNavBar allCountries={this.state.allCountries} countryRegions={this.state.countryRegions} favorites={this.state.favorites} />
-        <FavoriteLocations favorites={this.state.favorites} />
+        <HomeNavBar allCountries={this.state.allCountries} countryRegions={this.state.countryRegions} favorites={this.state.favorites} cachedCountries={this.state.cachedCountries} />
+        <FavoriteLocations favorites={this.state.favorites} allCountries={this.state.allCountries} countryRegions={this.state.countryRegions} cachedCountries={this.state.cachedCountries} />
       </View>
     );
   }
