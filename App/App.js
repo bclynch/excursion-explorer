@@ -267,12 +267,14 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, TouchableHighlight } from 'react-native';
 import { Scene, Reducer, Router, Switch, Modal, Actions, ActionConst, Button } from 'react-native-router-flux';
+import Icon from 'react-native-vector-icons/FontAwesome';
+
 import Home from './components/Home/Home.js';
 import Search from './components/Search/Search';
 import CountrySplash from './components/Country/CountrySplash.js';
+import FilterList from './components/FilterList.js';
 import TabView from './components/TabView';
 import TabIcon from './components/TabIcon';
-import Icon from 'react-native-vector-icons/FontAwesome';
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: 'transparent', justifyContent: 'center',
@@ -289,7 +291,7 @@ const styles = StyleSheet.create({
 const reducerCreate = params => {
   const defaultReducer = new Reducer(params);
   return (state, action) => {
-    console.log('ACTION:', action);
+    //console.log('ACTION:', action);
     return defaultReducer(state, action);
   };
 };
@@ -327,6 +329,7 @@ export default class ExcursionExplorer extends Component {
           <Scene key="root" hideNavBar hideTabBar>
             <Scene key="home" component={Home} hideNavBar title="Home" initial />
             <Scene key="search" component={Search} title="Search" />
+            <Scene key="filterlist" component={FilterList} title="FilterList" />
             <Scene
               key="countrysplash"
               component={CountrySplash}

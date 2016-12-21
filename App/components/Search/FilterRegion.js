@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { AppRegistry, Text, View, ListView, TouchableHighlight, Dimensions, Image } from 'react-native';
+import {Actions} from "react-native-router-flux";
 
 const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 const width = Dimensions.get('window').width;
@@ -35,13 +36,14 @@ export default class FilterRegion extends Component {
     this.state = {
 
     }
+    this.renderRow = this.renderRow.bind(this);
   }
 
   renderRow(data) {
     //Would be nice to have a banner type look for each of the regions
     //Could have accordian look with the rest of the subregions/countries displayed on click
     return (
-      <TouchableHighlight activeOpacity={0} style={styles.filterOption}>
+      <TouchableHighlight activeOpacity={0} style={styles.filterOption} onPress={() => Actions.filterlist({allCountries: this.props.allCountries, countryRegions: this.props.countryRegions, favorites: this.props.favorites, cachedCountries: this.props.cachedCountries, selectedRegion: data.text})}>
         <Image resizeMode='stretch' style={styles.image} source={data.src}>
           <View style={styles.textContainer}>
             <Text style={styles.text}>{data.text}</Text>

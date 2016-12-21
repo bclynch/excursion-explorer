@@ -62,7 +62,7 @@ export default class Search extends Component {
             style={{flex: 4}}
            />
         </View>
-        {this.state.query === '' ? <FilterRegion countryRegions={this.props.countryRegions} /> : <SuggestedResults allCountries={this.props.allCountries} query={this.state.query} handleSelection={this.handleSelection} />}
+        {this.state.query === '' ? <FilterRegion countryRegions={this.props.countryRegions} allCountries={this.props.allCountries} favorites= {this.props.favorites} cachedCountries= {this.props.cachedCountries} /> : <SuggestedResults allCountries={this.props.allCountries} query={this.state.query} handleSelection={this.handleSelection} />}
       </View>
     );
   }

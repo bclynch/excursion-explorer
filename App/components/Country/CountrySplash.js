@@ -30,7 +30,7 @@ export default class CountrySplash extends Component {
 
   snagData(countryCode, name) {
     const self = this;
-    console.log(this.props.cachedCountries);
+
     // Perform API call if necessary
     if(this.props.cachedCountries[name]) {
       //if the data is over 24 hours old refresh it
@@ -65,7 +65,6 @@ export default class CountrySplash extends Component {
   }
 
   chopPictures(picInfo) {
-    console.log(picInfo);
     if(picInfo === null) {
       return null;
     }
