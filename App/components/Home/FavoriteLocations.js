@@ -30,8 +30,7 @@ const styles = {
     alignItems: 'center'
   },
   listView: {
-    width: width * .85,
-    marginBottom: 200
+    width: width * .85
   }
 }
 
@@ -61,7 +60,6 @@ export default class FavoriteLocations extends Component {
   }
 
   renderFavorites(data) {
-    // const self = this;
     return (
       <View style={styles.favoriteContainer} key={data.text}>
         <TouchableHighlight activeOpacity={0} onPress={() => this.goToCountry(data.text)}>
@@ -88,13 +86,13 @@ export default class FavoriteLocations extends Component {
         <View style={{alignItems: 'center', marginTop: 15, marginBottom: 15}}>
           <Text style={{fontSize: 25}}>Favorite Places</Text>
         </View>
-        <View style={{justifyContent: 'center'}}>
-        <GridView
-          items={this.state.data}
-          itemsPerRow={2}
-          renderItem={this.renderFavorites}
-          style={styles.listView}
-        />
+        <View style={{justifyContent: 'center', marginBottom: 20}}>
+          <GridView
+            items={this.state.data}
+            itemsPerRow={2}
+            renderItem={this.renderFavorites}
+            style={styles.listView}
+          />
         </View>
       </View>
     )

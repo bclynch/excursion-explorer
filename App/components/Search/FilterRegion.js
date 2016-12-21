@@ -58,7 +58,7 @@ export default class FilterRegion extends Component {
           <Text>Filter By Region</Text>
         </View>
         <ListView style={{marginTop: 10, marginBottom: 100}}
-          dataSource={ds.cloneWithRows([{src: require('../img/africa.jpg'), text: 'Africa'}, {src: require('../img/americas.jpeg'), text: 'Americas'}, {src:require('../img/asia.jpg'), text: 'Asia'}, {src: require('../img/europe.jpg'), text: 'Europe'}, {src: require('../img/oceania.jpg'), text: 'Oceania'}, {src: require('../img/polar.jpg'), text: 'Polar'}])}
+          dataSource={ds.cloneWithRows([{src: require('../../img/africa.jpg'), text: 'Africa'}, {src: require('../../img/americas.jpeg'), text: 'Americas'}, {src:require('../../img/asia.jpg'), text: 'Asia'}, {src: require('../../img/europe.jpg'), text: 'Europe'}, {src: require('../../img/oceania.jpg'), text: 'Oceania'}, {src: require('../../img/polar.jpg'), text: 'Polar'}])}
           renderRow={this.renderRow}
         />
       </View>

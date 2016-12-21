@@ -267,13 +267,11 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, TouchableHighlight } from 'react-native';
 import { Scene, Reducer, Router, Switch, Modal, Actions, ActionConst, Button } from 'react-native-router-flux';
-import Home from './components/Home';
-import Search from './components/Search';
-import CountrySplash from './components/CountrySplash.js';
-import Error from './components/Error';
+import Home from './components/Home/Home.js';
+import Search from './components/Search/Search';
+import CountrySplash from './components/Country/CountrySplash.js';
 import TabView from './components/TabView';
 import TabIcon from './components/TabIcon';
-import NavigationDrawer from './components/NavigationDrawer';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const styles = StyleSheet.create({
@@ -335,7 +333,7 @@ export default class ExcursionExplorer extends Component {
               title="CountrySplash"
               hideNavBar={false}
             />
-            <Scene key="tabbar" component={NavigationDrawer}>
+
               <Scene
                 key="main"
                 tabs
@@ -368,10 +366,9 @@ export default class ExcursionExplorer extends Component {
                 <Scene key="tab3" component={TabView} title="Tab #3" hideTabBar icon={TabIcon} />
                 <Scene key="tab4" component={TabView} title="Tab #4" hideNavBar icon={TabIcon} />
                 <Scene key="tab5" component={TabView} title="Tab #5" hideTabBar icon={TabIcon} />
-              </Scene>
+
             </Scene>
           </Scene>
-          <Scene key="error" component={Error} />
         </Scene>
       </Router>
     );

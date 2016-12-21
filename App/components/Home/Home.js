@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {View, Text, StyleSheet, Button, TouchableHighlight} from "react-native";
+import {View, Text, StyleSheet, Button, TouchableHighlight, ScrollView} from "react-native";
 import {Actions} from "react-native-router-flux";
 import store from 'react-native-simple-store';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -7,11 +7,10 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import HomeNavBar from './HomeNavBar.js';
 import FavoriteLocations from './FavoriteLocations.js';
 
-import API from '../api.js';
+import API from '../../api.js';
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: "transparent",
     alignItems: 'center',
     justifyContent: 'flex-start'
@@ -113,10 +112,10 @@ export default class Home extends Component {
 
   render() {
     return (
-      <View {...this.props}  style={styles.container}>
+      <ScrollView {...this.props}  contentContainerStyle={styles.container}>
         <HomeNavBar allCountries={this.state.allCountries} countryRegions={this.state.countryRegions} favorites={this.state.favorites} cachedCountries={this.state.cachedCountries} />
         <FavoriteLocations favorites={this.state.favorites} allCountries={this.state.allCountries} countryRegions={this.state.countryRegions} cachedCountries={this.state.cachedCountries} />
-      </View>
+      </ScrollView>
     );
   }
 }
