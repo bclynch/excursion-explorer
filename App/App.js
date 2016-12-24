@@ -273,6 +273,7 @@ import Home from './components/Home/Home.js';
 import Search from './components/Search/Search';
 import CountrySplash from './components/Country/CountrySplash.js';
 import FilterList from './components/FilterList.js';
+import FastFacts from './components/Country/FastFacts.js';
 import TabView from './components/TabView';
 import TabIcon from './components/TabIcon';
 
@@ -334,8 +335,8 @@ export default class ExcursionExplorer extends Component {
               key="countrysplash"
               component={CountrySplash}
               title="CountrySplash"
-              hideNavBar={false}
             />
+          <Scene key="fastfacts" component={FastFacts} title="FastFacts" />
 
               <Scene
                 key="main"

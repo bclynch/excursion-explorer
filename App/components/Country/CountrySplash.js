@@ -1,23 +1,24 @@
 import React, { Component } from 'react';
-import { AppRegistry, Text, View, Button, ScrollView } from 'react-native';
+import { AppRegistry, Text, View, Button, ScrollView, Dimensions } from 'react-native';
 import {Actions} from "react-native-router-flux";
 import store from 'react-native-simple-store';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import SwiperCarousel from '../Widgets/SwiperCarousel.js';
 import CountryOptions from './CountryOptions.js';
+import NavBar from '../NavBar.js';
 
 import API from '../../api.js';
 import Keys from '../../../API_KEYS.js';
+
+const width = Dimensions.get('window').width;
 
 export default class CountrySplash extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      selectedCountryData: null,
-      favorites: props.favorites
+      selectedCountryData: null
     }
-    this.toggleFavorite = this.toggleFavorite.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -77,38 +78,15 @@ export default class CountrySplash extends Component {
     return slides;
   }
 
-  toggleFavorite() {
-    const self = this;
-    store.get('favorites')
-      .then((favorites) => {
-        console.log(favorites);
-        if(this.state.favorites.indexOf(this.props.selectedCountry.name) === -1) {
-          //adding to our store + update state
-          console.log('Adding to favorites');
-          let newArr = favorites;
-          newArr.push(this.props.selectedCountry.name);
-          store.save('favorites', newArr);
-          self.setState({favorites: newArr});
-        } else {
-          let newArr = favorites;
-          newArr.splice(this.state.favorites.indexOf(this.props.selectedCountry.name), 1);
-            console.log('Removing from favorites');
-          store.save('favorites', newArr);
-          self.setState({favorites: newArr});
-        }
-      })
-  }
-
   render() {
     return (
-      <ScrollView contentContainerStyle={{alignItems: 'center'}}>
-        <SwiperCarousel height={250} horizontal={true} autoPlaySpeed={5} slides={this.chopPictures(this.state.selectedCountryData)} />
-        <Button onPress={Actions.home} title='Home' />
-        <Icon.Button name="star" backgroundColor="#3b5998" onPress={this.toggleFavorite}>
-          {this.state.favorites.indexOf(this.props.selectedCountry.name) !== -1 ? 'Remove From Favorites' : 'Add To Favorites'}
-        </Icon.Button>
-        <CountryOptions />
-      </ScrollView>
+      <View style={{flex: 1, alignItems: 'center'}}>
+        <NavBar allCountries={this.props.allCountries} countryRegions={this.props.countryRegions} favorites={this.props.favorites} cachedCountries={this.props.cachedCountries} backArrow={true} />
+        <ScrollView contentContainerStyle={{alignItems: 'center'}}>
+          <SwiperCarousel style={{marginTop: 15}} height={250} horizontal={true} autoPlaySpeed={5} slides={this.chopPictures(this.state.selectedCountryData)} />
+          <CountryOptions country={this.state.selectedCountryData} allCountries={this.props.allCountries} countryRegions={this.props.countryRegions} favorites={this.props.favorites} cachedCountries={this.props.cachedCountries} />
+        </ScrollView>
+      </View>
     )
   }
 }

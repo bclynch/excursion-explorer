@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { AppRegistry, Text, View, ListView, TouchableHighlight, Dimensions, ScrollView } from 'react-native';
+import { AppRegistry, Text, View, ListView, TouchableHighlight, Dimensions, ScrollView, RecyclerViewBackedScrollView } from 'react-native';
 import {Actions} from "react-native-router-flux";
+import NavBar from './NavBar.js';
 
-const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2, sectionHeaderHasChanged: (s1, s2) => s1 !== s2});
 const width = Dimensions.get('window').width;
 
 const styles = {
@@ -23,8 +23,12 @@ const styles = {
     fontSize: 30,
     fontWeight: 'bold'
   },
-  filterOption: {
-    marginTop: 15
+  listOption: {
+    paddingTop: 15,
+    paddingBottom: 15,
+    borderBottomWidth: 1,
+    borderColor: '#cecece',
+    overflow: 'hidden'
   },
   header: {
     height: 300,
@@ -36,6 +40,8 @@ const styles = {
 export default class FilterList extends Component {
   constructor(props) {
     super(props);
+
+    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2, sectionHeaderHasChanged: (s1, s2) => s1 !== s2});
 
     this.state = {
       dataSource: ds.cloneWithRowsAndSections(props.countryRegions[props.selectedRegion])
@@ -49,34 +55,36 @@ export default class FilterList extends Component {
 
   renderRow(data) {
     return (
-      <TouchableHighlight activeOpacity={0} style={styles.filterOption} onPress={() => Actions.countrysplash({selectedCountry: this.props.allCountries[data], allCountries: this.props.allCountries, countryRegions: this.props.countryRegions, favorites: this.props.favorites, cachedCountries: this.props.cachedCountries})}>
-          <View style={styles.textContainer}>
-            <Text style={styles.text}>{data}</Text>
-            <Text style={styles.capitalText}>{this.props.allCountries[data].capital}</Text>
-          </View>
+      <TouchableHighlight style={styles.listOption} onPress={() => Actions.countrysplash({selectedCountry: this.props.allCountries[data], allCountries: this.props.allCountries, countryRegions: this.props.countryRegions, favorites: this.props.favorites, cachedCountries: this.props.cachedCountries})}>
+        <Text style={styles.text}>{data}</Text>
       </TouchableHighlight>
     );
   }
 
   renderSectionHeader(sectionData, category) {
     return (
-      <Text style={styles.sectionHead}>{category}</Text>
+
+        <Text style={styles.sectionHead}>{category}</Text>
+
     )
   }
 
   render() {
     return (
-      <ScrollView>
-        <View style={styles.header} />
-        <ListView style={{marginTop: 10}}
-          dataSource={this.state.dataSource}
-          renderRow={this.renderRow}
-          renderSectionHeader={this.renderSectionHeader}
-          initialListSize={10}
-          pageSize={10}
-          scrollRenderAheadDistance={1200}
-        />
-      </ScrollView>
+      <View style={{flex: 1, alignItems: 'center'}}>
+        <NavBar allCountries={this.props.allCountries} countryRegions={this.props.countryRegions} favorites={this.props.favorites} cachedCountries={this.props.cachedCountries} backArrow={true} />
+
+            <ListView style={{marginTop: 10}}
+              removeClippedSubviews={true}
+              dataSource={this.state.dataSource}
+              renderRow={this.renderRow}
+              renderSectionHeader={this.renderSectionHeader}
+              initialListSize={15}
+              pageSize={15}
+
+            />
+
+      </View>
     )
   }
 }

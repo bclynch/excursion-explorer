@@ -4,7 +4,7 @@ import {Actions} from "react-native-router-flux";
 import store from 'react-native-simple-store';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-import HomeNavBar from './HomeNavBar.js';
+import NavBar from '../NavBar.js';
 import FavoriteLocations from './FavoriteLocations.js';
 
 import API from '../../api.js';
@@ -36,6 +36,17 @@ export default class Home extends Component {
   componentDidMount() {
     const self = this;
 
+    //If we already snagged our initial data then cont using props
+    if(this.props.allCountries) {
+      console.log('Using props data');
+      self.setState({
+        allCountries: this.props.allCountries,
+        countryRegions: this.props.countryRegions,
+        cachedCountries: this.props.cachedCountries,
+        favorites: this.props.favorites
+      });
+      return;
+    }
     //store.delete('allCountries');
 
     //Checking local storage for existing data, if any
@@ -112,10 +123,12 @@ export default class Home extends Component {
 
   render() {
     return (
-      <ScrollView {...this.props}  contentContainerStyle={styles.container}>
-        <HomeNavBar allCountries={this.state.allCountries} countryRegions={this.state.countryRegions} favorites={this.state.favorites} cachedCountries={this.state.cachedCountries} />
-        <FavoriteLocations favorites={this.state.favorites} allCountries={this.state.allCountries} countryRegions={this.state.countryRegions} cachedCountries={this.state.cachedCountries} />
-      </ScrollView>
+      <View style={{flex: 1, alignItems: 'center'}}>
+        <NavBar allCountries={this.state.allCountries} countryRegions={this.state.countryRegions} favorites={this.state.favorites} cachedCountries={this.state.cachedCountries} backArrow={false} />
+        <ScrollView {...this.props}  contentContainerStyle={styles.container}>
+          <FavoriteLocations favorites={this.state.favorites} allCountries={this.state.allCountries} countryRegions={this.state.countryRegions} cachedCountries={this.state.cachedCountries} />
+        </ScrollView>
+      </View>
     );
   }
 }
