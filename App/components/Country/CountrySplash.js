@@ -61,6 +61,8 @@ export default class CountrySplash extends Component {
         const abc = this.props.cachedCountries;
         abc[name] = newCountryData;
         store.save('countries', abc);
+      }).catch(function(err) {
+        console.log(err);
       });
     }
   }
@@ -69,6 +71,13 @@ export default class CountrySplash extends Component {
     if(picInfo === null) {
       return null;
     }
+
+    //Validating there are flickr photos
+    if(picInfo.flickr.photos.photo.length < 5) {
+      //Need some placeholder that says it doesn't exist or something. Dunno
+      return null;
+    }
+
     let slides = [];
     for(var i = 0; i < 5; i++) {
       const data = picInfo.flickr.photos.photo[i];
@@ -83,7 +92,7 @@ export default class CountrySplash extends Component {
       <View style={{flex: 1, alignItems: 'center'}}>
         <NavBar allCountries={this.props.allCountries} countryRegions={this.props.countryRegions} favorites={this.props.favorites} cachedCountries={this.props.cachedCountries} backArrow={true} />
         <ScrollView contentContainerStyle={{alignItems: 'center'}}>
-          <SwiperCarousel style={{marginTop: 15}} height={250} horizontal={true} autoPlaySpeed={5} slides={this.chopPictures(this.state.selectedCountryData)} />
+          <SwiperCarousel height={250} horizontal={true} autoPlaySpeed={5} slides={this.chopPictures(this.state.selectedCountryData)} />
           <CountryOptions country={this.state.selectedCountryData} allCountries={this.props.allCountries} countryRegions={this.props.countryRegions} favorites={this.props.favorites} cachedCountries={this.props.cachedCountries} />
         </ScrollView>
       </View>

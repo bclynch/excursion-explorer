@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {View, Text, StyleSheet, TextInput, TouchableHighlight, Dimensions, Keyboard} from "react-native";
+import {View, Text, StyleSheet, TextInput, TouchableHighlight, Dimensions, Keyboard, Alert} from "react-native";
 import {Actions} from "react-native-router-flux";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import SuggestedResults from './SuggestedResults.js';
@@ -35,10 +35,28 @@ export default class Search extends Component {
     }
 
     this.handleSelection = this.handleSelection.bind(this);
+    this.handleKeyboardEnter = this.handleKeyboardEnter.bind(this);
   }
 
   handleSelection(data) {
     Actions.countrysplash({selectedCountry: this.props.allCountries[data], allCountries: this.props.allCountries, countryRegions: this.props.countryRegions, favorites: this.props.favorites, cachedCountries: this.props.cachedCountries});
+  }
+
+  handleKeyboardEnter() {
+    const query = this.state.query.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+
+    //Validating the search query exists
+    if(!this.props.allCountries[query]) {
+      Alert.alert(
+              'Invalid Search',
+              'Please enter a valid country query',
+              [
+                {text: 'OK'},
+              ]
+            )
+    } else {
+      Actions.countrysplash({selectedCountry: this.props.allCountries[query], allCountries: this.props.allCountries, countryRegions: this.props.countryRegions, favorites: this.props.favorites, cachedCountries: this.props.cachedCountries});
+    }
   }
 
   goBack() {
@@ -56,7 +74,7 @@ export default class Search extends Component {
           <TextInput
             placeholder='Search Countries'
             onChangeText={(text) => this.setState({query: text})}
-            onSubmitEditing={() => Actions.countrysplash({selectedCountry: this.props.allCountries[this.state.query.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();})], allCountries: this.props.allCountries, countryRegions: this.props.countryRegions, favorites: this.props.favorites, cachedCountries: this.props.cachedCountries})}
+            onSubmitEditing={this.handleKeyboardEnter}
             blurOnSubmit={true}
             value={this.state.query}
             style={{flex: 4}}

@@ -81,7 +81,6 @@ export default class FilterList extends Component {
               renderSectionHeader={this.renderSectionHeader}
               initialListSize={15}
               pageSize={15}
-
             />
 
       </View>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {View, Text, StyleSheet, TextInput, TouchableHighlight, Dimensions, Keyboard} from "react-native";
+import {View, Text, StyleSheet, TextInput, TouchableHighlight, Dimensions, Keyboard, Alert} from "react-native";
 import {Actions} from "react-native-router-flux";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import GridView from 'react-native-grid-view';
@@ -52,7 +52,7 @@ export default class CountryOptions extends Component {
   renderOptions(data) {
     const self = this;
     return (
-      <TouchableHighlight key={data.text} activeOpacity={0} onPress={() => Actions.fastfacts({countryData: this.props.country.general, allCountries: this.props.allCountries, countryRegions: this.props.countryRegions, favorites: this.props.favorites, cachedCountries: this.props.cachedCountries})}>
+      <TouchableHighlight key={data.text} activeOpacity={0} onPress={() => self.fireClick(data.text)}>
         <View style={{alignItems: 'center', backgroundColor: data.backgroundColor, height: 200, width: width * .4}}>
           <Icon name={data.icon} style={{marginTop: 45}} size={50} color="#fff" />
           <View style={styles.textContainer}>
@@ -64,18 +64,27 @@ export default class CountryOptions extends Component {
   }
 
   fireClick(option) {
+    function notAvailable(option) {
+      Alert.alert(
+              'Invalid',
+              `Still working on ${option}, keep an eye out for updates!`,
+              [
+                {text: 'OK'},
+              ]
+            )
+    }
     switch(option) {
       case 'Fast Facts':
-        console.log('Fast Facts');
+        Actions.fastfacts({countryData: this.props.country, allCountries: this.props.allCountries, countryRegions: this.props.countryRegions, favorites: this.props.favorites, cachedCountries: this.props.cachedCountries});
         break;
       case 'Destinations':
-        console.log('Destinations');
+        notAvailable(option);
         break;
       case 'Climate +\nGeography':
-        console.log('Climate +\nGeography');
+        notAvailable(option);
         break;
       case 'Travel Info':
-        console.log('Travel Info');
+        notAvailable(option);
         break;
       case 'Add To Favorites':
         console.log('Add To Favorites');

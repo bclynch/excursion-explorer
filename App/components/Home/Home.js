@@ -7,6 +7,8 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import NavBar from '../NavBar.js';
 import FavoriteLocations from './FavoriteLocations.js';
 
+import languageJSON from '../../../assets/languageCodes.json';
+
 import API from '../../api.js';
 
 const styles = StyleSheet.create({
@@ -77,6 +79,7 @@ export default class Home extends Component {
         } else {
           API.grabAllCountries().then((data) => {
             const countryData = self.chopUpData(data);
+            const languageData = self.convertLanguageData(languageJSON);
             self.setState({allCountries: countryData.allCountries});
             store.save('allCountries', countryData.allCountries);
             console.log('Saving allCountries to storage');
@@ -86,12 +89,21 @@ export default class Home extends Component {
             store.save('countryRegions', countryData.regions);
             store.save('countries', {});
             store.save('favorites', []);
+            store.save('languages', languageData);
           });
         }
       })
       .catch((error) => {
         console.log(error);
       });
+  }
+
+  convertLanguageData(json) {
+    let languageObj = {};
+    for(q = 0; q < json.length; q++) {
+      languageObj[json[q].alpha2] = json[q].English;
+    }
+    return languageObj;
   }
 
   chopUpData(data) {
