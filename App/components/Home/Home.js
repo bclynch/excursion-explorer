@@ -8,6 +8,7 @@ import NavBar from '../NavBar.js';
 import FavoriteLocations from './FavoriteLocations.js';
 
 import languageJSON from '../../../assets/languageCodes.json';
+import currenciesJSON from '../../../assets/currencies.json';
 
 import API from '../../api.js';
 
@@ -18,12 +19,6 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start'
   }
 });
-
-//Might be nice to have starred countries near the top with a card/photo View
-//Maybe a few sections below for featured places or just features in general
-//Search option up top with logo
-//Search should oppen to country splash page picture up top and subsequent options below
-//options below take to tabbed pages -- look at google trips need to know ui
 
 export default class Home extends Component {
   constructor(props) {
@@ -49,6 +44,7 @@ export default class Home extends Component {
       });
       return;
     }
+
     //store.delete('allCountries');
 
     //Checking local storage for existing data, if any
@@ -83,13 +79,14 @@ export default class Home extends Component {
             self.setState({allCountries: countryData.allCountries});
             store.save('allCountries', countryData.allCountries);
             console.log('Saving allCountries to storage');
-            self.setState({regionData: countryData.regions});
+            self.setState({countryRegions: countryData.regions});
             self.setState({favorites: []});
             //saving our chopped data as well to avoid the loop parsing on every refresh
             store.save('countryRegions', countryData.regions);
             store.save('countries', {});
             store.save('favorites', []);
             store.save('languages', languageData);
+            store.save('currencies', currenciesJSON);
           });
         }
       })

@@ -4,7 +4,7 @@ import {Actions} from "react-native-router-flux";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import store from 'react-native-simple-store';
 import NavBar from '../NavBar.js';
-import HeaderContainer from './HeaderContainer.js';
+import HeaderContainer from '../HeaderContainer.js';
 
 const width = Dimensions.get('window').width;
 
@@ -45,21 +45,31 @@ export default class FastFacts extends Component {
   componentDidMount() {
     store.get('languages')
       .then((langObj) => {
-        const self = this;
-        const data = this.props.countryData.general;
-        const abc = data.languages.map(function(item) {
-          return langObj[item];
+        store.get('currencies')
+          .then((currObj) => {
+            const self = this;
+            const data = this.props.countryData.general;
+            const langArr = data.languages.map(function(item) {
+              return langObj[item];
+            });
+            const currArr = data.currencies.map(function(item) {
+              if(currObj[item]) {
+                return currObj[item].name;
+              } else {
+                return item
+              }
+            });
+            this.setState({data: [
+              {category: 'Capital', value: data.capital, icon: 'building'},
+              {category: 'Region', value: data.subregion, icon: 'map-o'},
+              {category: 'Borders', value: data.borders.join(', '), icon: 'map-marker'},
+              {category: 'Population', value: data.population, icon: 'male'},
+              {category: 'Land Mass', value: `${data.area}km`, icon: 'street-view'},
+              {category: 'Languages', value: langArr.join(', '), icon: 'language'},
+              {category: 'Calling Code', value: `+${data.callingCodes}`, icon: 'phone'},
+              {category: 'Currencies', value: currArr.join(', '), icon: 'money'}
+            ]});
         });
-        this.setState({data: [
-          {category: 'Capital', value: data.capital, icon: 'building'},
-          {category: 'Region', value: data.subregion, icon: 'map-o'},
-          {category: 'Borders', value: data.borders.join(', '), icon: 'map-marker'},
-          {category: 'Population', value: data.population, icon: 'male'},
-          {category: 'Land Mass', value: `${data.area}km`, icon: 'street-view'},
-          {category: 'Languages', value: abc.join(', '), icon: 'language'},
-          {category: 'Calling Code', value: `+${data.callingCodes}`, icon: 'phone'},
-          {category: 'Currencies', value: data.currencies.join(', '), icon: 'money'}
-        ]});
       });
   }
 

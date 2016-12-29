@@ -16,9 +16,14 @@ export default class CountrySplash extends Component {
   constructor(props) {
     super(props);
 
+    console.log(props.selectedCountry);
+
     this.state = {
-      selectedCountryData: null
+      selectedCountryData: null,
+      favorites: this.props.favorites,
+      isFavorite: this.props.favorites.indexOf(props.selectedCountry.name) !== -1
     }
+    this.toggleFavorite = this.toggleFavorite.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -87,13 +92,30 @@ export default class CountrySplash extends Component {
     return slides;
   }
 
+  toggleFavorite(state) {
+    if(state === 'Add') {
+      //adding to our store + update state
+      console.log('Adding to favorites');
+      let newArr = this.state.favorites;
+      newArr.push(this.props.selectedCountry.name);
+      store.save('favorites', newArr);
+      this.setState({favorites: newArr, isFavorite: true});
+    } else {
+      let newArr = this.state.favorites;
+      newArr.splice(this.state.favorites.indexOf(this.props.selectedCountry.name), 1);
+      console.log('Removing from favorites');
+      store.save('favorites', newArr);
+      this.setState({favorites: newArr, isFavorite: false});
+    }
+  }
+
   render() {
     return (
       <View style={{flex: 1, alignItems: 'center'}}>
-        <NavBar allCountries={this.props.allCountries} countryRegions={this.props.countryRegions} favorites={this.props.favorites} cachedCountries={this.props.cachedCountries} backArrow={true} />
+        <NavBar allCountries={this.props.allCountries} countryRegions={this.props.countryRegions} favorites={this.state.favorites} cachedCountries={this.props.cachedCountries} backArrow={true} />
         <ScrollView contentContainerStyle={{alignItems: 'center'}}>
           <SwiperCarousel height={250} horizontal={true} autoPlaySpeed={5} slides={this.chopPictures(this.state.selectedCountryData)} />
-          <CountryOptions country={this.state.selectedCountryData} allCountries={this.props.allCountries} countryRegions={this.props.countryRegions} favorites={this.props.favorites} cachedCountries={this.props.cachedCountries} />
+          <CountryOptions toggleFavorite={this.toggleFavorite} isFavorite={this.state.isFavorite ? 'Remove From Favorites' : 'Add To Favorites'} country={this.state.selectedCountryData} allCountries={this.props.allCountries} countryRegions={this.props.countryRegions} favorites={this.state.favorites} cachedCountries={this.props.cachedCountries} />
         </ScrollView>
       </View>
     )

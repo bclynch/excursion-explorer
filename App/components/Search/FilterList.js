@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { AppRegistry, Text, View, ListView, TouchableHighlight, Dimensions, ScrollView, RecyclerViewBackedScrollView } from 'react-native';
+import { AppRegistry, Text, View, ListView, TouchableHighlight, Dimensions, ScrollView } from 'react-native';
 import {Actions} from "react-native-router-flux";
-import NavBar from './NavBar.js';
+import NavBar from '../NavBar.js';
+import HeaderContainer from '../HeaderContainer.js';
 
 const width = Dimensions.get('window').width;
 
@@ -11,16 +12,10 @@ const styles = {
     justifyContent: 'center'
   },
   text: {
-    color: 'red',
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  capitalText: {
-    color: 'green',
-    fontSize: 12
+    fontSize: 18
   },
   sectionHead: {
-    fontSize: 30,
+    fontSize: 25,
     fontWeight: 'bold'
   },
   listOption: {
@@ -28,7 +23,8 @@ const styles = {
     paddingBottom: 15,
     borderBottomWidth: 1,
     borderColor: '#cecece',
-    overflow: 'hidden'
+    overflow: 'hidden',
+    width: width * .85
   },
   header: {
     height: 300,
@@ -63,9 +59,9 @@ export default class FilterList extends Component {
 
   renderSectionHeader(sectionData, category) {
     return (
-
+      <View style={{paddingTop: 20, paddingBottom: 10}}>
         <Text style={styles.sectionHead}>{category}</Text>
-
+      </View>
     )
   }
 
@@ -73,16 +69,17 @@ export default class FilterList extends Component {
     return (
       <View style={{flex: 1, alignItems: 'center'}}>
         <NavBar allCountries={this.props.allCountries} countryRegions={this.props.countryRegions} favorites={this.props.favorites} cachedCountries={this.props.cachedCountries} backArrow={true} />
-
-            <ListView style={{marginTop: 10}}
-              removeClippedSubviews={true}
-              dataSource={this.state.dataSource}
-              renderRow={this.renderRow}
-              renderSectionHeader={this.renderSectionHeader}
-              initialListSize={15}
-              pageSize={15}
-            />
-
+        <ScrollView contentContainerStyle={{alignItems: 'center'}}>
+          <HeaderContainer type='filterlist' photo={this.props.src} name={this.props.selectedRegion} />
+          <ListView style={{marginTop: 10}}
+            removeClippedSubviews={true}
+            dataSource={this.state.dataSource}
+            renderRow={this.renderRow}
+            renderSectionHeader={this.renderSectionHeader}
+            initialListSize={15}
+            pageSize={15}
+          />
+      </ScrollView>
       </View>
     )
   }

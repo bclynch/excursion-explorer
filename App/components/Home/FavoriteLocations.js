@@ -18,7 +18,8 @@ const styles = {
     fontWeight: 'bold',
     textShadowColor: 'black',
     textShadowRadius: 1,
-    textShadowOffset: {width: 2, height: 2}
+    textShadowOffset: {width: 2, height: 2},
+    textAlign: 'center'
   },
   image: {
     height: 200,

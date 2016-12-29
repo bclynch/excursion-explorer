@@ -37,36 +37,35 @@ export default class CountryOptions extends Component {
     super(props);
 
     this.state = {
-      data: [{text: 'Fast Facts', icon: 'list', backgroundColor: 'red'}, {text: 'Destinations', icon: 'building-o', backgroundColor: 'green'}, {text: 'Climate +\nGeography', icon: 'sun-o', backgroundColor: 'orange'}, {text: 'Travel Info', icon: 'globe', backgroundColor: 'purple'}, {text: this.favoriteText(), icon: 'star', backgroundColor: '#00ecf4'}]
+      data: [{text: 'Fast Facts', icon: 'list', backgroundColor: 'red'}, {text: 'Destinations', icon: 'building-o', backgroundColor: 'green'}, {text: 'Climate +\nGeography', icon: 'sun-o', backgroundColor: 'orange'}, {text: 'Travel Info', icon: 'globe', backgroundColor: 'purple'}, {text: props.isFavorite, icon: 'star', backgroundColor: '#00ecf4'}]
     }
-    this.toggleFavorite = this.toggleFavorite.bind(this);
-    this.favoriteText = this.favoriteText.bind(this);
     this.renderOptions = this.renderOptions.bind(this);
   }
 
-  favoriteText() {
-    return 'Add To Favorites';
-    //return this.props.favorites.indexOf(this.props.country.general.name) !== -1 ? 'Remove From Favorites' : 'Add To Favorites';
+  componentWillReceiveProps(props) {
+    this.setState({data: [{text: 'Fast Facts', icon: 'list', backgroundColor: 'red'}, {text: 'Destinations', icon: 'building-o', backgroundColor: 'green'}, {text: 'Climate +\nGeography', icon: 'sun-o', backgroundColor: 'orange'}, {text: 'Travel Info', icon: 'globe', backgroundColor: 'purple'}, {text: props.isFavorite, icon: 'star', backgroundColor: '#00ecf4'}]});
   }
 
   renderOptions(data) {
     const self = this;
     return (
-      <TouchableHighlight key={data.text} activeOpacity={0} onPress={() => self.fireClick(data.text)}>
-        <View style={{alignItems: 'center', backgroundColor: data.backgroundColor, height: 200, width: width * .4}}>
-          <Icon name={data.icon} style={{marginTop: 45}} size={50} color="#fff" />
-          <View style={styles.textContainer}>
-            <Text style={styles.text}>{data.text}</Text>
+      <View style={styles.optionContainer} key={data.text}>
+        <TouchableHighlight activeOpacity={0} onPress={() => self.fireClick(data.text)}>
+          <View style={{alignItems: 'center', backgroundColor: data.backgroundColor, height: 200, width: width * .4}}>
+            <Icon name={data.icon} style={{marginTop: 45}} size={50} color="#fff" />
+            <View style={styles.textContainer}>
+              <Text style={styles.text}>{data.text}</Text>
+            </View>
           </View>
-        </View>
-      </TouchableHighlight>
+        </TouchableHighlight>
+      </View>
     );
   }
 
   fireClick(option) {
     function notAvailable(option) {
       Alert.alert(
-              'Invalid',
+              'Under Construction',
               `Still working on ${option}, keep an eye out for updates!`,
               [
                 {text: 'OK'},
@@ -87,35 +86,12 @@ export default class CountryOptions extends Component {
         notAvailable(option);
         break;
       case 'Add To Favorites':
-        console.log('Add To Favorites');
+        this.props.toggleFavorite('Add');
         break;
       case 'Remove From Favorites':
-        console.log('Remove From Favorites');
+        this.props.toggleFavorite('Remove');
         break;
     }
-  }
-
-  toggleFavorite() {
-    console.log('clicked');
-    // const self = this;
-    // store.get('favorites')
-    //   .then((favorites) => {
-    //     console.log(favorites);
-    //     if(this.state.favorites.indexOf(this.props.selectedCountry.name) === -1) {
-    //       //adding to our store + update state
-    //       console.log('Adding to favorites');
-    //       let newArr = favorites;
-    //       newArr.push(this.props.selectedCountry.name);
-    //       store.save('favorites', newArr);
-    //       self.setState({favorites: newArr});
-    //     } else {
-    //       let newArr = favorites;
-    //       newArr.splice(this.state.favorites.indexOf(this.props.selectedCountry.name), 1);
-    //         console.log('Removing from favorites');
-    //       store.save('favorites', newArr);
-    //       self.setState({favorites: newArr});
-    //     }
-    //   });
   }
 
   render(){
