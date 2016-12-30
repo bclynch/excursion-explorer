@@ -52,7 +52,7 @@ export default class CountrySplash extends Component {
     } else {
       //Doesn't exist so grab data
       console.log('grabbing new data');
-      API.all(countryCode, name, Keys.flickr.key).then((data) => {
+      API.countryData(countryCode, name, Keys.flickr.key).then((data) => {
         const newCountryData = {
           agInfo: data[0],
           frstInfo: data[1],

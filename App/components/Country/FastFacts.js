@@ -63,8 +63,8 @@ export default class FastFacts extends Component {
               {category: 'Capital', value: data.capital, icon: 'building'},
               {category: 'Region', value: data.subregion, icon: 'map-o'},
               {category: 'Borders', value: data.borders.join(', '), icon: 'map-marker'},
-              {category: 'Population', value: data.population, icon: 'male'},
-              {category: 'Land Mass', value: `${data.area}km`, icon: 'street-view'},
+              {category: 'Population', value: data.population.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","), icon: 'male'},
+              {category: 'Land Mass', value: `${data.area.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}km`, icon: 'street-view'},
               {category: 'Languages', value: langArr.join(', '), icon: 'language'},
               {category: 'Calling Code', value: `+${data.callingCodes}`, icon: 'phone'},
               {category: 'Currencies', value: currArr.join(', '), icon: 'money'}

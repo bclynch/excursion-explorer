@@ -8,12 +8,22 @@ module.exports = {
   grabAllCountries: () => {
     return fetchData('https://restcountries.eu/rest/v1/all');
   },
-  all: (countryCode, name, key) => {
+  countryData: (countryCode, name, key) => {
     p1 = fetchData(`http://api.worldbank.org/v2/countries/${countryCode}/indicators/AG.LND.AGRI.ZS?date=2009&format=json`);
     p2 = fetchData(`http://api.worldbank.org/v2/countries/${countryCode}/indicators/AG.LND.FRST.ZS?date=2009&format=json`);
     p3 = fetchData(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${key}&tags=${name},landscape&tag_mode=all&content_type=1&sort=interestingness-desc&format=json&nojsoncallback=1`);
 
-    return Promise.all([p1, p2, p3])
+    return Promise.all([p1, p2, p3]);
+  },
+  destinations: (username, countryCode) => {
+    return fetchData(`http://api.geonames.org/searchJSON?formatted=true&country=${countryCode}&orderby=population&featureClass=p&username=${username}`);
+  },
+  cityInformation: (lat, lng, appID, appCode) => {
+    p1 = fetchData(`https://places.api.here.com/places/v1/discover/explore?in=${lat}%2C${lon}%3Br%3D10000&cat=shopping&app_id=${appID}&app_code=${appCode}`);
+    p2 = fetchData(`https://places.api.here.com/places/v1/discover/explore?in=${lat}%2C${lon}%3Br%3D10000&cat=natural-geographical&app_id=${appID}&app_code=${appCode}`);
+    p3 = fetchData(`https://places.api.here.com/places/v1/discover/explore?in=${lat}%2C${lon}%3Br%3D10000&cat=restaurant&app_id=${appID}&app_code=${appCode}`);
+
+    return Promise.all([p1, p2, p3]);
   }
   // climate: (countryCode) => {
   //   return fetchJsonp(`http://climatedataapi.worldbank.org/climateweb/rest/v1/country/cru/tas/month/${countryCode}?callback=handler`, {name: 'handler'})

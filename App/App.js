@@ -10,6 +10,7 @@ import CountrySplash from './components/Country/CountrySplash.js';
 import FilterList from './components/Search/FilterList.js';
 import FastFacts from './components/Country/FastFacts.js';
 import GeoNav from './components/Country/Geography/GeoNav.js';
+import DestinationsSplash from './components/Country/Destinations/DestinationsSplash.js';
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: 'transparent', justifyContent: 'center',
@@ -69,6 +70,7 @@ export default class ExcursionExplorer extends Component {
             <Scene key="countrysplash" component={CountrySplash} title="CountrySplash" />
             <Scene key="fastfacts" component={FastFacts} title="FastFacts" />
             <Scene key="geonav" component={GeoNav} title="GeoNav" />
+            <Scene key="destinationssplash" component={DestinationsSplash} title="DestinationsSplash" />
           </Scene>
         </Scene>
       </Router>
