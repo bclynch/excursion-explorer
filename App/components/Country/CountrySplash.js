@@ -16,8 +16,6 @@ export default class CountrySplash extends Component {
   constructor(props) {
     super(props);
 
-    console.log(props.selectedCountry);
-
     this.state = {
       selectedCountryData: null,
       favorites: this.props.favorites,

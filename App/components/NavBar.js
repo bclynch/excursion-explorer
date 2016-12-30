@@ -32,7 +32,7 @@ export default class NavBar extends Component {
         <TouchableHighlight onPress={Actions.pop} title='Back' activeOpacity={0.1} underlayColor={'#eee'}>
           <Icon name="arrow-left" size={30} color="#cecece" />
         </TouchableHighlight> :
-        <TouchableHighlight activeOpacity={0.1} underlayColor={'#eee'} onPress={Actions.tabbar}>
+        <TouchableHighlight activeOpacity={0.1} underlayColor={'#eee'} onPress={Actions.settings}>
           <Icon name="cog" size={30} color="#cecece" />
         </TouchableHighlight> }
         <TouchableHighlight activeOpacity={0.1} underlayColor={'#eee'} onPress={() => Actions.home({allCountries: this.props.allCountries, countryRegions: this.props.countryRegions, favorites: this.props.favorites, cachedCountries: this.props.cachedCountries})}>

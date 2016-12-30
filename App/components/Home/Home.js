@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import {View, Text, StyleSheet, Button, TouchableHighlight, ScrollView} from "react-native";
+import {View, Text, StyleSheet, Button, TouchableHighlight, ScrollView, Dimensions} from "react-native";
 import {Actions} from "react-native-router-flux";
 import store from 'react-native-simple-store';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import MapView from 'react-native-maps';
 
 import NavBar from '../NavBar.js';
 import FavoriteLocations from './FavoriteLocations.js';
@@ -20,14 +21,23 @@ const styles = StyleSheet.create({
   }
 });
 
+const width = Dimensions.get('window').width;
+
 export default class Home extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       favorites: [],
-      cachedCountries: {}
+      cachedCountries: {},
+      region: {
+        latitude: 37.78825,
+        longitude: -122.4324,
+        latitudeDelta: 0.0922,
+        longitudeDelta: 0.0421,
+      }
     }
+    this.onRegionChange = this.onRegionChange.bind(this);
   }
 
   componentDidMount() {
@@ -128,6 +138,10 @@ export default class Home extends Component {
       }
     }
     return {allCountries: countryObj, regions: regionArchitecture};
+  }
+
+  onRegionChange(region) {
+    this.setState({ region });
   }
 
   render() {

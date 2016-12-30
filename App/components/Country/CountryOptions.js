@@ -80,7 +80,7 @@ export default class CountryOptions extends Component {
         notAvailable(option);
         break;
       case 'Climate +\nGeography':
-        notAvailable(option);
+        Actions.geonav({countryData: this.props.country, allCountries: this.props.allCountries, countryRegions: this.props.countryRegions, favorites: this.props.favorites, cachedCountries: this.props.cachedCountries});
         break;
       case 'Travel Info':
         notAvailable(option);
