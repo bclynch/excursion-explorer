@@ -55,7 +55,13 @@ export default class CityInfoList extends Component {
         </View>
         <ScrollView contentContainerStyle={{alignItems: 'center'}}>
           <View style={styles.factsContainer}>
-            {this.renderFacts()}
+            {this.props.data.length > 0 ?
+              this.renderFacts()
+              :
+              <View style={{marginTop: 40}}>
+                <Text style={{fontSize: 20, textAlign: 'center'}}>No {this.props.title.toLowerCase()} information available to display</Text>
+              </View>
+            }
           </View>
         </ScrollView>
       </View>

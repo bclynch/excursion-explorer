@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
 
 const width = Dimensions.get('window').width;
 
-export default class Restaurant extends Component {
+export default class CityPortal extends Component {
   constructor(props) {
     super(props);
 

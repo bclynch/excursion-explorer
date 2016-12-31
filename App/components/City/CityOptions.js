@@ -37,13 +37,9 @@ export default class CityOptions extends Component {
     super(props);
 
     this.state = {
-      data: [{text: 'Food and Drink', icon: 'list', backgroundColor: 'red'}, {text: 'Outdoors', icon: 'building-o', backgroundColor: 'green'}, {text: 'Landmarks + Sights', icon: 'sun-o', backgroundColor: 'orange'}, {text: 'Shopping', icon: 'globe', backgroundColor: 'purple'}, {text: 'Transportation', icon: 'star', backgroundColor: '#00ecf4'}, {text: 'Accomodations', icon: 'star', backgroundColor: '#00ecf4'}, {text: 'Services', icon: 'star', backgroundColor: '#00ecf4'}, {text: 'Add To Favorites', icon: 'star', backgroundColor: '#00ecf4'}]
+      data: [{text: 'Food and Drink', icon: 'cutlery', backgroundColor: '#ff2dce'}, {text: 'Outdoors', icon: 'tree', backgroundColor: '#126300'}, {text: 'Landmarks + Sights', icon: 'building-o', backgroundColor: '#9b9b9b'}, {text: 'Shopping', icon: 'shopping-bag', backgroundColor: '#ac38ff'}, {text: 'Transportation', icon: 'plane', backgroundColor: '#e8c61b'}, {text: 'Accomodations', icon: 'bed', backgroundColor: '#ff8e16'}, {text: 'Services', icon: 'credit-card-alt', backgroundColor: '#00ffbb'}, {text: 'Add To Favorites', icon: 'star', backgroundColor: '#00ecf4'}]
     }
     this.renderOptions = this.renderOptions.bind(this);
-  }
-
-  componentWillReceiveProps(props) {
-    //this.setState({data: [{text: 'Fast Facts', icon: 'list', backgroundColor: 'red'}, {text: 'Destinations', icon: 'building-o', backgroundColor: 'green'}, {text: 'Climate +\nGeography', icon: 'sun-o', backgroundColor: 'orange'}, {text: 'Travel Info', icon: 'globe', backgroundColor: 'purple'}, {text: props.isFavorite, icon: 'star', backgroundColor: '#00ecf4'}]});
   }
 
   renderOptions(data) {
@@ -74,28 +70,25 @@ export default class CityOptions extends Component {
     }
     switch(option) {
       case 'Food and Drink':
-        //type: 'food', API: 'foodInformation', categories: ['restaurant', 'bar', 'coffee', 'club'], titles: ['Restaurants', 'Bars', 'Coffee', 'Clubs'],
-        //Actions.home({allCountries: this.props.allCountries, countryRegions: this.props.countryRegions, favorites: this.props.favorites, cachedCountries: this.props.cachedCountries});
-        //Actions.foodnav({cityInfo: this.props.cityInfo, index: this.props.index, allCountries: this.props.allCountries, countryRegions: this.props.countryRegions, favorites: this.props.favorites, cachedCountries: this.props.cachedCountries});
         Actions.citynav({cityInfo: this.props.cityInfo, option:'food', API: 'foodInformation', categories: ['restaurant', 'bar', 'coffee', 'club'], titles: ['Restaurants', 'Bars', 'Coffee', 'Clubs'], index: this.props.index, allCountries: this.props.allCountries, countryRegions: this.props.countryRegions, favorites: this.props.favorites, cachedCountries: this.props.cachedCountries});
         break;
       case 'Outdoors':
-        notAvailable(option);
+        Actions.citynav({cityInfo: this.props.cityInfo, option:'outdoors', API: 'outdoorInformation', categories: ['leisure', 'parks'], titles: ['Leisure', 'Parks'], index: this.props.index, allCountries: this.props.allCountries, countryRegions: this.props.countryRegions, favorites: this.props.favorites, cachedCountries: this.props.cachedCountries});
         break;
       case 'Landmarks + Sights':
-        notAvailable(option);
+        Actions.citynav({cityInfo: this.props.cityInfo, option:'landmarks', API: 'landmarkInformation', categories: ['landmarks', 'museums', 'religious'], titles: ['Landmarks', 'Museums', 'Religious Sites'], index: this.props.index, allCountries: this.props.allCountries, countryRegions: this.props.countryRegions, favorites: this.props.favorites, cachedCountries: this.props.cachedCountries});
         break;
       case 'Shopping':
-        notAvailable(option);
+        Actions.citynav({cityInfo: this.props.cityInfo, option:'shopping', API: 'shoppingInformation', categories: ['pharmacy', 'shops', 'food'], titles: ['Pharmacy', 'Shops', 'Food'], index: this.props.index, allCountries: this.props.allCountries, countryRegions: this.props.countryRegions, favorites: this.props.favorites, cachedCountries: this.props.cachedCountries});
         break;
       case 'Transportation':
-        notAvailable(option);
+        Actions.citynav({cityInfo: this.props.cityInfo, option:'transportation', API: 'transportationInformation', categories: ['airport', 'public', 'rail'], titles: ['Airports', 'Public Transport', 'Rail'], index: this.props.index, allCountries: this.props.allCountries, countryRegions: this.props.countryRegions, favorites: this.props.favorites, cachedCountries: this.props.cachedCountries});
         break;
       case 'Accomodations':
         Actions.citynav({cityInfo: this.props.cityInfo, option:'accommodation', API: 'accomodationInformation', categories: ['hotel', 'hostel', 'motel', 'camping'], titles: ['Hotels', 'Hostels', 'Motels', 'Camping'], index: this.props.index, allCountries: this.props.allCountries, countryRegions: this.props.countryRegions, favorites: this.props.favorites, cachedCountries: this.props.cachedCountries});
         break;
       case 'Services':
-        notAvailable(option);
+        Actions.citynav({cityInfo: this.props.cityInfo, option:'services', API: 'servicesInformation', categories: ['atm', 'police', 'hospital', 'gas'], titles: ['ATMs', 'Police', 'Hospitals', 'Gas Stations'], index: this.props.index, allCountries: this.props.allCountries, countryRegions: this.props.countryRegions, favorites: this.props.favorites, cachedCountries: this.props.cachedCountries});
         break;
       case 'Add To Favorites':
         notAvailable(option);
