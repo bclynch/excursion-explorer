@@ -18,12 +18,24 @@ module.exports = {
   destinations: (username, countryCode) => {
     return fetchData(`http://api.geonames.org/searchJSON?formatted=true&country=${countryCode}&orderby=population&featureClass=p&username=${username}`);
   },
-  cityInformation: (lat, lng, appID, appCode) => {
-    p1 = fetchData(`https://places.api.here.com/places/v1/discover/explore?in=${lat}%2C${lon}%3Br%3D10000&cat=shopping&app_id=${appID}&app_code=${appCode}`);
-    p2 = fetchData(`https://places.api.here.com/places/v1/discover/explore?in=${lat}%2C${lon}%3Br%3D10000&cat=natural-geographical&app_id=${appID}&app_code=${appCode}`);
-    p3 = fetchData(`https://places.api.here.com/places/v1/discover/explore?in=${lat}%2C${lon}%3Br%3D10000&cat=restaurant&app_id=${appID}&app_code=${appCode}`);
+  cityPhotos: (key, name, country) => {
+    return fetchData(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${key}&tags=${name},${country}&tag_mode=all&content_type=1&sort=interestingness-desc&format=json&nojsoncallback=1`);
+  },
+  foodInformation: (lat, lon, appID, appCode) => {
+    p1 = fetchData(`https://places.api.here.com/places/v1/discover/explore?in=${lat}%2C${lon}%3Br%3D10000&cat=restaurant&app_id=${appID}&app_code=${appCode}`);
+    p2 = fetchData(`https://places.api.here.com/places/v1/discover/explore?in=${lat}%2C${lon}%3Br%3D10000&cat=bar-pub&app_id=${appID}&app_code=${appCode}`);
+    p3 = fetchData(`https://places.api.here.com/places/v1/discover/explore?in=${lat}%2C${lon}%3Br%3D10000&cat=coffee-tea&app_id=${appID}&app_code=${appCode}`);
+    p4 = fetchData(`https://places.api.here.com/places/v1/discover/explore?in=${lat}%2C${lon}%3Br%3D10000&cat=dance-night-club&app_id=${appID}&app_code=${appCode}`);
 
-    return Promise.all([p1, p2, p3]);
+    return Promise.all([p1, p2, p3, p4]);
+  },
+  accomodationInformation: (lat, lon, appID, appCode) => {
+    p1 = fetchData(`https://places.api.here.com/places/v1/discover/explore?in=${lat}%2C${lon}%3Br%3D10000&cat=hotel&app_id=${appID}&app_code=${appCode}`);
+    p2 = fetchData(`https://places.api.here.com/places/v1/discover/explore?in=${lat}%2C${lon}%3Br%3D10000&cat=hostel&app_id=${appID}&app_code=${appCode}`);
+    p3 = fetchData(`https://places.api.here.com/places/v1/discover/explore?in=${lat}%2C${lon}%3Br%3D10000&cat=motel&app_id=${appID}&app_code=${appCode}`);
+    p4 = fetchData(`https://places.api.here.com/places/v1/discover/explore?in=${lat}%2C${lon}%3Br%3D10000&cat=camping&app_id=${appID}&app_code=${appCode}`);
+
+    return Promise.all([p1, p2, p3, p4]);
   }
   // climate: (countryCode) => {
   //   return fetchJsonp(`http://climatedataapi.worldbank.org/climateweb/rest/v1/country/cru/tas/month/${countryCode}?callback=handler`, {name: 'handler'})

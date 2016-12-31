@@ -22,7 +22,7 @@ const styles = {
   }
 }
 
-export default class DestinationsList extends Component {
+export default class CityInfoList extends Component {
   constructor(props) {
     super(props);
 
@@ -36,18 +36,13 @@ export default class DestinationsList extends Component {
     const self = this;
     return this.props.data.map(function(item, i) {
       return (
-        <TouchableHighlight key={i} onPress={self.props.handleSelection.bind(null, item, i)} >
-          <View style={styles.factoid}>
-            <Text style={{fontSize: 25}}>{item.name}</Text>
-            <View style={{justifyContent: 'space-around', alignItems: 'flex-end'}}>
-              {item.fCode === 'PPLC' ?
-                <Text style={{fontSize: 20}}>Capital</Text> :
-                <Text style={{fontSize: 20}}>City</Text>
-              }
-              <Text>Pop: {item.population}</Text>
-            </View>
+        <View key={i} style={styles.factoid}>
+          <Text style={{fontSize: 25}}>{item.title}</Text>
+          <View style={{justifyContent: 'space-around', alignItems: 'flex-end'}}>
+            <Text>Sample</Text>
+            <Text>Text</Text>
           </View>
-        </TouchableHighlight>
+        </View>
       );
     });
   }
@@ -56,7 +51,7 @@ export default class DestinationsList extends Component {
     return (
       <View style={{marginTop: 300}}>
         <View style={{alignItems: 'center'}}>
-          <Text style={{fontSize: 30}}>{this.props.demonym} Destinations</Text>
+          <Text style={{fontSize: 30}}>{this.props.title}</Text>
         </View>
         <ScrollView contentContainerStyle={{alignItems: 'center'}}>
           <View style={styles.factsContainer}>

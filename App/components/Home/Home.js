@@ -3,7 +3,6 @@ import {View, Text, StyleSheet, Button, TouchableHighlight, ScrollView, Dimensio
 import {Actions} from "react-native-router-flux";
 import store from 'react-native-simple-store';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import MapView from 'react-native-maps';
 
 import NavBar from '../NavBar.js';
 import FavoriteLocations from './FavoriteLocations.js';
@@ -29,15 +28,8 @@ export default class Home extends Component {
 
     this.state = {
       favorites: [],
-      cachedCountries: {},
-      region: {
-        latitude: 37.78825,
-        longitude: -122.4324,
-        latitudeDelta: 0.0922,
-        longitudeDelta: 0.0421,
-      }
+      cachedCountries: {}
     }
-    this.onRegionChange = this.onRegionChange.bind(this);
   }
 
   componentDidMount() {
@@ -138,10 +130,6 @@ export default class Home extends Component {
       }
     }
     return {allCountries: countryObj, regions: regionArchitecture};
-  }
-
-  onRegionChange(region) {
-    this.setState({ region });
   }
 
   render() {

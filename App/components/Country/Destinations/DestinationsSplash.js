@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {View, Text, StyleSheet, ScrollView, Dimensions} from "react-native";
+import {View, Text, StyleSheet, ScrollView, Dimensions, ActivityIndicator} from "react-native";
 import {Actions} from "react-native-router-flux";
 import MapView from 'react-native-maps';
 import store from 'react-native-simple-store';
@@ -159,9 +159,12 @@ export default class DestinationsSplash extends Component {
         longitudeDelta: 6
       },
       markers: null,
-      destinations: null
+      destinations: null,
+      cachedCountries: props.cachedCountries,
+      selectedCountryData: props.countryData
     }
     this.onRegionChange = this.onRegionChange.bind(this);
+    this.selectDestination = this.selectDestination.bind(this);
   }
 
   componentDidMount() {
@@ -169,6 +172,14 @@ export default class DestinationsSplash extends Component {
     if(this.props.countryData.destinations) {
       console.log('Grab existing destinations data');
       this.setState({destinations: this.props.countryData.destinations, markers: this.chopDestinationData(this.props.countryData.destinations)});
+
+      let markerArr = [];
+      for(var i = 0; i < this.props.countryData.destinations.length; i++) {
+        markerArr.push(`Marker${i+1}`);
+      }
+      animationTimeout = setTimeout(() => {
+        this.map.fitToSuppliedMarkers(markerArr, true);
+      }, 2000);
     } else {
       //Make API call, save to state, save to store
       //Doesn't exist so grab data
@@ -184,6 +195,7 @@ export default class DestinationsSplash extends Component {
           destinationObj.population = data.geonames[i].population.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
           //If fcode is PPLC it's the capital
           destinationObj.fCode = data.geonames[i].fcode;
+          destinationObj.country = this.props.countryData.general.name;
 
           destinationsArr.push(destinationObj);
         }
@@ -192,11 +204,21 @@ export default class DestinationsSplash extends Component {
         this.setState({destinations: destinationsArr, markers: this.chopDestinationData(destinationsArr)});
 
         //Save to cached countries store
-        const existingDataObj = this.props.countryData;
+        const existingDataObj = this.state.selectedCountryData;
         existingDataObj['destinations'] = destinationsArr;
-        const abc = this.props.cachedCountries;
+        this.setState({selectedCountryData: existingDataObj});
+        const abc = this.state.cachedCountries;
         abc[this.props.countryData.general.name] = existingDataObj;
+        this.setState({cachedCountries: abc});
         store.save('countries', abc);
+
+        let markerArr = [];
+        for(var i = 0; i < destinationsArr.length; i++) {
+          markerArr.push(`Marker${i+1}`);
+        }
+        animationTimeout = setTimeout(() => {
+          this.map.fitToSuppliedMarkers(markerArr, true);
+        }, 2000);
       }).catch(function(err) {
         console.log(err);
       });
@@ -221,64 +243,55 @@ export default class DestinationsSplash extends Component {
     this.setState({ region });
   }
 
+  selectDestination(data, index) {
+    Actions.citysplash({destinationFeatures: data, index: index, countryData: this.state.selectedCountryData, allCountries: this.props.allCountries, countryRegions: this.props.countryRegions, favorites: this.props.favorites, cachedCountries: this.state.cachedCountries});
+  }
+
   render() {
     return (
       <View style={{flex: 1, alignItems: 'center'}}>
-        <NavBar allCountries={this.props.allCountries} countryRegions={this.props.countryRegions} favorites={this.props.favorites} cachedCountries={this.props.cachedCountries} backArrow={true} />
-        <ScrollView contentContainerStyle={{alignItems: 'center', width: width}}>
-          <MapView
-            region={this.state.region}
-            onRegionChange={this.onRegionChange}
-            style={styles.map}
-            customMapStyle={nightStyle}
-           >
-             {this.state.markers ?
-               this.state.markers.map((marker, i) => (
-                  <MapView.Marker
-                    key={i}
-                    coordinate={marker.latlng}
-                    title={marker.title}
-                    description={marker.description + i}
-                  />
-                ))
-               :
-               null
-             }
-           </MapView>
-           {this.state.destinations ?
-             <DestinationsList demonym={this.props.countryData.general.demonym} data={this.state.destinations} />
-             :
-             null
-           }
+        <NavBar
+          allCountries={this.props.allCountries}
+          countryRegions={this.props.countryRegions}
+          favorites={this.props.favorites}
+          cachedCountries={this.state.cachedCountries}
+          backArrow={true}
+        />
+        <ScrollView contentContainerStyle={{alignItems: 'center'}}>
+          {this.state.markers ?
+            <View style={{width: width}}>
+              <MapView
+                region={this.state.region}
+                onRegionChange={this.onRegionChange}
+                style={styles.map}
+                customMapStyle={nightStyle}
+                showsPointsOfInterest={true}
+                ref={ref => { this.map = ref; }}
+               >
+                 {this.state.markers.map((marker, i) => (
+                    <MapView.Marker
+                      key={i}
+                      identifier={`Marker${i+1}`}
+                      coordinate={marker.latlng}
+                      title={marker.title}
+                      description={marker.description + i}
+                    />
+                ))}
+               </MapView>
+               <DestinationsList
+                 demonym={this.props.countryData.general.demonym}
+                 data={this.state.destinations}
+                 handleSelection={this.selectDestination}
+               />
+            </View>
+           :
+             <ActivityIndicator
+               style={{height: 125}}
+               size="large"
+             />
+         }
         </ScrollView>
       </View>
     );
   }
 }
-
-// <View style={{alignItems: 'center'}}>
-//   <MapView
-//     region={this.state.region}
-//     onRegionChange={this.onRegionChange}
-//     style={styles.map}
-//     customMapStyle={nightStyle}
-//    >
-//      {this.state.markers ?
-//        this.state.markers.map((marker, i) => (
-//           <MapView.Marker
-//             key={i}
-//             coordinate={marker.latlng}
-//             title={marker.title}
-//             description={marker.description + i}
-//           />
-//         ))
-//        :
-//        null
-//      }
-//    </MapView>
-//    {this.state.destinations ?
-//      <DestinationsList demonym={this.props.countryData.general.demonym} data={this.state.destinations} />
-//      :
-//      null
-//    }
-// </View>

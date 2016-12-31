@@ -17,15 +17,6 @@ const styles = StyleSheet.create({
 });
 const width = Dimensions.get('window').width;
 
-//Should just be white page with search bar up top
-//Focus in on the text box on load for the component
-//List results below for potential countries
-//Would like our region filter too displayed here
-//SImilar to lonely planet search
-
-//I think using the router I can pass the selectedCountry state on to the next route.
-//I guess keeping app state in the next page of the route??
-
 export default class Search extends Component {
   constructor(props) {
     super(props);

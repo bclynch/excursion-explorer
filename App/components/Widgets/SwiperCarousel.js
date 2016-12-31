@@ -73,7 +73,7 @@ export default class SwiperCarousel extends Component {
         {this.state.renderSwiper ?
         <Swiper style={styles.wrapper} height={this.props.height} horizontal={this.props.horizontal} autoPlayTimeout={this.props.autoplaySpeed} autoplay>
           {this.renderSlides(this.state.renderSwiper)}
-        </Swiper> : <ActivityIndicator style={[styles.centering, {height: 125}]} size="large" /> }
+        </Swiper> : <ActivityIndicator style={{height: 125}} size="large" /> }
       </View>
     )
   }
