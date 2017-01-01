@@ -9,6 +9,13 @@
 - Tools > Manage AVDs > Select + Start Environment
 - In project folder: $ react-native run-android
 
+##Updating travel warnings json
+- Check for updates on this page https://cadatacatalog.state.gov/dataset/travel
+- Make sure to update json file names with date for regular Updating
+- Place json in assets folder
+- Update formatTravelWarnings.js with correct file path
+- Run $ node assets/TravelWarnings/formatTravelWarnings.js to create new, formatted JSON obj in assets
+
 #Debugging
 - In the simulator ctrl + m for the dev menu in Android
 - Can init remote debugging for console logs

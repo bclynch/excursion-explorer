@@ -63,15 +63,6 @@ export default class CountryOptions extends Component {
   }
 
   fireClick(option) {
-    function notAvailable(option) {
-      Alert.alert(
-              'Under Construction',
-              `Still working on ${option}, keep an eye out for updates!`,
-              [
-                {text: 'OK'},
-              ]
-            )
-    }
     switch(option) {
       case 'Fast Facts':
         Actions.fastfacts({countryData: this.props.country, allCountries: this.props.allCountries, countryRegions: this.props.countryRegions, favorites: this.props.favorites, cachedCountries: this.props.cachedCountries});
@@ -83,7 +74,7 @@ export default class CountryOptions extends Component {
         Actions.geonav({countryData: this.props.country, allCountries: this.props.allCountries, countryRegions: this.props.countryRegions, favorites: this.props.favorites, cachedCountries: this.props.cachedCountries});
         break;
       case 'Travel Info':
-        notAvailable(option);
+        Actions.travelinfonav({countryData: this.props.country, allCountries: this.props.allCountries, countryRegions: this.props.countryRegions, favorites: this.props.favorites, cachedCountries: this.props.cachedCountries});
         break;
       case 'Add To Favorites':
         this.props.toggleFavorite('Add');

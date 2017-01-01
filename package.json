@@ -11,6 +11,7 @@
     "jsonp": "^0.2.1",
     "react": "15.4.1",
     "react-native": "0.39.2",
+    "react-native-accordion": "^1.0.1",
     "react-native-action-button": "^2.0.16",
     "react-native-app-intro": "^1.1.5",
     "react-native-drawer": "^2.3.0",

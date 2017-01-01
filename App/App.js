@@ -13,6 +13,7 @@ import GeoNav from './components/Country/Geography/GeoNav.js';
 import DestinationsSplash from './components/Country/Destinations/DestinationsSplash.js';
 import CitySplash from './components/City/CitySplash.js';
 import CityNav from './components/City/CityNav.js';
+import TravelInfoNav from './components/Country/TravelInfo/TravelInfoNav.js';
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: 'transparent', justifyContent: 'center',
@@ -75,6 +76,7 @@ export default class ExcursionExplorer extends Component {
             <Scene key="destinationssplash" component={DestinationsSplash} title="DestinationsSplash" />
             <Scene key="citysplash" component={CitySplash} title="CitySplash" />
             <Scene key="citynav" component={CityNav} title="CityNav" />
+            <Scene key="travelinfonav" component={TravelInfoNav} title="TravelInfoNav" />
           </Scene>
         </Scene>
       </Router>

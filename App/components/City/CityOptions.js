@@ -37,7 +37,16 @@ export default class CityOptions extends Component {
     super(props);
 
     this.state = {
-      data: [{text: 'Food and Drink', icon: 'cutlery', backgroundColor: '#ff2dce'}, {text: 'Outdoors', icon: 'tree', backgroundColor: '#126300'}, {text: 'Landmarks + Sights', icon: 'building-o', backgroundColor: '#9b9b9b'}, {text: 'Shopping', icon: 'shopping-bag', backgroundColor: '#ac38ff'}, {text: 'Transportation', icon: 'plane', backgroundColor: '#e8c61b'}, {text: 'Accomodations', icon: 'bed', backgroundColor: '#ff8e16'}, {text: 'Services', icon: 'credit-card-alt', backgroundColor: '#00ffbb'}, {text: 'Add To Favorites', icon: 'star', backgroundColor: '#00ecf4'}]
+      data: [
+        {text: 'Food and Drink', icon: 'cutlery', backgroundColor: '#ff2dce'},
+        {text: 'Outdoors', icon: 'tree', backgroundColor: '#126300'},
+        {text: 'Landmarks + Sights', icon: 'building-o', backgroundColor: '#9b9b9b'},
+        {text: 'Shopping', icon: 'shopping-bag', backgroundColor: '#ac38ff'},
+        {text: 'Transportation', icon: 'plane', backgroundColor: '#e8c61b'},
+        {text: 'Accomodations', icon: 'bed', backgroundColor: '#ff8e16'},
+        {text: 'Services', icon: 'credit-card-alt', backgroundColor: '#00ffbb'},
+        {text: 'Add To Favorites', icon: 'star', backgroundColor: '#00ecf4'}
+      ]
     }
     this.renderOptions = this.renderOptions.bind(this);
   }

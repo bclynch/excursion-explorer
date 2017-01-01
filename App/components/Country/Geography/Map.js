@@ -167,7 +167,7 @@ export default class Map extends Component {
           region={this.state.region}
           onRegionChange={this.onRegionChange}
           style={styles.map}
-          customMapStyle={nightStyle}
+          mapType='terrain'
          />
       </View>
     );
