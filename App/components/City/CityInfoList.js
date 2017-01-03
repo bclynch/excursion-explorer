@@ -37,11 +37,15 @@ export default class CityInfoList extends Component {
   }
 
   renderFacts(item) {
-    console.log(item);
       return (
         <View key={item.title} style={styles.factoid}>
           <Text style={{fontSize: 25}}>{item.title}</Text>
-          <Text>{item.category.title}</Text>
+          {
+            item.tags ?
+              <Text>{item.category.title} - {item.tags[0].title}</Text>
+              :
+              <Text>{item.category.title}</Text>
+          }
           {
             item.openingHours ?
             [

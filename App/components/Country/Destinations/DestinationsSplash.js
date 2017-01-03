@@ -5,6 +5,7 @@ import MapView from 'react-native-maps';
 import store from 'react-native-simple-store';
 import NavBar from '../../NavBar.js';
 import DestinationsList from './DestinationsList.js';
+import CustomCallout from '../../CustomCallout.js';
 
 import nightStyle from '../../../../assets/mapNight.json';
 import desertStyle from '../../../../assets/mapDesert.json';
@@ -113,8 +114,7 @@ export default class DestinationsSplash extends Component {
           latitude: Number(destination.lat),
           longitude: Number(destination.lon),
         },
-        title: destination.name,
-        description: `City of ${destination.population} people`
+        title: destination.name
       }
     });
   }
@@ -154,9 +154,13 @@ export default class DestinationsSplash extends Component {
                       pinColor='orange'
                       identifier={`Marker${i+1}`}
                       coordinate={marker.latlng}
-                      title={marker.title}
-                      description={marker.description + i}
-                    />
+                    >
+                      <MapView.Callout onPress={() => this.selectDestination(this.state.destinations[i], i)} tooltip style={{width: 140, height: 80}}>
+                        <CustomCallout>
+                          <Text style={{color: 'rgba(255, 255, 255, 1)', opacity: 1, textAlign: 'center', fontSize: 16}}>Explore {marker.title}</Text>
+                        </CustomCallout>
+                      </MapView.Callout>
+                    </MapView.Marker>
                 ))}
                </MapView>
                <DestinationsList

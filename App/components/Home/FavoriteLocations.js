@@ -63,7 +63,7 @@ export default class FavoriteLocations extends Component {
   renderFavorites(data) {
     return (
       <View style={styles.favoriteContainer} key={data.text}>
-        <TouchableHighlight activeOpacity={0} onPress={() => this.goToCountry(data.text)}>
+        <TouchableHighlight activeOpacity={0} onPress={() => this.props.selectFavorite(data.text)}>
           <Image resizeMode='cover' style={styles.image} source={{uri: data.src}}>
             <View style={styles.textContainer}>
               <Text style={styles.text}>{data.text}</Text>
@@ -72,10 +72,6 @@ export default class FavoriteLocations extends Component {
         </TouchableHighlight>
       </View>
     );
-  }
-
-  goToCountry(country) {
-    Actions.countrysplash({selectedCountry: this.props.allCountries[country], allCountries: this.props.allCountries, countryRegions: this.props.countryRegions, favorites: this.props.favorites, cachedCountries: this.props.cachedCountries});
   }
 
   render() {

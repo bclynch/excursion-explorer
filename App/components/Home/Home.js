@@ -30,6 +30,7 @@ export default class Home extends Component {
       favorites: [],
       cachedCountries: {}
     }
+    this.selectFavorite = this.selectFavorite.bind(this);
   }
 
   componentDidMount() {
@@ -132,12 +133,26 @@ export default class Home extends Component {
     return {allCountries: countryObj, regions: regionArchitecture};
   }
 
+  selectFavorite(country) {
+    Actions.countrysplash({selectedCountry: this.state.allCountries[country], allCountries: this.state.allCountries, countryRegions: this.state.countryRegions, favorites: this.state.favorites, cachedCountries: this.state.cachedCountries});
+  }
+
   render() {
     return (
       <View style={{flex: 1, alignItems: 'center'}}>
-        <NavBar allCountries={this.state.allCountries} countryRegions={this.state.countryRegions} favorites={this.state.favorites} cachedCountries={this.state.cachedCountries} backArrow={false} />
+        <NavBar
+          allCountries={this.state.allCountries}
+          countryRegions={this.state.countryRegions}
+          favorites={this.state.favorites}
+          cachedCountries={this.state.cachedCountries}
+          backArrow={false}
+        />
         <ScrollView {...this.props}  contentContainerStyle={styles.container}>
-          <FavoriteLocations favorites={this.state.favorites} allCountries={this.state.allCountries} countryRegions={this.state.countryRegions} cachedCountries={this.state.cachedCountries} />
+          <FavoriteLocations
+            favorites={this.state.favorites}
+            cachedCountries={this.state.cachedCountries}
+            selectFavorite={this.selectFavorite}
+          />
         </ScrollView>
       </View>
     );
