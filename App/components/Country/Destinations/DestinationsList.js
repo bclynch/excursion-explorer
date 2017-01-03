@@ -38,8 +38,8 @@ export default class DestinationsList extends Component {
       return (
         <TouchableHighlight key={i} onPress={self.props.handleSelection.bind(null, item, i)} >
           <View style={styles.factoid}>
-            <Text style={{fontSize: 25}}>{item.name}</Text>
-            <View style={{justifyContent: 'space-around', alignItems: 'flex-end'}}>
+            <Text style={{fontSize: 25, flex: 1}}>{item.name}</Text>
+            <View style={{justifyContent: 'space-around', alignItems: 'flex-end', flex: 1}}>
               {item.fCode === 'PPLC' ?
                 <Text style={{fontSize: 20}}>Capital</Text> :
                 <Text style={{fontSize: 20}}>City</Text>
@@ -56,7 +56,7 @@ export default class DestinationsList extends Component {
     return (
       <View style={{marginTop: 300}}>
         <View style={{alignItems: 'center'}}>
-          <Text style={{fontSize: 30}}>{this.props.demonym} Destinations</Text>
+          <Text style={{fontSize: 30, textAlign: 'center'}}>{this.props.demonym} Destinations</Text>
         </View>
         <ScrollView contentContainerStyle={{alignItems: 'center'}}>
           <View style={styles.factsContainer}>

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import {View, Text, TouchableHighlight, Dimensions, ScrollView} from "react-native";
+import {View, Text, TouchableHighlight, Dimensions, ScrollView, ListView} from "react-native";
 import {Actions} from "react-native-router-flux";
 
 const width = Dimensions.get('window').width;
+const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
 const styles = {
   container: {
@@ -15,10 +16,9 @@ const styles = {
     padding: 30,
     borderBottomWidth: 1,
     borderColor: '#cecece',
-    width: width*.85,
-    flexDirection: 'row',
+    width: width * .85,
     justifyContent: 'space-between',
-    alignItems: 'center'
+    flex: 1
   }
 }
 
@@ -27,24 +27,37 @@ export default class CityInfoList extends Component {
     super(props);
 
     this.state = {
-
+      data: ds.cloneWithRows(props.data)
     }
     this.renderFacts = this.renderFacts.bind(this);
   }
 
-  renderFacts() {
-    const self = this;
-    return this.props.data.map(function(item, i) {
+  componentWillReceiveProps(nextProps) {
+    this.setState({data: ds.cloneWithRows(nextProps.data)});
+  }
+
+  renderFacts(item) {
+    console.log(item);
       return (
-        <View key={i} style={styles.factoid}>
+        <View key={item.title} style={styles.factoid}>
           <Text style={{fontSize: 25}}>{item.title}</Text>
-          <View style={{justifyContent: 'space-around', alignItems: 'flex-end'}}>
-            <Text>Sample</Text>
-            <Text>Text</Text>
-          </View>
+          <Text>{item.category.title}</Text>
+          {
+            item.openingHours ?
+            [
+              <Text key={item.id}>Hours: {item.openingHours.text.replace(/(<([^>]+)>)/ig, ' ')}</Text>,
+              (  item.openingHours.isOpen ?
+                  <Text key={item.position[0]} style={{color: 'green'}}>Open</Text>
+                  :
+                  <Text key={item.position[1]} style={{color: 'red'}}>Closed</Text>
+              )
+            ]
+              :
+              null
+          }
+          <Text>{item.vicinity.replace(/(<([^>]+)>)/ig, ' ')}</Text>
         </View>
       );
-    });
   }
 
   render(){
@@ -56,7 +69,11 @@ export default class CityInfoList extends Component {
         <ScrollView contentContainerStyle={{alignItems: 'center'}}>
           <View style={styles.factsContainer}>
             {this.props.data.length > 0 ?
-              this.renderFacts()
+              <ListView
+                dataSource={this.state.data}
+                renderRow={this.renderFacts}
+                enableEmptySections
+              />
               :
               <View style={{marginTop: 40}}>
                 <Text style={{fontSize: 20, textAlign: 'center'}}>No {this.props.title.toLowerCase()} information available to display</Text>
@@ -68,3 +85,4 @@ export default class CityInfoList extends Component {
     );
   }
 }
+//this.renderFacts()

@@ -26,6 +26,7 @@ export default class CitySplash extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    console.log(nextProps);
     this.snagData(nextProps.destinationFeatures);
   }
 

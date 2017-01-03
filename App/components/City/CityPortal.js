@@ -40,6 +40,10 @@ export default class CityPortal extends Component {
     this.onRegionChange = this.onRegionChange.bind(this);
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({destinations: nextProps.data.features[nextProps.option][nextProps.type].slice(0, 15)});
+  }
+
   componentDidMount() {
     let markerArr = [];
     for(var i = 0; i < this.state.destinations.length; i++) {
@@ -47,7 +51,7 @@ export default class CityPortal extends Component {
     }
     animationTimeout = setTimeout(() => {
       this.map.fitToSuppliedMarkers(markerArr, true);
-    }, 2000);
+    }, 1500);
   }
 
   onRegionChange(region) {
@@ -71,6 +75,7 @@ export default class CityPortal extends Component {
                  {this.state.destinations.map((marker, i) => (
                     <MapView.Marker
                       key={i}
+                      pinColor='orange'
                       identifier={`Marker${i+1}`}
                       coordinate={{latitude: Number(marker.position[0]), longitude: Number(marker.position[1])}}
                       title={marker.title}

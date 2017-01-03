@@ -30,32 +30,34 @@ export default class CityNav extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.snagData(nextProps.cityInfo);
+    console.log('firing will receive');
+    this.setState({readyToDisplay: false});
+    this.snagData(nextProps.cityInfo, nextProps.option, nextProps.API);
   }
 
   componentDidMount() {
-    this.snagData(this.props.cityInfo);
+    this.snagData(this.props.cityInfo, this.props.option, this.props.API);
   }
 
-  snagData(cityData) {
+  snagData(cityData, option, APICode) {
     const self = this;
 
     // Perform API call if necessary
-    if(cityData.features[this.props.option]) {
+    if(cityData.features[option]) {
       //Use the data we already have
-      console.log(`Grabbing existing ${this.props.option} data`);
+      console.log(`Grabbing existing ${option} data`);
       this.setState({readyToDisplay: true});
     } else {
       //Doesn't exist so grab data
-      console.log(`grabbing new ${this.props.option} data`);
-      API[this.props.API](cityData.lat, cityData.lon, Keys.HERE.appID, Keys.HERE.appCode).then((data) => {
+      console.log(`grabbing new ${option} data`);
+      API[APICode](cityData.lat, cityData.lon, Keys.HERE.appID, Keys.HERE.appCode).then((data) => {
         let featuresData = {};
         for(var i = 0; i < this.props.categories.length; i++) {
           featuresData[this.props.categories[i]] = data[i].results.items;
         }
         //Updating our data for cities, selectedcountry, and allcountries to cache new data
         const existingFeaturesInfo = cityData.features;
-        existingFeaturesInfo[this.props.option] = featuresData;
+        existingFeaturesInfo[option] = featuresData;
         const existingCityInfo = cityData;
         existingCityInfo['features'] = existingFeaturesInfo;
         const existingCountryInfo = this.props.cachedCountries[cityData.country];

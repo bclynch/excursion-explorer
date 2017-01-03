@@ -31,3 +31,12 @@
   - $ gradlew clean
   - cd back to project_folder then react-native run-android
 - To function on the emulator make sure the target of the emulator is Google APIs Intel x86 Atom System Image. Also be sure Google Play Services + Google Repository installed
+
+#Todos
+- Zoom into location on result press for destinations maps
+- Clean up callout for maps
+- Implement favorites functionality for cities
+- Clean up/condense travel information section
+- Currency converter travel information
+- Visualizations for climate information
+- Settings page (about, clear memory, rate app)
