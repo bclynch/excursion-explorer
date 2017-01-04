@@ -15,6 +15,7 @@
     "react-native-collapsible": "^0.7.0",
     "react-native-grid-view": "^0.4.1",
     "react-native-maps": "^0.12.2",
+    "react-native-modal-dropdown": "^0.4.0",
     "react-native-router-flux": "^3.37.0",
     "react-native-scrollable-tab-view": "^0.7.0",
     "react-native-simple-store": "^1.1.0",

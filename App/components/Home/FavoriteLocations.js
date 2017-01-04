@@ -93,6 +93,7 @@ export default class FavoriteLocations extends Component {
     );
   }
 
+  //Bit of a cluster fuck with nested ternary below, but logic is sound. Better way to be dynamic?
   render() {
     return (
       <View>
@@ -122,41 +123,44 @@ export default class FavoriteLocations extends Component {
             </View>
           </View>
           :
-          null
-        }
-        {this.state.countryData ?
-          <View>
-            <View style={{alignItems: 'center', marginTop: 15, marginBottom: 15}}>
-              <Text style={{fontSize: 25}}>Favorite Countries</Text>
-            </View>
-            <View style={{justifyContent: 'center', marginBottom: 20}}>
-              <GridView
-                items={this.state.countryData}
-                itemsPerRow={2}
-                renderItem={this.renderFavorites}
-                style={styles.listView}
-              />
-            </View>
-          </View>
-          :
-          null
-        }
-        {this.state.cityData ?
-          <View>
-            <View style={{alignItems: 'center', marginTop: 15, marginBottom: 15}}>
-              <Text style={{fontSize: 25}}>Favorite Cities</Text>
-            </View>
-            <View style={{justifyContent: 'center', marginBottom: 20}}>
-              <GridView
-                items={this.state.cityData}
-                itemsPerRow={2}
-                renderItem={this.renderFavorites}
-                style={styles.listView}
-              />
-            </View>
-          </View>
-          :
-          null
+          [
+            ( this.state.countryData || this.state.cityData ?
+              [
+                (
+                  this.state.countryData ?
+                    <View key='a'>
+                      <View style={{alignItems: 'center', marginTop: 15, marginBottom: 15}}>
+                        <Text style={{fontSize: 25}}>Favorite Countries</Text>
+                      </View>
+                      <View style={{justifyContent: 'center', marginBottom: 20}}>
+                        <GridView
+                          items={this.state.countryData}
+                          itemsPerRow={2}
+                          renderItem={this.renderFavorites}
+                          style={styles.listView}
+                        />
+                      </View>
+                    </View>
+                    :
+                    <View key='b'>
+                      <View style={{alignItems: 'center', marginTop: 15, marginBottom: 15}}>
+                        <Text style={{fontSize: 25}}>Favorite Cities</Text>
+                      </View>
+                      <View style={{justifyContent: 'center', marginBottom: 20}}>
+                        <GridView
+                          items={this.state.cityData}
+                          itemsPerRow={2}
+                          renderItem={this.renderFavorites}
+                          style={styles.listView}
+                        />
+                      </View>
+                    </View>
+                )
+              ]
+              :
+              <View key='c'><Text>None</Text></View>
+            )
+          ]
         }
       </View>
     )

@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import {View, Text, StyleSheet, Dimensions} from "react-native";
 import {Actions} from "react-native-router-flux";
 
+import CurrencyConverter from '../../Widgets/CurrencyConverter.js';
+
 const styles = {
 
 };
@@ -13,14 +15,15 @@ export default class Money extends Component {
     super(props);
 
     this.state = {
-
+      baseCurrency: 'USD',
+      altCurrency: 'EUR'
     }
   }
 
   render() {
     return (
       <View style={{flex: 1, alignItems: 'center'}}>
-        <Text>Money</Text>
+        <CurrencyConverter base={this.state.baseCurrency} alt={this.state.altCurrency} />
       </View>
     );
   }

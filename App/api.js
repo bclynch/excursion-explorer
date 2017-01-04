@@ -71,6 +71,9 @@ module.exports = {
     p3 = fetchData(`https://places.api.here.com/places/v1/discover/explore?in=${lat}%2C${lon}%3Br%3D10000&cat=railway-station&app_id=${appID}&app_code=${appCode}`);
 
     return Promise.all([p1, p2, p3]);
+  },
+  currency: (base) => {
+    return fetchData('http://api.fixer.io/latest?base=USD');
   }
   // climate: (countryCode) => {
   //   return fetchJsonp(`http://climatedataapi.worldbank.org/climateweb/rest/v1/country/cru/tas/month/${countryCode}?callback=handler`, {name: 'handler'})

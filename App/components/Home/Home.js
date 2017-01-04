@@ -90,6 +90,7 @@ export default class Home extends Component {
             store.save('favorites', {countries: [], cities: []});
             store.save('languages', languageData);
             store.save('currencies', currenciesJSON);
+            store.save('currencyInfo', {data: {}, lastUpdated: 123});
           });
         }
       })
