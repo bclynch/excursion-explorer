@@ -10,7 +10,10 @@ function stripHTML(str) {
   var HTMLRegex = /(<([^>]+)>)/ig;
   var nbspRegex = /&nbsp;/g;
   var spacesRegex = /\s\s+/g;
-  return str.replace(HTMLRegex, ' ').replace(nbspRegex, ' ').replace(spacesRegex, ' ').trim();
+  //Would like to make use of the p (paragraph) tags that are in the html to distinguish break needs
+  //Will be replacing both the p and /p with stars to split our strings into manageable parts
+  var pRegex = /(<p>|<\/p>)/g;
+  return str.replace(pRegex, '*****').replace(HTMLRegex, ' ').replace(nbspRegex, ' ').replace(spacesRegex, ' ').split('*****').filter(function(item) {return item !== ''}).map(function(item){return item.trim()});
 }
 
 var warningsObj = {};

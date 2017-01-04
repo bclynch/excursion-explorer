@@ -37,13 +37,23 @@ export default class CountryOptions extends Component {
     super(props);
 
     this.state = {
-      data: [{text: 'Fast Facts', icon: 'list', backgroundColor: 'red'}, {text: 'Destinations', icon: 'building-o', backgroundColor: 'green'}, {text: 'Climate +\nGeography', icon: 'sun-o', backgroundColor: 'orange'}, {text: 'Travel Info', icon: 'globe', backgroundColor: 'purple'}, {text: props.isFavorite, icon: 'star', backgroundColor: '#00ecf4'}]
-    }
+      data: [{text: 'Fast Facts', icon: 'list', backgroundColor: 'red'},
+      {text: 'Destinations', icon: 'building-o', backgroundColor: 'green'},
+      {text: 'Climate +\nGeography', icon: 'sun-o', backgroundColor: 'orange'},
+      {text: 'Travel Info', icon: 'globe', backgroundColor: 'purple'},
+      {text: props.isFavorite, icon: 'star', backgroundColor: '#00ecf4'}
+    ]}
     this.renderOptions = this.renderOptions.bind(this);
   }
 
   componentWillReceiveProps(props) {
-    this.setState({data: [{text: 'Fast Facts', icon: 'list', backgroundColor: 'red'}, {text: 'Destinations', icon: 'building-o', backgroundColor: 'green'}, {text: 'Climate +\nGeography', icon: 'sun-o', backgroundColor: 'orange'}, {text: 'Travel Info', icon: 'globe', backgroundColor: 'purple'}, {text: props.isFavorite, icon: 'star', backgroundColor: '#00ecf4'}]});
+    this.setState({data: [
+      {text: 'Fast Facts', icon: 'list', backgroundColor: 'red'},
+      {text: 'Destinations', icon: 'building-o', backgroundColor: 'green'},
+      {text: 'Climate +\nGeography', icon: 'sun-o', backgroundColor: 'orange'},
+      {text: 'Travel Info', icon: 'globe', backgroundColor: 'purple'},
+      {text: props.isFavorite, icon: 'star', backgroundColor: '#00ecf4'}
+    ]});
   }
 
   renderOptions(data) {

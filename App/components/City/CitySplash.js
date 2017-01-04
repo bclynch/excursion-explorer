@@ -16,17 +16,27 @@ export default class CitySplash extends Component {
   constructor(props) {
     super(props);
 
+    function checkFavorite() {
+      for(var i=0; i < props.favorites.cities.length; i++) {
+        if (props.favorites.cities[i].name === props.destinationFeatures.name) {
+            return true;
+        }
+      }
+      return false;
+    }
+
     this.state = {
       cachedCountries: props.cachedCountries,
       photos: null,
-      isFavorite: false,
+      favorites: props.favorites,
+      isFavorite: checkFavorite(),
       cityInfo: props.destinationFeatures
     }
     this.snagData = this.snagData.bind(this);
+    this.toggleFavorite = this.toggleFavorite.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
     this.snagData(nextProps.destinationFeatures);
   }
 
@@ -86,8 +96,31 @@ export default class CitySplash extends Component {
     return slides;
   }
 
-  toggleFavorite() {
-
+  toggleFavorite(state) {
+    if(state === 'Add') {
+      //adding to our store + update state
+      let newArr = this.state.favorites.cities;
+      newArr.push({name: this.props.destinationFeatures.name, country: this.props.countryData.general.name, index: this.props.index});
+      let existingFavs = this.state.favorites;
+      existingFavs.cities = newArr;
+      store.save('favorites', existingFavs);
+      this.setState({favorites: existingFavs, isFavorite: true});
+    } else {
+      let newArr = this.state.favorites.cities;
+      var index;
+      //search for the option we want to Remove
+      for(var i=0; i < newArr.length; i++) {
+          if (newArr[i].name === this.props.destinationFeatures.name) {
+              index = i;
+              break;
+          }
+      }
+      newArr.splice(index, 1);
+      let existingFavs = this.state.favorites;
+      existingFavs.cities = newArr;
+      store.save('favorites', existingFavs);
+      this.setState({favorites: existingFavs, isFavorite: false});
+    }
   }
 
   render() {
@@ -96,7 +129,7 @@ export default class CitySplash extends Component {
         <NavBar
           allCountries={this.props.allCountries}
           countryRegions={this.props.countryRegions}
-          favorites={this.props.favorites}
+          favorites={this.state.favorites}
           cachedCountries={this.state.cachedCountries}
           backArrow={true}
         />
@@ -116,7 +149,7 @@ export default class CitySplash extends Component {
               isFavorite={this.state.isFavorite ? 'Remove From Favorites' : 'Add To Favorites'}
               allCountries={this.props.allCountries}
               countryRegions={this.props.countryRegions}
-              favorites={this.props.favorites}
+              favorites={this.state.favorites}
               cachedCountries={this.state.cachedCountries}
             />
           </ScrollView>

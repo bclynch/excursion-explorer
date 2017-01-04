@@ -6,10 +6,8 @@ import store from 'react-native-simple-store';
 import CustomTabBar from '../../CustomTabBar.js';
 import NavBar from '../../NavBar.js';
 
-import Health from './Health.js';
-import Transport from './Transport.js';
+import TravelInfoPortal from './TravelInfoPortal.js';
 import Money from './Money.js';
-import Legal from './Legal.js';
 import travelInfo from '../../../../assets/TravelWarnings/formattedTravelWarningsOct_16.json';
 
 const styles = {
@@ -28,14 +26,14 @@ export default class TravelInfoNav extends Component {
   }
 
   render() {
+    const dataObj = travelInfo[this.props.countryData.general.alpha2Code];
     return (
       <View style={{flex: 1, alignItems: 'center'}}>
-        <NavBar allCountries={this.props.allCountries} countryRegions={this.props.countryRegions} favorites={this.props.favorites} cachedCountries={this.state.cachedCountries} backArrow={true} />
+        <NavBar allCountries={this.props.allCountries} countryRegions={this.props.countryRegions} favorites={this.props.favorites} cachedCountries={this.props.cachedCountries} backArrow={true} />
         <ScrollableTabView tabBarPosition='bottom'  renderTabBar={() => <CustomTabBar someProp={'here'} />}>
-          <Health tabLabel="Health + Dangers" data={travelInfo[this.props.countryData.general.alpha2Code]} />
-          <Legal tabLabel="Legal Matters" data={travelInfo[this.props.countryData.general.alpha2Code]} />
-          <Transport tabLabel="Getting In + Around" data={travelInfo[this.props.countryData.general.alpha2Code]} />
-          <Money tabLabel="Money + Costs" data={travelInfo[this.props.countryData.general.alpha2Code]} />
+          <TravelInfoPortal tabLabel="Safety" colors={this.props.colors} data={[{header: 'Safety', icon: 'warning', content: dataObj.safety}, {header: 'Health', icon: 'medkit', content: dataObj.health}, {header: 'Law', icon: 'gavel', content: dataObj.law}, {header: 'Embassy', icon: 'building', content: dataObj.embassy}]} />
+          <TravelInfoPortal tabLabel="Getting In + Around" colors={this.props.colors} data={[{header: 'Entry', icon: 'book', content: dataObj.entry}, {header: 'Transport', icon: 'bus', content: dataObj.transport}]} />
+          <Money tabLabel="Money" data={travelInfo[this.props.countryData.general.alpha2Code]} />
         </ScrollableTabView>
       </View>
     );

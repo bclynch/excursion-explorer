@@ -27,10 +27,11 @@ export default class Home extends Component {
     super(props);
 
     this.state = {
-      favorites: [],
+      favorites: {countries: [], cities: []},
       cachedCountries: {}
     }
-    this.selectFavorite = this.selectFavorite.bind(this);
+    this.selectFavoriteCountry = this.selectFavoriteCountry.bind(this);
+    this.selectFavoriteCity = this.selectFavoriteCity.bind(this);
   }
 
   componentDidMount() {
@@ -83,11 +84,10 @@ export default class Home extends Component {
             store.save('allCountries', countryData.allCountries);
             console.log('Saving allCountries to storage');
             self.setState({countryRegions: countryData.regions});
-            self.setState({favorites: []});
             //saving our chopped data as well to avoid the loop parsing on every refresh
             store.save('countryRegions', countryData.regions);
             store.save('countries', {});
-            store.save('favorites', []);
+            store.save('favorites', {countries: [], cities: []});
             store.save('languages', languageData);
             store.save('currencies', currenciesJSON);
           });
@@ -133,8 +133,12 @@ export default class Home extends Component {
     return {allCountries: countryObj, regions: regionArchitecture};
   }
 
-  selectFavorite(country) {
+  selectFavoriteCountry(country) {
     Actions.countrysplash({selectedCountry: this.state.allCountries[country], allCountries: this.state.allCountries, countryRegions: this.state.countryRegions, favorites: this.state.favorites, cachedCountries: this.state.cachedCountries});
+  }
+
+  selectFavoriteCity(name, country, index) {
+    Actions.citysplash({destinationFeatures: this.state.cachedCountries[country].destinations[index], index: index, countryData: this.state.cachedCountries[country], allCountries: this.state.allCountries, countryRegions: this.state.countryRegions, favorites: this.state.favorites, cachedCountries: this.state.cachedCountries});
   }
 
   render() {
@@ -151,7 +155,8 @@ export default class Home extends Component {
           <FavoriteLocations
             favorites={this.state.favorites}
             cachedCountries={this.state.cachedCountries}
-            selectFavorite={this.selectFavorite}
+            selectFavoriteCountry={this.selectFavoriteCountry}
+            selectFavoriteCity={this.selectFavoriteCity}
           />
         </ScrollView>
       </View>

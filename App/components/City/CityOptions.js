@@ -45,10 +45,23 @@ export default class CityOptions extends Component {
         {text: 'Transportation', icon: 'plane', backgroundColor: '#e8c61b'},
         {text: 'Accomodations', icon: 'bed', backgroundColor: '#ff8e16'},
         {text: 'Services', icon: 'credit-card-alt', backgroundColor: '#00ffbb'},
-        {text: 'Add To Favorites', icon: 'star', backgroundColor: '#00ecf4'}
+        {text: props.isFavorite, icon: 'star', backgroundColor: '#00ecf4'}
       ]
     }
     this.renderOptions = this.renderOptions.bind(this);
+  }
+
+  componentWillReceiveProps(props) {
+    this.setState({data: [
+      {text: 'Food and Drink', icon: 'cutlery', backgroundColor: '#ff2dce'},
+      {text: 'Outdoors', icon: 'tree', backgroundColor: '#126300'},
+      {text: 'Landmarks + Sights', icon: 'building-o', backgroundColor: '#9b9b9b'},
+      {text: 'Shopping', icon: 'shopping-bag', backgroundColor: '#ac38ff'},
+      {text: 'Transportation', icon: 'plane', backgroundColor: '#e8c61b'},
+      {text: 'Accomodations', icon: 'bed', backgroundColor: '#ff8e16'},
+      {text: 'Services', icon: 'credit-card-alt', backgroundColor: '#00ffbb'},
+      {text: props.isFavorite, icon: 'star', backgroundColor: '#00ecf4'}
+    ]});
   }
 
   renderOptions(data) {
@@ -68,15 +81,6 @@ export default class CityOptions extends Component {
   }
 
   fireClick(option) {
-    function notAvailable(option) {
-      Alert.alert(
-              'Under Construction',
-              `Still working on ${option}, keep an eye out for updates!`,
-              [
-                {text: 'OK'},
-              ]
-            )
-    }
     switch(option) {
       case 'Food and Drink':
         Actions.citynav({cityInfo: this.props.cityInfo, option:'food', API: 'foodInformation', categories: ['restaurant', 'bar', 'coffee', 'club'], titles: ['Restaurants', 'Bars', 'Coffee', 'Clubs'], index: this.props.index, allCountries: this.props.allCountries, countryRegions: this.props.countryRegions, favorites: this.props.favorites, cachedCountries: this.props.cachedCountries});
@@ -100,8 +104,7 @@ export default class CityOptions extends Component {
         Actions.citynav({cityInfo: this.props.cityInfo, option:'services', API: 'servicesInformation', categories: ['atm', 'police', 'hospital', 'gas'], titles: ['ATMs', 'Police', 'Hospitals', 'Gas Stations'], index: this.props.index, allCountries: this.props.allCountries, countryRegions: this.props.countryRegions, favorites: this.props.favorites, cachedCountries: this.props.cachedCountries});
         break;
       case 'Add To Favorites':
-        notAvailable(option);
-        //this.props.toggleFavorite('Add');
+        this.props.toggleFavorite('Add');
         break;
       case 'Remove From Favorites':
         this.props.toggleFavorite('Remove');

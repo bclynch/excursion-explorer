@@ -19,7 +19,7 @@ export default class CountrySplash extends Component {
     this.state = {
       selectedCountryData: null,
       favorites: this.props.favorites,
-      isFavorite: this.props.favorites.indexOf(props.selectedCountry.name) !== -1
+      isFavorite: this.props.favorites.countries.indexOf(props.selectedCountry.name) !== -1
     }
     this.toggleFavorite = this.toggleFavorite.bind(this);
   }
@@ -93,15 +93,19 @@ export default class CountrySplash extends Component {
   toggleFavorite(state) {
     if(state === 'Add') {
       //adding to our store + update state
-      let newArr = this.state.favorites;
+      let newArr = this.state.favorites.countries;
       newArr.push(this.props.selectedCountry.name);
-      store.save('favorites', newArr);
-      this.setState({favorites: newArr, isFavorite: true});
+      let existingFavs = this.state.favorites;
+      existingFavs.countries = newArr;
+      store.save('favorites', existingFavs);
+      this.setState({favorites: existingFavs, isFavorite: true});
     } else {
-      let newArr = this.state.favorites;
-      newArr.splice(this.state.favorites.indexOf(this.props.selectedCountry.name), 1);
-      store.save('favorites', newArr);
-      this.setState({favorites: newArr, isFavorite: false});
+      let newArr = this.state.favorites.countries;
+      newArr.splice(this.state.favorites.countries.indexOf(this.props.selectedCountry.name), 1);
+      let existingFavs = this.state.favorites;
+      existingFavs.countries = newArr;
+      store.save('favorites', existingFavs);
+      this.setState({favorites: existingFavs, isFavorite: false});
     }
   }
 

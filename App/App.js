@@ -52,6 +52,14 @@ const getSceneStyle = (/* NavigationSceneRendererProps */ props, computedProps) 
   return style;
 };
 
+const colorPalette = {
+  primary: '#cecece',
+  secondary: '#00519e',
+  tertiary: '#f2a500',
+  textColor: '#595959',
+  underlayColor: '#eee'
+}
+
 export default class ExcursionExplorer extends Component {
   constructor(props) {
     super(props);
@@ -63,7 +71,7 @@ export default class ExcursionExplorer extends Component {
 
   render() {
     return (
-      <Router createReducer={reducerCreate} getSceneStyle={getSceneStyle}>
+      <Router createReducer={reducerCreate} getSceneStyle={getSceneStyle} colors={colorPalette}>
         <Scene key="modal" component={Modal} >
           <Scene key="root" hideNavBar hideTabBar>
             <Scene key="home" component={Home} title="Home" initial />

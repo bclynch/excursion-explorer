@@ -26,7 +26,7 @@ const styles = {
     width: width * .4
   },
   favoriteContainer: {
-    flex:1,
+    flex: 1,
     marginTop: 10,
     alignItems: 'center'
   },
@@ -40,30 +40,49 @@ export default class FavoriteLocations extends Component {
     super(props);
 
     this.state = {
-      data: null
+      countryData: null,
+      cityData: null
     }
     this.renderFavorites = this.renderFavorites.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
-    if(nextProps.favorites.length > 0) {
+    if(nextProps.favorites.countries.length > 0) {
       let data = [];
-      for(var i = 0; i < nextProps.favorites.length; i++) {
-          let obj = {};
-          const country = nextProps.favorites[i];
-          const photoData = nextProps.cachedCountries[country].flickr.photos.photo[0];
-          obj.text = country;
-          obj.src = `https://farm${photoData.farm}.staticflickr.com/${photoData.server}/${photoData.id}_${photoData.secret}_b.jpg`;
-          data.push(obj);
+      for(var i = 0; i < nextProps.favorites.countries.length; i++) {
+        let obj = {};
+        const country = nextProps.favorites.countries[i];
+        const photoData = nextProps.cachedCountries[country].flickr.photos.photo[0];
+        obj.text = country;
+        obj.src = `https://farm${photoData.farm}.staticflickr.com/${photoData.server}/${photoData.id}_${photoData.secret}_b.jpg`;
+        obj.type = 'country';
+        data.push(obj);
       }
-      this.setState({data: data});
+      this.setState({countryData: data});
+    }
+    if(nextProps.favorites.cities.length > 0) {
+      let cityData = [];
+      for(var i = 0; i < nextProps.favorites.cities.length; i++) {
+        let obj = {};
+        const country = nextProps.favorites.cities[i].country;
+        const city = nextProps.favorites.cities[i].name;
+        const index = nextProps.favorites.cities[i].index;
+        const photoData = nextProps.cachedCountries[country].destinations[index].features.photos[0];
+        obj.text = city;
+        obj.src = `https://farm${photoData.farm}.staticflickr.com/${photoData.server}/${photoData.id}_${photoData.secret}_b.jpg`;
+        obj.type = 'city';
+        obj.country = country;
+        obj.index = index;
+        cityData.push(obj);
+      }
+      this.setState({cityData: cityData});
     }
   }
 
   renderFavorites(data) {
     return (
       <View style={styles.favoriteContainer} key={data.text}>
-        <TouchableHighlight activeOpacity={0} onPress={() => this.props.selectFavorite(data.text)}>
+        <TouchableHighlight activeOpacity={0} onPress={() => {data.type === 'country' ? this.props.selectFavoriteCountry(data.text) : this.props.selectFavoriteCity(data.text, data.country, data.index)}}>
           <Image resizeMode='cover' style={styles.image} source={{uri: data.src}}>
             <View style={styles.textContainer}>
               <Text style={styles.text}>{data.text}</Text>
@@ -75,24 +94,71 @@ export default class FavoriteLocations extends Component {
   }
 
   render() {
-    if (this.state.data === null) {
-      return null;
-    }
     return (
       <View>
-        <View style={{alignItems: 'center', marginTop: 15, marginBottom: 15}}>
-          <Text style={{fontSize: 25}}>Favorite Places</Text>
-        </View>
-        <View style={{justifyContent: 'center', marginBottom: 20}}>
-          <GridView
-            items={this.state.data}
-            itemsPerRow={2}
-            renderItem={this.renderFavorites}
-            style={styles.listView}
-          />
-        </View>
+        {this.state.countryData && this.state.cityData ?
+          <View>
+            <View style={{alignItems: 'center', marginTop: 15, marginBottom: 15}}>
+              <Text style={{fontSize: 25}}>Favorite Countries</Text>
+            </View>
+            <View style={{justifyContent: 'center', marginBottom: 20}}>
+              <GridView
+                items={this.state.countryData}
+                itemsPerRow={2}
+                renderItem={this.renderFavorites}
+                style={styles.listView}
+              />
+            </View>
+            <View style={{alignItems: 'center', marginTop: 15, marginBottom: 15}}>
+              <Text style={{fontSize: 25}}>Favorite Cities</Text>
+            </View>
+            <View style={{justifyContent: 'center', marginBottom: 20}}>
+              <GridView
+                items={this.state.cityData}
+                itemsPerRow={2}
+                renderItem={this.renderFavorites}
+                style={styles.listView}
+              />
+            </View>
+          </View>
+          :
+          null
+        }
+        {this.state.countryData ?
+          <View>
+            <View style={{alignItems: 'center', marginTop: 15, marginBottom: 15}}>
+              <Text style={{fontSize: 25}}>Favorite Countries</Text>
+            </View>
+            <View style={{justifyContent: 'center', marginBottom: 20}}>
+              <GridView
+                items={this.state.countryData}
+                itemsPerRow={2}
+                renderItem={this.renderFavorites}
+                style={styles.listView}
+              />
+            </View>
+          </View>
+          :
+          null
+        }
+        {this.state.cityData ?
+          <View>
+            <View style={{alignItems: 'center', marginTop: 15, marginBottom: 15}}>
+              <Text style={{fontSize: 25}}>Favorite Cities</Text>
+            </View>
+            <View style={{justifyContent: 'center', marginBottom: 20}}>
+              <GridView
+                items={this.state.cityData}
+                itemsPerRow={2}
+                renderItem={this.renderFavorites}
+                style={styles.listView}
+              />
+            </View>
+          </View>
+          :
+          null
+        }
       </View>
     )
-
   }
 }

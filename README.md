@@ -34,9 +34,7 @@
 
 #Todos
 - Zoom into location on result press for destinations maps
-- Clean up callout for maps - check
-- Implement favorites functionality for cities
-- Clean up/condense travel information section
+- Overall app cohesion with color scheme/style (passed down from props)
 - Currency converter travel information
 - Visualizations for climate information
 - Settings page (about, clear memory, rate app)
