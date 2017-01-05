@@ -73,7 +73,7 @@ module.exports = {
     return Promise.all([p1, p2, p3]);
   },
   currency: (base) => {
-    return fetchData('http://api.fixer.io/latest?base=USD');
+    return fetchData(`http://api.fixer.io/latest?base=${base}`);
   }
   // climate: (countryCode) => {
   //   return fetchJsonp(`http://climatedataapi.worldbank.org/climateweb/rest/v1/country/cru/tas/month/${countryCode}?callback=handler`, {name: 'handler'})

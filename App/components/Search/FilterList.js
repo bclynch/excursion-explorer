@@ -68,9 +68,20 @@ export default class FilterList extends Component {
   render() {
     return (
       <View style={{flex: 1, alignItems: 'center'}}>
-        <NavBar allCountries={this.props.allCountries} countryRegions={this.props.countryRegions} favorites={this.props.favorites} cachedCountries={this.props.cachedCountries} backArrow={true} />
+        <NavBar
+          allCountries={this.props.allCountries}
+          countryRegions={this.props.countryRegions}
+          favorites={this.props.favorites}
+          cachedCountries={this.props.cachedCountries}
+          backArrow={true}
+          colors={this.props.colors}
+        />
         <ScrollView contentContainerStyle={{alignItems: 'center'}}>
-          <HeaderContainer type='filterlist' photo={this.props.src} name={this.props.selectedRegion} />
+          <HeaderContainer
+            type='filterlist'
+            photo={this.props.src}
+            name={this.props.selectedRegion}
+          />
           <ListView style={{marginTop: 10}}
             removeClippedSubviews={true}
             dataSource={this.state.dataSource}
@@ -79,7 +90,7 @@ export default class FilterList extends Component {
             initialListSize={15}
             pageSize={15}
           />
-      </ScrollView>
+        </ScrollView>
       </View>
     )
   }

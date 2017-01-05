@@ -45,16 +45,22 @@ export default class TravelInfoPortal extends Component {
 
   render() {
     return (
-      <ScrollView contentContainerStyle={{alignItems: 'center'}}>
-        <Accordion
-          sections={this.state.dataSource}
-          renderHeader={this.renderHeader}
-          renderContent={this.renderContent}
-          duration={700}
-          activeOpacity={0.1}
-          underlayColor={this.props.colors.underlayColor}
-        />
-    </ScrollView>
+      <View style={{alignItems: 'center'}}>
+        {this.props.data[0].content ?
+          <ScrollView contentContainerStyle={{alignItems: 'center'}}>
+            <Accordion
+              sections={this.state.dataSource}
+              renderHeader={this.renderHeader}
+              renderContent={this.renderContent}
+              duration={700}
+              activeOpacity={0.1}
+              underlayColor={this.props.colors.underlayColor}
+            />
+          </ScrollView>
+          :
+          <Text>Nein</Text>
+        }
+      </View>
     );
   }
 }

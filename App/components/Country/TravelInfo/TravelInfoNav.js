@@ -26,14 +26,36 @@ export default class TravelInfoNav extends Component {
   }
 
   render() {
-    const dataObj = travelInfo[this.props.countryData.general.alpha2Code];
+    const dataObj = travelInfo[this.props.countryData.general.alpha2Code] || {};
     return (
       <View style={{flex: 1, alignItems: 'center'}}>
-        <NavBar allCountries={this.props.allCountries} countryRegions={this.props.countryRegions} favorites={this.props.favorites} cachedCountries={this.props.cachedCountries} backArrow={true} />
-        <ScrollableTabView tabBarPosition='bottom'  renderTabBar={() => <CustomTabBar someProp={'here'} />}>
-          <TravelInfoPortal tabLabel="Safety" colors={this.props.colors} data={[{header: 'Safety', icon: 'warning', content: dataObj.safety}, {header: 'Health', icon: 'medkit', content: dataObj.health}, {header: 'Law', icon: 'gavel', content: dataObj.law}, {header: 'Embassy', icon: 'building', content: dataObj.embassy}]} />
-          <TravelInfoPortal tabLabel="Getting In + Around" colors={this.props.colors} data={[{header: 'Entry', icon: 'book', content: dataObj.entry}, {header: 'Transport', icon: 'bus', content: dataObj.transport}]} />
-          <Money tabLabel="Money" data={travelInfo[this.props.countryData.general.alpha2Code]} />
+        <NavBar
+          allCountries={this.props.allCountries}
+          countryRegions={this.props.countryRegions}
+          favorites={this.props.favorites}
+          cachedCountries={this.props.cachedCountries}
+          backArrow={true}
+          colors={this.props.colors}
+        />
+        <ScrollableTabView
+          tabBarPosition='bottom'
+          renderTabBar={() => <CustomTabBar someProp={'here'} />}
+        >
+          <TravelInfoPortal
+            tabLabel="Safety"
+            colors={this.props.colors}
+            data={[{header: 'Safety', icon: 'warning', content: dataObj.safety}, {header: 'Health', icon: 'medkit', content: dataObj.health}, {header: 'Law', icon: 'gavel', content: dataObj.law}, {header: 'Embassy', icon: 'building', content: dataObj.embassy}]}
+          />
+          <TravelInfoPortal
+            tabLabel="Getting In + Around"
+            colors={this.props.colors}
+            data={[{header: 'Entry', icon: 'book', content: dataObj.entry}, {header: 'Transport', icon: 'bus', content: dataObj.transport}]}
+          />
+          <Money
+            tabLabel="Money"
+            colors={this.props.colors}
+            countryData={this.props.countryData}
+          />
         </ScrollableTabView>
       </View>
     );

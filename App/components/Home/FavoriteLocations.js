@@ -82,7 +82,7 @@ export default class FavoriteLocations extends Component {
   renderFavorites(data) {
     return (
       <View style={styles.favoriteContainer} key={data.text}>
-        <TouchableHighlight activeOpacity={0} onPress={() => {data.type === 'country' ? this.props.selectFavoriteCountry(data.text) : this.props.selectFavoriteCity(data.text, data.country, data.index)}}>
+        <TouchableHighlight activeOpacity={0.1} underlayColor={this.props.colors.primary} onPress={() => {data.type === 'country' ? this.props.selectFavoriteCountry(data.text) : this.props.selectFavoriteCity(data.text, data.country, data.index)}}>
           <Image resizeMode='cover' style={styles.image} source={{uri: data.src}}>
             <View style={styles.textContainer}>
               <Text style={styles.text}>{data.text}</Text>

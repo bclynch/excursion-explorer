@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {View, Text, Dimensions, TouchableHighlight, Image, ScrollView} from "react-native";
 import {Actions} from "react-native-router-flux";
 import Icon from 'react-native-vector-icons/FontAwesome';
-import NavBar from './NavBar.js';
 
 const width = Dimensions.get('window').width;
 

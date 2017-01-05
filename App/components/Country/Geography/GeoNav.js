@@ -26,7 +26,14 @@ export default class GeoNav extends Component {
   render() {
     return (
       <View style={{flex: 1, alignItems: 'center'}}>
-        <NavBar allCountries={this.props.allCountries} countryRegions={this.props.countryRegions} favorites={this.props.favorites} cachedCountries={this.props.cachedCountries} backArrow={true} />
+        <NavBar
+          allCountries={this.props.allCountries}
+          countryRegions={this.props.countryRegions}
+          favorites={this.props.favorites}
+          cachedCountries={this.props.cachedCountries}
+          backArrow={true}
+          colors={this.props.colors} 
+        />
         <ScrollableTabView tabBarPosition='bottom'  renderTabBar={() => <CustomTabBar someProp={'here'} />}>
           <Weather tabLabel="Weather" />
           <Map tabLabel="Map" position={this.props.countryData.general.latlng} />

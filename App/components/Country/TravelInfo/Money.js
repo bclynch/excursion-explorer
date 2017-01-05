@@ -23,7 +23,7 @@ export default class Money extends Component {
   render() {
     return (
       <View style={{flex: 1, alignItems: 'center'}}>
-        <CurrencyConverter base={this.state.baseCurrency} alt={this.state.altCurrency} />
+        <CurrencyConverter colors={this.props.colors} base={this.state.baseCurrency} alt={this.props.countryData.general.currencies[0]} />
       </View>
     );
   }

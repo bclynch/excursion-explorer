@@ -85,7 +85,14 @@ export default class CityNav extends Component {
   render() {
     return (
       <View style={{flex: 1, alignItems: 'center'}}>
-        <NavBar allCountries={this.props.allCountries} countryRegions={this.props.countryRegions} favorites={this.props.favorites} cachedCountries={this.state.cachedCountries} backArrow={true} />
+        <NavBar
+          allCountries={this.props.allCountries}
+          countryRegions={this.props.countryRegions}
+          favorites={this.props.favorites}
+          cachedCountries={this.state.cachedCountries}
+          backArrow={true}
+          colors={this.props.colors}
+        />
         {
           this.state.readyToDisplay ?
             <ScrollableTabView tabBarPosition='bottom'  renderTabBar={() => <CustomTabBar someProp={'here'} />}>

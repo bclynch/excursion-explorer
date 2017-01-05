@@ -136,6 +136,7 @@ export default class DestinationsSplash extends Component {
           favorites={this.props.favorites}
           cachedCountries={this.state.cachedCountries}
           backArrow={true}
+          colors={this.props.colors}
         />
         <ScrollView contentContainerStyle={{alignItems: 'center'}}>
           {this.state.markers ?
@@ -157,7 +158,14 @@ export default class DestinationsSplash extends Component {
                     >
                       <MapView.Callout onPress={() => this.selectDestination(this.state.destinations[i], i)} tooltip style={{width: 140, height: 80}}>
                         <CustomCallout>
-                          <Text style={{color: 'rgba(255, 255, 255, 1)', opacity: 1, textAlign: 'center', fontSize: 16}}>Explore {marker.title}</Text>
+                          <Text style={{
+                              color: 'rgba(255, 255, 255, 1)',
+                              opacity: 1,
+                              textAlign: 'center',
+                              fontSize: 16
+                            }}>
+                              Explore {marker.title}
+                            </Text>
                         </CustomCallout>
                       </MapView.Callout>
                     </MapView.Marker>

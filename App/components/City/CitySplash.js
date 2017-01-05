@@ -132,6 +132,7 @@ export default class CitySplash extends Component {
           favorites={this.state.favorites}
           cachedCountries={this.state.cachedCountries}
           backArrow={true}
+          colors={this.props.colors}
         />
         {this.state.photos ?
           <ScrollView contentContainerStyle={{alignItems: 'center'}}>

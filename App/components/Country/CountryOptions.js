@@ -75,7 +75,7 @@ export default class CountryOptions extends Component {
   fireClick(option) {
     switch(option) {
       case 'Fast Facts':
-        Actions.fastfacts({countryData: this.props.country, allCountries: this.props.allCountries, countryRegions: this.props.countryRegions, favorites: this.props.favorites, cachedCountries: this.props.cachedCountries});
+        Actions.fastfacts({colors: this.props.colors, countryData: this.props.country, allCountries: this.props.allCountries, countryRegions: this.props.countryRegions, favorites: this.props.favorites, cachedCountries: this.props.cachedCountries});
         break;
       case 'Destinations':
         Actions.destinationssplash({countryData: this.props.country, allCountries: this.props.allCountries, countryRegions: this.props.countryRegions, favorites: this.props.favorites, cachedCountries: this.props.cachedCountries});

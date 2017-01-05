@@ -3,7 +3,6 @@ import {View, Text, StyleSheet, ScrollView, Dimensions, ActivityIndicator} from 
 import {Actions} from "react-native-router-flux";
 import MapView from 'react-native-maps';
 import store from 'react-native-simple-store';
-import NavBar from '../NavBar.js';
 import CityInfoList from './CityInfoList.js';
 import CustomCallout from '../CustomCallout.js';
 

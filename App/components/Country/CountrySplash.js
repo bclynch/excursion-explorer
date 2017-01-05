@@ -118,6 +118,7 @@ export default class CountrySplash extends Component {
           favorites={this.state.favorites}
           cachedCountries={this.props.cachedCountries}
           backArrow={true}
+          colors={this.props.colors}
         />
         <ScrollView contentContainerStyle={{alignItems: 'center'}}>
           <SwiperCarousel
@@ -134,6 +135,7 @@ export default class CountrySplash extends Component {
             countryRegions={this.props.countryRegions}
             favorites={this.state.favorites}
             cachedCountries={this.props.cachedCountries}
+            colors={this.props.colors}
           />
         </ScrollView>
       </View>

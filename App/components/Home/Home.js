@@ -90,7 +90,7 @@ export default class Home extends Component {
             store.save('favorites', {countries: [], cities: []});
             store.save('languages', languageData);
             store.save('currencies', currenciesJSON);
-            store.save('currencyInfo', {data: {}, lastUpdated: 123});
+            store.save('currencyInfo', {});
           });
         }
       })
@@ -151,6 +151,7 @@ export default class Home extends Component {
           favorites={this.state.favorites}
           cachedCountries={this.state.cachedCountries}
           backArrow={false}
+          colors={this.props.colors}
         />
         <ScrollView {...this.props}  contentContainerStyle={styles.container}>
           <FavoriteLocations
@@ -158,6 +159,7 @@ export default class Home extends Component {
             cachedCountries={this.state.cachedCountries}
             selectFavoriteCountry={this.selectFavoriteCountry}
             selectFavoriteCity={this.selectFavoriteCity}
+            colors={this.props.colors}
           />
         </ScrollView>
       </View>

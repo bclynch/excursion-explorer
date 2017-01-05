@@ -74,35 +74,43 @@ export default class FastFacts extends Component {
   }
 
   renderFacts() {
-      return this.state.data.map(function(item) {
-        if(item.category === 'Land Mass') {
-          return (
-            <View key={item.category} style={styles.factoid}>
-              <Icon name={item.icon} size={30} color="#cecece" />
-              <View style={{justifyContent: 'space-around', alignItems: 'flex-end'}}>
-                <View style={{flexDirection: 'row', }}><Text style={{fontSize: 20}}>{item.value}</Text><View style={{alignItems: 'flex-start'}}><Text style={{fontSize: 8}}>2</Text></View></View>
-                <Text>{item.category}</Text>
-              </View>
+    const self = this;
+    return this.state.data.map(function(item) {
+      if(item.category === 'Land Mass') {
+        return (
+          <View key={item.category} style={styles.factoid}>
+            <Icon name={item.icon} size={30} color={self.props.colors.primary} />
+            <View style={{justifyContent: 'space-around', alignItems: 'flex-end'}}>
+              <View style={{flexDirection: 'row', }}><Text style={{fontSize: 20}}>{item.value}</Text><View style={{alignItems: 'flex-start'}}><Text style={{fontSize: 8}}>2</Text></View></View>
+              <Text>{item.category}</Text>
             </View>
-          );
-        } else {
-          return (
-            <View key={item.category} style={styles.factoid}>
-              <Icon name={item.icon} size={30} color="#cecece" />
-              <View style={{justifyContent: 'space-around', alignItems: 'flex-end'}}>
-                <Text style={{fontSize: 20}}>{item.value}</Text>
-                <Text>{item.category}</Text>
-              </View>
+          </View>
+        );
+      } else {
+        return (
+          <View key={item.category} style={styles.factoid}>
+            <Icon name={item.icon} size={30} color={self.props.colors.primary} />
+            <View style={{justifyContent: 'space-around', alignItems: 'flex-end'}}>
+              <Text style={{fontSize: 20}}>{item.value}</Text>
+              <Text>{item.category}</Text>
             </View>
-          );
-        }
+          </View>
+        );
+      }
     });
   }
 
   render(){
     return (
       <View style={{flex: 1, alignItems: 'center'}}>
-        <NavBar allCountries={this.props.allCountries} countryRegions={this.props.countryRegions} favorites={this.props.favorites} cachedCountries={this.props.cachedCountries} backArrow={true} />
+        <NavBar
+          allCountries={this.props.allCountries}
+          countryRegions={this.props.countryRegions}
+          favorites={this.props.favorites}
+          cachedCountries={this.props.cachedCountries}
+          backArrow={true}
+          colors={this.props.colors}
+        />
         <ScrollView contentContainerStyle={{alignItems: 'center'}}>
           <HeaderContainer type='fastfacts' photo={this.state.photo} name={this.props.countryData.general.altSpellings[1] || this.props.countryData.general.name} />
           {this.state.data ?
