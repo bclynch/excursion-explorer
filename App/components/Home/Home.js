@@ -32,6 +32,11 @@ export default class Home extends Component {
     }
     this.selectFavoriteCountry = this.selectFavoriteCountry.bind(this);
     this.selectFavoriteCity = this.selectFavoriteCity.bind(this);
+    this.checkStore = this.checkStore.bind(this);
+  }
+
+  componentWillReceiveProps() {
+    Actions.refresh(this.props.allCountries);
   }
 
   componentDidMount() {
@@ -49,8 +54,11 @@ export default class Home extends Component {
       return;
     }
 
-    //store.delete('allCountries');
+    this.checkStore();
+  }
 
+  checkStore() {
+    const self = this;
     //Checking local storage for existing data, if any
     store.get('allCountries')
       .then((countries) => {

@@ -26,16 +26,17 @@ export default class NavBar extends Component {
         height: 80
       }
     }
+    //Resetting the route on home click in hopes of clearing up memory leaks and associated issues
     return (
       <View style={styles.container}>
         { this.props.backArrow ?
         <TouchableHighlight onPress={Actions.pop} title='Back' activeOpacity={0.1} underlayColor={this.props.colors.primary}>
           <Icon name="arrow-left" size={30} color={this.props.colors.primary} />
         </TouchableHighlight> :
-        <TouchableHighlight activeOpacity={0.1} underlayColor={this.props.colors.primary} onPress={Actions.settings}>
+        <TouchableHighlight activeOpacity={0.1} underlayColor={this.props.colors.primary} onPress={() => Actions.settings({colors: this.props.colors, allCountries: this.props.allCountries})}>
           <Icon name="cog" size={30} color={this.props.colors.primary} />
         </TouchableHighlight> }
-        <TouchableHighlight activeOpacity={0.1} underlayColor={this.props.colors.primary} onPress={() => Actions.home({allCountries: this.props.allCountries, countryRegions: this.props.countryRegions, favorites: this.props.favorites, cachedCountries: this.props.cachedCountries})}>
+        <TouchableHighlight activeOpacity={0.1} underlayColor={this.props.colors.primary} onPress={() => Actions.home({type: 'reset', allCountries: this.props.allCountries, countryRegions: this.props.countryRegions, favorites: this.props.favorites, cachedCountries: this.props.cachedCountries})}>
           <Icon name="rocket" size={30} color={this.props.colors.primary} />
         </TouchableHighlight>
         <TouchableHighlight activeOpacity={0.1} underlayColor={this.props.colors.primary} onPress={() => Actions.search({allCountries: this.props.allCountries, countryRegions: this.props.countryRegions, favorites: this.props.favorites, cachedCountries: this.props.cachedCountries})}>

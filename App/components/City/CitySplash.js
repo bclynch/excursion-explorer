@@ -152,6 +152,7 @@ export default class CitySplash extends Component {
               countryRegions={this.props.countryRegions}
               favorites={this.state.favorites}
               cachedCountries={this.state.cachedCountries}
+              colors={this.props.colors}
             />
           </ScrollView>
           :

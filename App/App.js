@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, TouchableHighlight } from 'react-native';
 import { Scene, Reducer, Router, Switch, Modal, Actions, ActionConst, Button } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
+import Intro from './components/Intro.js';
 import Home from './components/Home/Home.js';
 import Settings from './components/Settings.js';
 import Search from './components/Search/Search';
@@ -74,7 +75,8 @@ export default class ExcursionExplorer extends Component {
       <Router createReducer={reducerCreate} getSceneStyle={getSceneStyle} colors={colorPalette}>
         <Scene key="modal" component={Modal} >
           <Scene key="root" hideNavBar hideTabBar>
-            <Scene key="home" component={Home} title="Home" initial />
+            <Scene key="intro" component={Intro} title="Intro" initial />
+            <Scene key="home" component={Home} title="Home" />
             <Scene key="settings" component={Settings} title="Settings" />
             <Scene key="search" component={Search} title="Search" />
             <Scene key="filterlist" component={FilterList} title="FilterList" />

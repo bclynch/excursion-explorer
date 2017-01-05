@@ -35,6 +35,8 @@
 #Todos
 - Zoom into location on result press for destinations maps
 - Overall app cohesion with color scheme/style (passed down from props)
-- Currency converter travel information
+- Currency converter travel information - check
+- App intro - Look into dynamic routing so only when no data
+- Work on caching permissions (Settings information saved in store)
 - Visualizations for climate information
 - Settings page (about, clear memory, rate app)

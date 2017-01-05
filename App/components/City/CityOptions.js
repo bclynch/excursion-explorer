@@ -68,7 +68,7 @@ export default class CityOptions extends Component {
     const self = this;
     return (
       <View style={styles.optionContainer} key={data.text}>
-        <TouchableHighlight activeOpacity={0} onPress={() => self.fireClick(data.text)}>
+        <TouchableHighlight activeOpacity={0.1} underlayColor={this.props.colors.primary} onPress={() => self.fireClick(data.text)}>
           <View style={{alignItems: 'center', backgroundColor: data.backgroundColor, height: 200, width: width * .4}}>
             <Icon name={data.icon} style={{marginTop: 45}} size={50} color="#fff" />
             <View style={styles.textContainer}>
