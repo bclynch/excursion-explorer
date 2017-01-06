@@ -3,6 +3,7 @@ import {View, Text, StyleSheet, Button, TouchableHighlight, ScrollView, Dimensio
 import {Actions} from "react-native-router-flux";
 import store from 'react-native-simple-store';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import Graph from '../Widgets/Graph.js';
 
 import NavBar from '../NavBar.js';
 import FavoriteLocations from './FavoriteLocations.js';
@@ -12,6 +13,8 @@ import currenciesJSON from '../../../assets/currencies.json';
 
 import API from '../../api.js';
 
+const width = Dimensions.get('window').width;
+
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "transparent",
@@ -20,15 +23,14 @@ const styles = StyleSheet.create({
   }
 });
 
-const width = Dimensions.get('window').width;
-
 export default class Home extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       favorites: {countries: [], cities: []},
-      cachedCountries: {}
+      cachedCountries: {},
+      stateReady: false
     }
     this.selectFavoriteCountry = this.selectFavoriteCountry.bind(this);
     this.selectFavoriteCity = this.selectFavoriteCity.bind(this);
@@ -49,7 +51,8 @@ export default class Home extends Component {
         allCountries: this.props.allCountries,
         countryRegions: this.props.countryRegions,
         cachedCountries: this.props.cachedCountries,
-        favorites: this.props.favorites
+        favorites: this.props.favorites,
+        stateReady: true
       });
       return;
     }
@@ -66,21 +69,18 @@ export default class Home extends Component {
         //if so then set our allCountries state equal to the array
         if(countries) {
           console.log('Grabbing all countries from cache');
-          self.setState({allCountries: countries});
           //snagging cached regions information
           store.get('countryRegions')
             .then((regions) => {
-              self.setState({countryRegions: regions});
               console.log('Regions: ', regions);
               console.log('All countries: ', countries);
               store.get('countries')
                 .then((cachedCountries) => {
                   console.log('Cached countries: ', cachedCountries);
-                  self.setState({cachedCountries: cachedCountries});
                   store.get('favorites')
                     .then((favorites) => {
                       console.log('Favorites: ', favorites);
-                      self.setState({favorites: favorites});
+                      self.setState({favorites: favorites, allCountries: countries, countryRegions: regions, cachedCountries: cachedCountries, stateReady: true});
                     });
                 });
             });
@@ -88,10 +88,9 @@ export default class Home extends Component {
           API.grabAllCountries().then((data) => {
             const countryData = self.chopUpData(data);
             const languageData = self.convertLanguageData(languageJSON);
-            self.setState({allCountries: countryData.allCountries});
             store.save('allCountries', countryData.allCountries);
             console.log('Saving allCountries to storage');
-            self.setState({countryRegions: countryData.regions});
+            self.setState({countryRegions: countryData.regions, allCountries: countryData.allCountries, stateReady: true});
             //saving our chopped data as well to avoid the loop parsing on every refresh
             store.save('countryRegions', countryData.regions);
             store.save('countries', {});
@@ -161,6 +160,20 @@ export default class Home extends Component {
           backArrow={false}
           colors={this.props.colors}
         />
+        <Graph
+          type='line'
+          data={[[
+              [0, 1],
+              [1, 3],
+              [3, 7],
+              [4, 9],
+          ]]}
+          width={width * .8}
+          height={200}
+          title='My Title'
+          xAxisLabel='x axis'
+          yAxisLabel='y axis is my jam'
+        />
         <ScrollView {...this.props}  contentContainerStyle={styles.container}>
           <FavoriteLocations
             favorites={this.state.favorites}
@@ -168,6 +181,7 @@ export default class Home extends Component {
             selectFavoriteCountry={this.selectFavoriteCountry}
             selectFavoriteCity={this.selectFavoriteCity}
             colors={this.props.colors}
+            stateReady={this.state.stateReady}
           />
         </ScrollView>
       </View>

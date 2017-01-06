@@ -72,7 +72,12 @@ export default class ExcursionExplorer extends Component {
 
   render() {
     return (
-      <Router createReducer={reducerCreate} getSceneStyle={getSceneStyle} colors={colorPalette}>
+      <Router
+        createReducer={reducerCreate}
+        getSceneStyle={getSceneStyle}
+        colors={colorPalette}
+        panHandlers={null}
+      >
         <Scene key="modal" component={Modal} >
           <Scene key="root" hideNavBar hideTabBar>
             <Scene key="intro" component={Intro} title="Intro" initial />

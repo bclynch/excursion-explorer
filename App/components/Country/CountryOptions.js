@@ -39,7 +39,7 @@ export default class CountryOptions extends Component {
     this.state = {
       data: [{text: 'Fast Facts', icon: 'list', backgroundColor: 'red'},
       {text: 'Destinations', icon: 'building-o', backgroundColor: 'green'},
-      {text: 'Climate +\nGeography', icon: 'sun-o', backgroundColor: 'orange'},
+      {text: 'Climate +\nSociety', icon: 'sun-o', backgroundColor: 'orange'},
       {text: 'Travel Info', icon: 'globe', backgroundColor: 'purple'},
       {text: props.isFavorite, icon: 'star', backgroundColor: '#00ecf4'}
     ]}
@@ -50,7 +50,7 @@ export default class CountryOptions extends Component {
     this.setState({data: [
       {text: 'Fast Facts', icon: 'list', backgroundColor: 'red'},
       {text: 'Destinations', icon: 'building-o', backgroundColor: 'green'},
-      {text: 'Climate +\nGeography', icon: 'sun-o', backgroundColor: 'orange'},
+      {text: 'Climate +\nSociety', icon: 'sun-o', backgroundColor: 'orange'},
       {text: 'Travel Info', icon: 'globe', backgroundColor: 'purple'},
       {text: props.isFavorite, icon: 'star', backgroundColor: '#00ecf4'}
     ]});
@@ -80,7 +80,7 @@ export default class CountryOptions extends Component {
       case 'Destinations':
         Actions.destinationssplash({countryData: this.props.country, allCountries: this.props.allCountries, countryRegions: this.props.countryRegions, favorites: this.props.favorites, cachedCountries: this.props.cachedCountries});
         break;
-      case 'Climate +\nGeography':
+      case 'Climate +\nSociety':
         Actions.geonav({countryData: this.props.country, allCountries: this.props.allCountries, countryRegions: this.props.countryRegions, favorites: this.props.favorites, cachedCountries: this.props.cachedCountries});
         break;
       case 'Travel Info':

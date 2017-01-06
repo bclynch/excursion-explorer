@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AppRegistry, Text, View, Image, TouchableHighlight, Dimensions, ScrollView } from 'react-native';
+import { AppRegistry, Text, View, Image, TouchableHighlight, Dimensions, ScrollView, ActivityIndicator } from 'react-native';
 import {Actions} from "react-native-router-flux";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import GridView from 'react-native-grid-view';
@@ -158,7 +158,18 @@ export default class FavoriteLocations extends Component {
                 )
               ]
               :
-              <View key='c'><Text>None</Text></View>
+              [
+                (
+                  this.props.stateReady ?
+                  <View key='c'><Text>None Saved</Text></View>
+                  :
+                  <ActivityIndicator
+                    style={{height: 125}}
+                    size="large"
+                    color={this.props.colors.tertiary}
+                  />
+                )
+              ]
             )
           ]
         }

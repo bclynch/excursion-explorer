@@ -181,6 +181,7 @@ export default class DestinationsSplash extends Component {
              <ActivityIndicator
                style={{height: 125}}
                size="large"
+               color={this.props.colors.tertiary}
              />
          }
         </ScrollView>

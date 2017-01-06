@@ -30,7 +30,6 @@ export default class CityNav extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('firing will receive');
     this.setState({readyToDisplay: false});
     this.snagData(nextProps.cityInfo, nextProps.option, nextProps.API);
   }
@@ -77,7 +76,15 @@ export default class CityNav extends Component {
     const self = this;
     return this.props.titles.map(function(item, i) {
       return (
-        <CityPortal key={i} tabLabel={item} data={self.state.cityInfo} title={item} type={self.props.categories[i]} option={self.props.option} />
+        <CityPortal
+          key={i}
+          tabLabel={item}
+          data={self.state.cityInfo}
+          title={item}
+          type={self.props.categories[i]}
+          option={self.props.option}
+          colors={self.props.colors}
+        />
       );
     });
   }
@@ -102,6 +109,7 @@ export default class CityNav extends Component {
             <ActivityIndicator
               style={{height: 125}}
               size="large"
+              color={this.props.colors.tertiary}
             />
         }
       </View>

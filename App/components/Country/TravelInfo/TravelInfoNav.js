@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {View, Text, StyleSheet, Dimensions, ActivityIndicator} from "react-native";
+import {View, Text, StyleSheet, Dimensions} from "react-native";
 import {Actions} from "react-native-router-flux";
 import ScrollableTabView from 'react-native-scrollable-tab-view';
 import store from 'react-native-simple-store';

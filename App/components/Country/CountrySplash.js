@@ -52,11 +52,9 @@ export default class CountrySplash extends Component {
     } else {
       //Doesn't exist so grab data
       console.log('grabbing new data');
-      API.countryData(countryCode, name, Keys.flickr.key).then((data) => {
+      API.countryPhotoData(name, Keys.flickr.key).then((data) => {
         const newCountryData = {
-          agInfo: data[0],
-          frstInfo: data[1],
-          flickr: data[2],
+          flickr: data,
           general: this.props.selectedCountry
         }
         self.setState({selectedCountryData: newCountryData});
@@ -126,6 +124,7 @@ export default class CountrySplash extends Component {
             horizontal={true}
             autoPlaySpeed={5}
             slides={this.chopPictures(this.state.selectedCountryData)}
+            colors={this.props.colors}
           />
           <CountryOptions
             toggleFavorite={this.toggleFavorite}

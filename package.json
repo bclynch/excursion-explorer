@@ -12,6 +12,7 @@
     "react": "15.4.1",
     "react-native": "0.39.2",
     "react-native-app-intro": "^1.1.5",
+    "react-native-chart": "git://github.com/robcalcroft/react-native-chart.git",
     "react-native-collapsible": "^0.7.0",
     "react-native-grid-view": "^0.4.1",
     "react-native-maps": "^0.12.2",

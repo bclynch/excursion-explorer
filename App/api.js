@@ -8,12 +8,26 @@ module.exports = {
   grabAllCountries: () => {
     return fetchData('https://restcountries.eu/rest/v1/all');
   },
-  countryData: (countryCode, name, key) => {
-    p1 = fetchData(`http://api.worldbank.org/v2/countries/${countryCode}/indicators/AG.LND.AGRI.ZS?date=2009&format=json`);
-    p2 = fetchData(`http://api.worldbank.org/v2/countries/${countryCode}/indicators/AG.LND.FRST.ZS?date=2009&format=json`);
-    p3 = fetchData(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${key}&tags=${name},landscape&tag_mode=all&content_type=1&sort=interestingness-desc&format=json&nojsoncallback=1`);
+  countryPhotoData: (name, key) => {
+    return fetchData(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${key}&tags=${name},landscape&tag_mode=all&content_type=1&sort=interestingness-desc&format=json&nojsoncallback=1`);
+  },
+  countryTerrainData: (countryCode) => {
+    p1 = fetchData(`http://api.worldbank.org/v2/countries/${countryCode}/indicators/AG.LND.AGRI.ZS?&format=json`); //ag as % land over time
+    p2 = fetchData(`http://api.worldbank.org/v2/countries/${countryCode}/indicators/AG.LND.FRST.ZS?&format=json`); //frst as % land over time
+    p3 = fetchData(`http://api.worldbank.org/v2/countries/${countryCode}/indicators/SP.URB.TOTL?&format=json`); //total urban pop over time
+    p4 = fetchData(`http://api.worldbank.org/v2/countries/${countryCode}/indicators/SP.URB.TOTL.IN.ZS?&format=json`); //% urban pop of total over time
+    p5 = fetchData(`http://api.worldbank.org/v2/countries/${countryCode}/indicators/SP.POP.TOTL?&format=json`); //total pop over time
+    p6 = fetchData(`http://api.worldbank.org/v2/countries/${countryCode}/indicators/SP.RUR.TOTL?&format=json`); //total rural pop over time
+    p7 = fetchData(`http://api.worldbank.org/v2/countries/${countryCode}/indicators/SP.RUR.TOTL.ZS?&format=json`); //% rural pop of total over time
+    p8 = fetchData(`http://api.worldbank.org/v2/countries/${countryCode}/indicators/NY.GDP.MKTP.CD?&format=json`); //total gdp over time
+    p9 = fetchData(`http://api.worldbank.org/v2/countries/${countryCode}/indicators/NY.GDP.MKTP.KD.ZG?&format=json`); //gdp growth over time
+    p10 = fetchData(`http://api.worldbank.org/v2/countries/${countryCode}/indicators/SL.UEM.TOTL.ZS?&format=json`); //unemployment % of workforce
+    p11 = fetchData(`http://api.worldbank.org/v2/countries/${countryCode}/indicators/EN.POP.SLUM.UR.ZS?&format=json`); //Population living in slums, (% of urban population)
+    p12 = fetchData(`http://api.worldbank.org/v2/countries/${countryCode}/indicators/SP.DYN.LE00.IN?&format=json`); //life expectency
+    p13 = fetchData(`http://api.worldbank.org/v2/countries/${countryCode}/indicators/SP.DYN.TFRT.IN?&format=json`); //Fertility rate
+    p14 = fetchData(`http://api.worldbank.org/v2/countries/${countryCode}/indicators/IT.NET.USER.P2?&format=json`); //Internet users (per 100 people)
 
-    return Promise.all([p1, p2, p3]);
+    return Promise.all([p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14]);
   },
   destinations: (username, countryCode) => {
     return fetchData(`http://api.geonames.org/searchJSON?formatted=true&country=${countryCode}&orderby=population&featureClass=p&username=${username}`);

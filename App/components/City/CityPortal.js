@@ -110,6 +110,7 @@ export default class CityPortal extends Component {
              <ActivityIndicator
                style={{height: 125}}
                size="large"
+               color={this.props.colors.tertiary}
              />
          }
         </ScrollView>

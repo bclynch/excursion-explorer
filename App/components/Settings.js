@@ -60,7 +60,8 @@ export default class Settings extends Component {
           header: 'About',
           items: [
             {
-              title: 'Product Tour'
+              title: 'Product Tour',
+              press: function() {Actions.intro()}
             },
             {
               title: 'About This App',

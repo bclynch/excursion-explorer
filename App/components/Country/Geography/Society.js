@@ -8,7 +8,7 @@ const styles = {
 
 const width = Dimensions.get('window').width;
 
-export default class Weather extends Component {
+export default class Society extends Component {
   constructor(props) {
     super(props);
 
@@ -20,7 +20,7 @@ export default class Weather extends Component {
   render() {
     return (
       <View style={{flex: 1, alignItems: 'center'}}>
-        
+        <Text>Society</Text>
       </View>
     );
   }

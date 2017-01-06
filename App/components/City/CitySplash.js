@@ -141,6 +141,7 @@ export default class CitySplash extends Component {
               horizontal={true}
               autoPlaySpeed={5}
               slides={this.chopPictures(this.state.photos)}
+              colors={this.props.colors}
             />
             <CityOptions
               cityInfo={this.state.cityInfo}
@@ -159,6 +160,7 @@ export default class CitySplash extends Component {
           <ActivityIndicator
             style={{height: 125}}
             size="large"
+            color={this.props.colors.tertiary}
           />
         }
 

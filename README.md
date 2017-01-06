@@ -36,7 +36,8 @@
 - Zoom into location on result press for destinations maps
 - Overall app cohesion with color scheme/style (passed down from props)
 - Currency converter travel information - check
-- App intro - Look into dynamic routing so only when no data
+- Check on validation and fallback for errors (better visuals when no data available or none)
+- App intro - Look into dynamic routing so only when no data (i.e. first time with app) ==> Use a splash/loading looking screen and route to intro or home based on component did mount check of whether the all countries store exists
 - Work on caching permissions (Settings information saved in store)
-- Visualizations for climate information
+- Visualizations for climate information - Chart template finished
 - Settings page (about, clear memory, rate app)

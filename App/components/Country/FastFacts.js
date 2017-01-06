@@ -113,12 +113,18 @@ export default class FastFacts extends Component {
         />
         <ScrollView contentContainerStyle={{alignItems: 'center'}}>
           <HeaderContainer type='fastfacts' photo={this.state.photo} name={this.props.countryData.general.altSpellings[1] || this.props.countryData.general.name} />
-          {this.state.data ?
-          <View style={styles.factsContainer}>
-            {this.renderFacts()}
-          </View>
-          :
-          <ActivityIndicator style={[styles.centering, {height: 125}]} size="large" /> }
+          {
+            this.state.data ?
+              <View style={styles.factsContainer}>
+                {this.renderFacts()}
+              </View>
+              :
+              <ActivityIndicator
+                style={[styles.centering, {height: 125}]}
+                size="large"
+                color={this.props.colors.tertiary}
+              />
+          }
         </ScrollView>
       </View>
     );
