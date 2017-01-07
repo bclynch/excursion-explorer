@@ -23,7 +23,8 @@ export default class GeoNav extends Component {
 
     this.state = {
       cachedCountries: props.cachedCountries,
-      readyToDisplay: false
+      readyToDisplay: false,
+      countryData: props.countryData
     }
   }
 
@@ -96,7 +97,7 @@ export default class GeoNav extends Component {
             }
         }
         for(var i = 0; i < data.length; i++) {
-          countryData[indentifierTags(data[i][1][0].indicator.id)] = data[i][1];
+          societyData[indentifierTags(data[i][1][0].indicator.id)] = data[i][1];
         }
 
         //Updating our data for cities, selectedcountry, and allcountries to cache new data
@@ -106,7 +107,7 @@ export default class GeoNav extends Component {
         cachedCountries[countryData.general.name] = existingCountryInfo;
 
         store.save('countries', cachedCountries);
-        this.setState({cachedCountries: cachedCountries, readyToDisplay: true})
+        this.setState({cachedCountries: cachedCountries, countryData: existingCountryInfo, readyToDisplay: true})
       }).catch(function(err) {
         console.log(err);
       });
@@ -128,8 +129,8 @@ export default class GeoNav extends Component {
           this.state.readyToDisplay ?
             <ScrollableTabView tabBarPosition='bottom'  renderTabBar={() => <CustomTabBar someProp={'here'} />}>
               <Weather tabLabel="Weather" />
-              <Society tabLabel="Society" />
-              <Terrain tabLabel="Terrain" position={this.props.countryData.general.latlng} />
+              <Society tabLabel="Society" colors={this.props.colors} countryData={this.state.countryData} />
+              <Terrain tabLabel="Terrain" colors={this.props.colors} countryData={this.state.countryData} position={this.props.countryData.general.latlng} />
             </ScrollableTabView>
             :
             <ActivityIndicator

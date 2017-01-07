@@ -80,8 +80,8 @@ export default class ExcursionExplorer extends Component {
       >
         <Scene key="modal" component={Modal} >
           <Scene key="root" hideNavBar hideTabBar>
-            <Scene key="intro" component={Intro} title="Intro" initial />
-            <Scene key="home" component={Home} title="Home" />
+            <Scene key="intro" component={Intro} title="Intro" />
+            <Scene key="home" component={Home} title="Home" initial />
             <Scene key="settings" component={Settings} title="Settings" />
             <Scene key="search" component={Search} title="Search" />
             <Scene key="filterlist" component={FilterList} title="FilterList" />

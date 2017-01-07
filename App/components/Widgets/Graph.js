@@ -53,7 +53,13 @@ export default class Graph extends Component {
               style={styles.chart}
               data={this.state.data}
               type={this.props.type}
-              showDataPoint={true}
+              verticalGridStep={this.props.verticalGridStep || null}
+              horizontalGridStep={this.props.horizontalGridStep || null}
+              yAxisShortLabel={this.props.yAxisShortLabel || false}
+              showDataPoint={this.props.showDataPoint || false}
+              lineWidth={this.props.lineWidth || 1}
+              yAxisUseDecimal={this.props.yAxisUseDecimal || false}
+              color={[this.props.color] || null}
            />
         </View>
         {

@@ -3,7 +3,6 @@ import {View, Text, StyleSheet, Button, TouchableHighlight, ScrollView, Dimensio
 import {Actions} from "react-native-router-flux";
 import store from 'react-native-simple-store';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import Graph from '../Widgets/Graph.js';
 
 import NavBar from '../NavBar.js';
 import FavoriteLocations from './FavoriteLocations.js';
@@ -159,20 +158,6 @@ export default class Home extends Component {
           cachedCountries={this.state.cachedCountries}
           backArrow={false}
           colors={this.props.colors}
-        />
-        <Graph
-          type='line'
-          data={[[
-              [0, 1],
-              [1, 3],
-              [3, 7],
-              [4, 9],
-          ]]}
-          width={width * .8}
-          height={200}
-          title='My Title'
-          xAxisLabel='x axis'
-          yAxisLabel='y axis is my jam'
         />
         <ScrollView {...this.props}  contentContainerStyle={styles.container}>
           <FavoriteLocations
