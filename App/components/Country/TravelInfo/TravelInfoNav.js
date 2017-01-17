@@ -36,6 +36,7 @@ export default class TravelInfoNav extends Component {
           cachedCountries={this.props.cachedCountries}
           backArrow={true}
           colors={this.props.colors}
+          settings={this.props.settings}
         />
         <ScrollableTabView
           tabBarPosition='bottom'

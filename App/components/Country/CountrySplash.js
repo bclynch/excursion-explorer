@@ -117,6 +117,7 @@ export default class CountrySplash extends Component {
           cachedCountries={this.props.cachedCountries}
           backArrow={true}
           colors={this.props.colors}
+          settings={this.props.settings}
         />
         <ScrollView contentContainerStyle={{alignItems: 'center'}}>
           <SwiperCarousel

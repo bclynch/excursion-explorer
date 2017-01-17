@@ -21,6 +21,8 @@ export default class Graph extends Component {
             alignItems: 'center',
             backgroundColor: 'white',
             width: this.props.width,
+            marginTop: this.props.marginTop || null,
+            marginBottom: this.props.marginBottom || null
         },
         chart: {
             width: this.props.width,

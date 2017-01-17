@@ -35,7 +35,7 @@ export default class NavBar extends Component {
         <TouchableHighlight activeOpacity={0.1} underlayColor={this.props.colors.primary} onPress={() => Actions.settings({settings: this.props.settings, colors: this.props.colors, allCountries: this.props.allCountries})}>
           <Icon name="cog" size={30} color={this.props.colors.primary} />
         </TouchableHighlight> }
-        <TouchableHighlight activeOpacity={0.1} underlayColor={this.props.colors.primary} onPress={() => Actions.home({type: 'reset', allCountries: this.props.allCountries, countryRegions: this.props.countryRegions, favorites: this.props.favorites, cachedCountries: this.props.cachedCountries})}>
+        <TouchableHighlight activeOpacity={0.1} underlayColor={this.props.colors.primary} onPress={() => Actions.home({type: 'reset', settings: this.props.settings, allCountries: this.props.allCountries, countryRegions: this.props.countryRegions, favorites: this.props.favorites, cachedCountries: this.props.cachedCountries})}>
           <Icon name="rocket" size={30} color={this.props.colors.primary} />
         </TouchableHighlight>
         <TouchableHighlight activeOpacity={0.1} underlayColor={this.props.colors.primary} onPress={() => Actions.search({settings: this.props.settings, allCountries: this.props.allCountries, countryRegions: this.props.countryRegions, favorites: this.props.favorites, cachedCountries: this.props.cachedCountries})}>

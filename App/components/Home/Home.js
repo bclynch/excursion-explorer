@@ -47,6 +47,7 @@ export default class Home extends Component {
     store.get('appSettings').then((settings) => {
       if(settings) {
         this.setState({settings: settings});
+        console.log('Accessing settings');
       } else {
         //if app settings haven't been set up then create the store
         store.save('appSettings', {units: 'imperial', temp: 'F'});

@@ -43,7 +43,7 @@ export default class FilterRegion extends Component {
     //Would be nice to have a banner type look for each of the regions
     //Could have accordian look with the rest of the subregions/countries displayed on click
     return (
-      <TouchableHighlight activeOpacity={0} style={styles.filterOption} onPress={() => Actions.filterlist({allCountries: this.props.allCountries, countryRegions: this.props.countryRegions, favorites: this.props.favorites, cachedCountries: this.props.cachedCountries, selectedRegion: data.text, src: data.src})}>
+      <TouchableHighlight activeOpacity={0} style={styles.filterOption} onPress={() => Actions.filterlist({settings: this.props.settings, allCountries: this.props.allCountries, countryRegions: this.props.countryRegions, favorites: this.props.favorites, cachedCountries: this.props.cachedCountries, selectedRegion: data.text, src: data.src})}>
         <Image resizeMode='stretch' style={styles.image} source={data.src}>
           <View style={styles.textContainer}>
             <Text style={styles.text}>{data.text}</Text>

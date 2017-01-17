@@ -51,7 +51,7 @@ export default class FilterList extends Component {
 
   renderRow(data) {
     return (
-      <TouchableHighlight style={styles.listOption} onPress={() => Actions.countrysplash({selectedCountry: this.props.allCountries[data], allCountries: this.props.allCountries, countryRegions: this.props.countryRegions, favorites: this.props.favorites, cachedCountries: this.props.cachedCountries})}>
+      <TouchableHighlight style={styles.listOption} onPress={() => Actions.countrysplash({settings: this.props.settings, selectedCountry: this.props.allCountries[data], allCountries: this.props.allCountries, countryRegions: this.props.countryRegions, favorites: this.props.favorites, cachedCountries: this.props.cachedCountries})}>
         <Text style={styles.text}>{data}</Text>
       </TouchableHighlight>
     );
@@ -75,6 +75,7 @@ export default class FilterList extends Component {
           cachedCountries={this.props.cachedCountries}
           backArrow={true}
           colors={this.props.colors}
+          settings={this.props.settings}
         />
         <ScrollView contentContainerStyle={{alignItems: 'center'}}>
           <HeaderContainer

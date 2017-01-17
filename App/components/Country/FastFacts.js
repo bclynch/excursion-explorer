@@ -126,6 +126,7 @@ export default class FastFacts extends Component {
           cachedCountries={this.props.cachedCountries}
           backArrow={true}
           colors={this.props.colors}
+          settings={this.props.settings}
         />
         <ScrollView contentContainerStyle={{alignItems: 'center'}}>
           <HeaderContainer type='fastfacts' photo={this.state.photo} name={this.props.countryData.general.altSpellings[1] || this.props.countryData.general.name} />

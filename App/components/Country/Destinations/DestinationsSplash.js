@@ -124,7 +124,7 @@ export default class DestinationsSplash extends Component {
   }
 
   selectDestination(data, index) {
-    Actions.citysplash({destinationFeatures: data, index: index, countryData: this.state.selectedCountryData, allCountries: this.props.allCountries, countryRegions: this.props.countryRegions, favorites: this.props.favorites, cachedCountries: this.state.cachedCountries});
+    Actions.citysplash({settings: this.props.settings, destinationFeatures: data, index: index, countryData: this.state.selectedCountryData, allCountries: this.props.allCountries, countryRegions: this.props.countryRegions, favorites: this.props.favorites, cachedCountries: this.state.cachedCountries});
   }
 
   render() {
@@ -137,6 +137,7 @@ export default class DestinationsSplash extends Component {
           cachedCountries={this.state.cachedCountries}
           backArrow={true}
           colors={this.props.colors}
+          settings={this.props.settings}
         />
         <ScrollView contentContainerStyle={{alignItems: 'center'}}>
           {this.state.markers ?

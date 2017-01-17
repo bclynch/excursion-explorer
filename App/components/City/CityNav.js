@@ -99,6 +99,7 @@ export default class CityNav extends Component {
           cachedCountries={this.state.cachedCountries}
           backArrow={true}
           colors={this.props.colors}
+          settings={this.props.settings}
         />
         {
           this.state.readyToDisplay ?

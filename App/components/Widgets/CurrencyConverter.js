@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {View, Text, StyleSheet, Dimensions, TextInput} from "react-native";
+import {View, Text, StyleSheet, Dimensions, TextInput, ActivityIndicator} from "react-native";
 import {Actions} from "react-native-router-flux";
 import ModalDropdown from 'react-native-modal-dropdown';
 import store from 'react-native-simple-store';
@@ -23,7 +23,8 @@ export default class CurrencyConverter extends Component {
       baseValue: (1).toString(),
       altValue: null,
       multiplier: null,
-      currObj: null
+      currObj: null,
+      stateReady: false
     }
     this.modValue = this.modValue.bind(this);
     this.newBase = this.newBase.bind(this);
@@ -53,14 +54,18 @@ export default class CurrencyConverter extends Component {
       API.currency(baseCurrency).then(data => {
         const existingObj = info;
         existingObj[baseCurrency] = {data: data, lastUpdated: Date.now()};
+        this.setState({stateReady: true});
         this.setState({data: data.rates, storeData: existingObj, multiplier: data.rates[this.state.altCurrency], altValue: (this.state.baseValue * data.rates[this.state.altCurrency]).toFixed(2).toString()});
+        console.log(this.state);
         store.save('currencyInfo', existingObj);
       }).catch(error => {
         console.log(error)
       });
     } else {
       console.log('Using cached currency data');
+      this.setState({stateReady: true});
       this.setState({data: info[baseCurrency].data.rates, storeData: info, multiplier: info[baseCurrency].data.rates[this.state.altCurrency], altValue: (this.state.baseValue * info[baseCurrency].data.rates[this.state.altCurrency]).toFixed(2).toString()});
+      console.log(this.state);
     }
   }
 
@@ -132,7 +137,18 @@ export default class CurrencyConverter extends Component {
             </View>
           </View>
           :
-          <Text>No Data Available</Text>
+          [
+            (
+              this.state.stateReady ?
+                <Text>No Data Available</Text>
+                :
+                <ActivityIndicator
+                  style={{height: 125}}
+                  size="large"
+                  color={this.props.colors.tertiary}
+                />
+            )
+          ]
         }
       </View>
     );

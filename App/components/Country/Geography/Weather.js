@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {View, Text, StyleSheet, Dimensions, ScrollView} from "react-native";
 import {Actions} from "react-native-router-flux";
 import Graph from '../../Widgets/Graph.js';
+import WeatherSummary from './WeatherSummary.js';
 
 const styles = {
 
@@ -76,7 +77,7 @@ export default class Society extends Component {
     this.props.countryData.societyData[type].map(function(item) {
       let tempArr = [];
       tempArr.push(self.convertNumberToMonth(item.month)); //x value
-      tempArr.push(item.data === null ? '' : self.modUnits(item.data), type); //y value. If undefined make it an empty string to continue line
+      tempArr.push(item.data === null ? '' : self.modUnits(item.data, type)); //y value. If undefined make it an empty string to continue line
       arr.push(tempArr);
     });
     arr = [arr];
@@ -108,30 +109,36 @@ export default class Society extends Component {
           data={this.state.temp}
           width={width * .8}
           height={200}
+          marginTop={25}
+          marginBottom={10}
           title='Average Temperature'
           yAxisLabel={this.props.settings.temp === 'C' ? 'Temperature (C)' : 'Temperature (F)'}
-          verticalGridStep={8}
+          verticalGridStep={this.props.settings.temp === 'C' ? 5 : 8}
           horizontalGridStep={12}
           yAxisShortLabel={true}
           showDataPoint={true}
           lineWidth={3}
           color={this.props.colors.tertiary}
         />
+      <WeatherSummary data={this.props.countryData.societyData.temp} type='temperature' unit={this.props.settings.temp === 'C' ? 'C' : 'F'} />
         <Graph
           type='line'
           data={this.state.precip}
           width={width * .8}
           height={200}
+          marginTop={25}
+          marginBottom={10}
           title='Average Precipitation'
           yAxisLabel={this.props.settings.units === 'metric' ? 'Precipitation (mm)' : 'Precipitation (in)'}
-          verticalGridStep={8}
+          verticalGridStep={this.props.settings.units === 'metric' ? 8 : 3}
           horizontalGridStep={12}
           yAxisShortLabel={true}
           showDataPoint={true}
           lineWidth={3}
           color={this.props.colors.tertiary}
         />
-    </ScrollView>
+      <WeatherSummary data={this.props.countryData.societyData.precip} type='precipitation' unit={this.props.settings.units === 'metric' ? 'mm' : 'in'} />
+      </ScrollView>
     );
   }
 }
