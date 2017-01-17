@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, Text, View, TouchableHighlight } from 'react-native';
 import { Scene, Reducer, Router, Switch, Modal, Actions, ActionConst, Button } from 'react-native-router-flux';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import store from 'react-native-simple-store';
 
 import Intro from './components/Intro.js';
 import Home from './components/Home/Home.js';
@@ -66,7 +67,6 @@ export default class ExcursionExplorer extends Component {
     super(props);
 
     this.state = {
-
     }
   }
 

@@ -39,4 +39,5 @@
 - App intro - Look into dynamic routing so only when no data (i.e. first time with app) ==> Use a splash/loading looking screen and route to intro or home based on component did mount check of whether the all countries store exists
 - Work on caching permissions (Settings information saved in store)
 - Pull in climate data
+- Create legend prop for graph component
 - Settings page (about, clear memory (check), rate app)

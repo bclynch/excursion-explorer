@@ -48,7 +48,7 @@ export default class GeoNav extends Component {
     } else {
       //Doesn't exist so grab data
       console.log(`grabbing new society data`);
-      API.countryTerrainData(this.props.countryData.general.alpha2Code).then((data) => {
+      API.countryTerrainData(this.props.countryData.general.alpha2Code, this.props.countryData.general.alpha3Code).then((data) => {
         let societyData = {};
         function indentifierTags(id) {
           switch(id) {
@@ -97,7 +97,13 @@ export default class GeoNav extends Component {
             }
         }
         for(var i = 0; i < data.length; i++) {
-          societyData[indentifierTags(data[i][1][0].indicator.id)] = data[i][1];
+          if(i === data.length - 1) {
+            societyData['precip'] = data[i];
+          } else if(i === data.length - 2) {
+            societyData['temp'] = data[i];
+          } else {
+            societyData[indentifierTags(data[i][1][0].indicator.id)] = data[i][1];
+          }
         }
 
         //Updating our data for cities, selectedcountry, and allcountries to cache new data
@@ -128,7 +134,7 @@ export default class GeoNav extends Component {
         {
           this.state.readyToDisplay ?
             <ScrollableTabView tabBarPosition='bottom'  renderTabBar={() => <CustomTabBar someProp={'here'} />}>
-              <Weather tabLabel="Weather" />
+              <Weather tabLabel="Weather" colors={this.props.colors} countryData={this.state.countryData} settings={this.props.settings} />
               <Society tabLabel="Society" colors={this.props.colors} countryData={this.state.countryData} />
               <Terrain tabLabel="Terrain" colors={this.props.colors} countryData={this.state.countryData} position={this.props.countryData.general.latlng} />
             </ScrollableTabView>

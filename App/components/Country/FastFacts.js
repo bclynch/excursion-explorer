@@ -43,6 +43,7 @@ export default class FastFacts extends Component {
   }
 
   componentDidMount() {
+    const self = this;
     store.get('languages')
       .then((langObj) => {
         store.get('currencies')
@@ -59,12 +60,27 @@ export default class FastFacts extends Component {
                 return item
               }
             });
+            const units = function() {
+              if(self.props.settings.units === 'metric') {
+                return 'km'
+              } else {
+                return 'mi'
+              }
+            }
+            const area = function() {
+              if(self.props.settings.units === 'metric') {
+                return data.area.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+              } else {
+                const number = Math.round(data.area * .621371);
+                return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+              }
+            }
             this.setState({data: [
               {category: 'Capital', value: data.capital, icon: 'building'},
               {category: 'Region', value: data.subregion, icon: 'map-o'},
               {category: 'Borders', value: data.borders.join(', '), icon: 'map-marker'},
               {category: 'Population', value: data.population.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","), icon: 'male'},
-              {category: 'Land Mass', value: `${data.area.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}km`, icon: 'street-view'},
+              {category: 'Land Mass', value: `${area()}${units()}`, icon: 'street-view'},
               {category: 'Languages', value: langArr.join(', '), icon: 'language'},
               {category: 'Calling Code', value: `+${data.callingCodes}`, icon: 'phone'},
               {category: 'Currencies', value: currArr.join(', '), icon: 'money'}

@@ -29,19 +29,32 @@ export default class Home extends Component {
     this.state = {
       favorites: {countries: [], cities: []},
       cachedCountries: {},
-      stateReady: false
+      stateReady: false,
+      settings: null
     }
     this.selectFavoriteCountry = this.selectFavoriteCountry.bind(this);
     this.selectFavoriteCity = this.selectFavoriteCity.bind(this);
     this.checkStore = this.checkStore.bind(this);
   }
 
-  componentWillReceiveProps() {
+  componentWillReceiveProps(props) {
     Actions.refresh(this.props.allCountries);
   }
 
   componentDidMount() {
     const self = this;
+
+    store.get('appSettings').then((settings) => {
+      if(settings) {
+        this.setState({settings: settings});
+      } else {
+        //if app settings haven't been set up then create the store
+        store.save('appSettings', {units: 'imperial', temp: 'F'});
+        this.setState({settings: {units: 'imperial', temp: 'F'}});
+      }
+    }).catch((err) => {
+      console.log(err);
+    });
 
     //If we already snagged our initial data then cont using props
     if(this.props.allCountries) {
@@ -141,11 +154,11 @@ export default class Home extends Component {
   }
 
   selectFavoriteCountry(country) {
-    Actions.countrysplash({selectedCountry: this.state.allCountries[country], allCountries: this.state.allCountries, countryRegions: this.state.countryRegions, favorites: this.state.favorites, cachedCountries: this.state.cachedCountries});
+    Actions.countrysplash({settings: this.state.settings, selectedCountry: this.state.allCountries[country], allCountries: this.state.allCountries, countryRegions: this.state.countryRegions, favorites: this.state.favorites, cachedCountries: this.state.cachedCountries});
   }
 
   selectFavoriteCity(name, country, index) {
-    Actions.citysplash({destinationFeatures: this.state.cachedCountries[country].destinations[index], index: index, countryData: this.state.cachedCountries[country], allCountries: this.state.allCountries, countryRegions: this.state.countryRegions, favorites: this.state.favorites, cachedCountries: this.state.cachedCountries});
+    Actions.citysplash({settings: this.state.settings, destinationFeatures: this.state.cachedCountries[country].destinations[index], index: index, countryData: this.state.cachedCountries[country], allCountries: this.state.allCountries, countryRegions: this.state.countryRegions, favorites: this.state.favorites, cachedCountries: this.state.cachedCountries});
   }
 
   render() {
@@ -158,6 +171,7 @@ export default class Home extends Component {
           cachedCountries={this.state.cachedCountries}
           backArrow={false}
           colors={this.props.colors}
+          settings={this.state.settings}
         />
         <ScrollView {...this.props}  contentContainerStyle={styles.container}>
           <FavoriteLocations

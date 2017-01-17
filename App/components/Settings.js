@@ -25,6 +25,9 @@ export default class Settings extends Component {
     const self = this;
 
     this.state = {
+      unitDescription: props.settings.units.charAt(0).toUpperCase() + props.settings.units.slice(1), //current choice
+      tempDescription: props.settings.temp, //current choice
+      settings: this.props.settings,
       data: [
         {
           header: 'Data Cache',
@@ -47,12 +50,48 @@ export default class Settings extends Component {
           header: 'Unit Settings',
           items: [
             {
-              title: 'Distance Units',
-              descr: ''//current choice with modal to select between two
+              title: 'Units',
+              press: function() {Alert.alert(
+                                  'Units',
+                                  'Select the type of units for the application to display',
+                                  [
+                                    {text: 'Cancel'},
+                                    {text: 'Imperial', onPress: () => {
+                                      let settings = self.state.settings;
+                                      settings.units = 'imperial';
+                                      self.setState({unitDescription: 'Imperial', settings: settings});
+                                      store.save('appSettings', settings);
+                                    }},
+                                    {text: 'Metric', onPress: () => {
+                                      let settings = self.state.settings;
+                                      settings.units = 'metric';
+                                      self.setState({unitDescription: 'Metric', settings: settings});
+                                      store.save('appSettings', settings);
+                                    }}
+                                  ]
+                                )}
             },
             {
               title: 'Temperature Units',
-              descr: ''//current choice with modal to select between two
+              press: function() {Alert.alert(
+                                  'Temperature Units',
+                                  'Select the type of temperature units for the application to display',
+                                  [
+                                    {text: 'Cancel'},
+                                    {text: 'Fahrenheit', onPress: () => {
+                                      let settings = self.state.settings;
+                                      settings.temp = 'F';
+                                      self.setState({tempDescription: 'F', settings: settings});
+                                      store.save('appSettings', settings);
+                                    }},
+                                    {text: 'Celsius', onPress: () => {self.setState({tempDescription: 'C'})
+                                      let settings = self.state.settings;
+                                      settings.temp = 'C';
+                                      self.setState({tempDescription: 'C', settings: settings});
+                                      store.save('appSettings', settings);
+                                    }},
+                                  ]
+                                )}
             }
           ]
         },
@@ -99,7 +138,19 @@ export default class Settings extends Component {
                     <Text style={{fontSize: 20, color: self.props.colors.textColor}}>{subitem.title}</Text>
                   </View>
                   <View style={{marginBottom: 18}}>
-                    <Text style={{fontSize: 16, color: self.props.colors.primary}}>{subitem.descr}</Text>
+                    {
+                      subitem.title === 'Units' || subitem.title === 'Temperature Units' ?
+                        [
+                          (
+                            subitem.title === 'Units' ?
+                              <Text key={self.state.unitDescription} style={{fontSize: 16, color: self.props.colors.primary}}>{self.state.unitDescription}</Text>
+                              :
+                              <Text key={self.state.tempDescription} style={{fontSize: 16, color: self.props.colors.primary}}>{self.state.tempDescription}</Text>
+                          )
+                        ]
+                        :
+                        <Text style={{fontSize: 16, color: self.props.colors.primary}}>{subitem.descr}</Text>
+                    }
                   </View>
                 </View>
               </TouchableHighlight>

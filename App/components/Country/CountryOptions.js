@@ -75,13 +75,13 @@ export default class CountryOptions extends Component {
   fireClick(option) {
     switch(option) {
       case 'Fast Facts':
-        Actions.fastfacts({colors: this.props.colors, countryData: this.props.country, allCountries: this.props.allCountries, countryRegions: this.props.countryRegions, favorites: this.props.favorites, cachedCountries: this.props.cachedCountries});
+        Actions.fastfacts({settings: this.props.settings, colors: this.props.colors, countryData: this.props.country, allCountries: this.props.allCountries, countryRegions: this.props.countryRegions, favorites: this.props.favorites, cachedCountries: this.props.cachedCountries});
         break;
       case 'Destinations':
         Actions.destinationssplash({countryData: this.props.country, allCountries: this.props.allCountries, countryRegions: this.props.countryRegions, favorites: this.props.favorites, cachedCountries: this.props.cachedCountries});
         break;
       case 'Climate +\nSociety':
-        Actions.geonav({countryData: this.props.country, allCountries: this.props.allCountries, countryRegions: this.props.countryRegions, favorites: this.props.favorites, cachedCountries: this.props.cachedCountries});
+        Actions.geonav({settings: this.props.settings, countryData: this.props.country, allCountries: this.props.allCountries, countryRegions: this.props.countryRegions, favorites: this.props.favorites, cachedCountries: this.props.cachedCountries});
         break;
       case 'Travel Info':
         Actions.travelinfonav({countryData: this.props.country, allCountries: this.props.allCountries, countryRegions: this.props.countryRegions, favorites: this.props.favorites, cachedCountries: this.props.cachedCountries});

@@ -135,6 +135,7 @@ export default class CountrySplash extends Component {
             favorites={this.state.favorites}
             cachedCountries={this.props.cachedCountries}
             colors={this.props.colors}
+            settings={this.props.settings}
           />
         </ScrollView>
       </View>

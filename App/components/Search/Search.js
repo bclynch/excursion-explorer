@@ -30,7 +30,7 @@ export default class Search extends Component {
   }
 
   handleSelection(data) {
-    Actions.countrysplash({selectedCountry: this.props.allCountries[data], allCountries: this.props.allCountries, countryRegions: this.props.countryRegions, favorites: this.props.favorites, cachedCountries: this.props.cachedCountries});
+    Actions.countrysplash({settings: this.props.settings, selectedCountry: this.props.allCountries[data], allCountries: this.props.allCountries, countryRegions: this.props.countryRegions, favorites: this.props.favorites, cachedCountries: this.props.cachedCountries});
   }
 
   handleKeyboardEnter() {
@@ -46,7 +46,7 @@ export default class Search extends Component {
               ]
             )
     } else {
-      Actions.countrysplash({selectedCountry: this.props.allCountries[query], allCountries: this.props.allCountries, countryRegions: this.props.countryRegions, favorites: this.props.favorites, cachedCountries: this.props.cachedCountries});
+      Actions.countrysplash({settings: this.props.settings, selectedCountry: this.props.allCountries[query], allCountries: this.props.allCountries, countryRegions: this.props.countryRegions, favorites: this.props.favorites, cachedCountries: this.props.cachedCountries});
     }
   }
 
