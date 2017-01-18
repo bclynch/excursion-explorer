@@ -22,14 +22,13 @@ module.exports = {
     p8 = fetchData(`http://api.worldbank.org/v2/countries/${countryCode}/indicators/NY.GDP.MKTP.CD?&format=json`); //total gdp over time
     p9 = fetchData(`http://api.worldbank.org/v2/countries/${countryCode}/indicators/NY.GDP.MKTP.KD.ZG?&format=json`); //gdp growth over time
     p10 = fetchData(`http://api.worldbank.org/v2/countries/${countryCode}/indicators/SL.UEM.TOTL.ZS?&format=json`); //unemployment % of workforce
-    p11 = fetchData(`http://api.worldbank.org/v2/countries/${countryCode}/indicators/EN.POP.SLUM.UR.ZS?&format=json`); //Population living in slums, (% of urban population)
-    p12 = fetchData(`http://api.worldbank.org/v2/countries/${countryCode}/indicators/SP.DYN.LE00.IN?&format=json`); //life expectency
-    p13 = fetchData(`http://api.worldbank.org/v2/countries/${countryCode}/indicators/SP.DYN.TFRT.IN?&format=json`); //Fertility rate
-    p14 = fetchData(`http://api.worldbank.org/v2/countries/${countryCode}/indicators/IT.NET.USER.P2?&format=json`); //Internet users (per 100 people)
-    p15 =  fetchData(`http://climatedataapi.worldbank.org/climateweb/rest/v1/country/cru/tas/month/${alpha3}`);
-    p16 =  fetchData(`http://climatedataapi.worldbank.org/climateweb/rest/v1/country/cru/pr/month/${alpha3}`);
+    p11 = fetchData(`http://api.worldbank.org/v2/countries/${countryCode}/indicators/SP.DYN.LE00.IN?&format=json`); //life expectency
+    p12 = fetchData(`http://api.worldbank.org/v2/countries/${countryCode}/indicators/SP.DYN.TFRT.IN?&format=json`); //Fertility rate
+    p13 = fetchData(`http://api.worldbank.org/v2/countries/${countryCode}/indicators/IT.NET.USER.P2?&format=json`); //Internet users (per 100 people)
+    p14 =  fetchData(`http://climatedataapi.worldbank.org/climateweb/rest/v1/country/cru/tas/month/${alpha3}`);
+    p15 =  fetchData(`http://climatedataapi.worldbank.org/climateweb/rest/v1/country/cru/pr/month/${alpha3}`);
 
-    return Promise.all([p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15, p16]);
+    return Promise.all([p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12, p13, p14, p15]);
   },
   destinations: (username, countryCode) => {
     return fetchData(`http://api.geonames.org/searchJSON?formatted=true&country=${countryCode}&orderby=population&featureClass=p&username=${username}`);

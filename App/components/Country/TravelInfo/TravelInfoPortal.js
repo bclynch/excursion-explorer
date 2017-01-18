@@ -58,7 +58,10 @@ export default class TravelInfoPortal extends Component {
             />
           </ScrollView>
           :
-          <Text>Nein</Text>
+          <View style={{alignItems:'center', width: width * .85}}>
+            <Text style={{fontSize: 24, color: this.props.colors.textColor, textAlign: 'center', marginVertical: 80}}>Sorry, no {this.props.tabLabel.toLowerCase()} information available at this time</Text>
+            <Icon name="chain-broken" size={80} color={this.props.colors.tertiary} />
+          </View>
         }
       </View>
     );

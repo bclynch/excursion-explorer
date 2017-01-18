@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { AppRegistry, Text, View, TouchableHighlight, Dimensions } from 'react-native';
 import {Actions} from "react-native-router-flux";
 import Icon from 'react-native-vector-icons/FontAwesome';
+import SvgUri from 'react-native-svg-uri';
 
 const width = Dimensions.get('window').width;
 
@@ -45,3 +46,5 @@ export default class NavBar extends Component {
     )
   }
 }
+
+//<SvgUri width="30" height="30" source={require('../img/logo.svg')} />

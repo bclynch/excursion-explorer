@@ -161,13 +161,17 @@ export default class FavoriteLocations extends Component {
               [
                 (
                   this.props.stateReady ?
-                  <View key='c'><Text>None Saved</Text></View>
-                  :
-                  <ActivityIndicator
-                    style={{height: 125}}
-                    size="large"
-                    color={this.props.colors.tertiary}
-                  />
+                    <View style={{alignItems:'center', width: width * .85}}>
+                      <Text style={{fontSize: 24, color: this.props.colors.textColor, textAlign: 'center', marginVertical: 60}}>Looks like you haven't saved any favorite destinations yet!</Text>
+                      <Text style={{fontSize: 18, color: this.props.colors.textColor, textAlign: 'center', marginVertical: 20}}>Save any country or city to your favorites to pin them here</Text>
+                      <Icon name="globe" size={80} color={this.props.colors.tertiary} />
+                    </View>
+                    :
+                    <ActivityIndicator
+                      style={{height: 125}}
+                      size="large"
+                      color={this.props.colors.tertiary}
+                    />
                 )
               ]
             )

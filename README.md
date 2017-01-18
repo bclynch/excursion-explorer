@@ -38,7 +38,9 @@
 - Check on validation and fallback for errors (better visuals when no data available or none)
 - App intro - Look into dynamic routing so only when no data (i.e. first time with app) ==> Use a splash/loading looking screen and route to intro or home based on component did mount check of whether the all countries store exists
 - Work on caching permissions (Settings information saved in store)
-- Create legend prop for graph component
+- Create legend prop for graph component (check)
+- Current weather for capital
+- Alternative if flickr isn't returning anything
 - Create better 'stories' for our society data
 - Gallery section?
 - Settings page (about, clear memory (check), rate app, unit settings (check))

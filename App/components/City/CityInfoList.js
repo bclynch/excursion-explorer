@@ -76,8 +76,8 @@ export default class CityInfoList extends Component {
                 enableEmptySections
               />
               :
-              <View style={{marginTop: 40}}>
-                <Text style={{fontSize: 20, textAlign: 'center'}}>No {this.props.title.toLowerCase()} information available to display</Text>
+              <View style={{marginTop: 40, width: width * .85}}>
+                <Text style={{fontSize: 20, textAlign: 'center'}}>Sorry, no {this.props.title.toLowerCase()} information available to display</Text>
               </View>
             }
           </View>

@@ -3,6 +3,7 @@ import {View, Text, StyleSheet, Dimensions, TextInput, ActivityIndicator} from "
 import {Actions} from "react-native-router-flux";
 import ModalDropdown from 'react-native-modal-dropdown';
 import store from 'react-native-simple-store';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import API from '../../api.js';
 
@@ -140,7 +141,10 @@ export default class CurrencyConverter extends Component {
           [
             (
               this.state.stateReady ?
-                <Text>No Data Available</Text>
+                <View style={{alignItems:'center', width: width * .85}}>
+                  <Text style={{fontSize: 24, color: this.props.colors.textColor, textAlign: 'center', marginVertical: 80}}>Sorry, no currency data available for {this.state.currObj[this.state.altCurrency].name_plural} at this time</Text>
+                  <Icon name="chain-broken" size={80} color={this.props.colors.tertiary} />
+                </View>
                 :
                 <ActivityIndicator
                   style={{height: 125}}

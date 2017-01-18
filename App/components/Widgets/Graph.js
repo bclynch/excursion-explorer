@@ -12,6 +12,18 @@ export default class Graph extends Component {
     this.state = {
       data: props.data
     }
+    this.renderLegendOptions = this.renderLegendOptions.bind(this);
+  }
+
+  renderLegendOptions() {
+    return this.props.legendOptions.map(item => {
+      return (
+        <View style={{flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', width: this.props.width / this.props.legendOptions.length}}>
+          <Text>{item.name}</Text>
+          <View style={{backgroundColor: item.color, height: 5, width: 40}}></View>
+        </View>
+      )
+    });
   }
 
   render() {
@@ -61,7 +73,7 @@ export default class Graph extends Component {
               showDataPoint={this.props.showDataPoint || false}
               lineWidth={this.props.lineWidth || 1}
               yAxisUseDecimal={this.props.yAxisUseDecimal || false}
-              color={[this.props.color] || null}
+              color={this.props.data.length > 1 ? this.props.color : [this.props.color] || null}
            />
         </View>
         {
@@ -69,6 +81,14 @@ export default class Graph extends Component {
           <View>
             <Text>{this.props.xAxisLabel}</Text>
           </View>
+            :
+            null
+        }
+        {
+          this.props.data.length > 1 ?
+            <View style={{borderWidth: 2, borderColor: this.props.legendBorderColor, width: this.props.width, paddingVertical: 5, flexDirection: 'row', justifyContent: 'space-around', marginTop: 15}}>
+              {this.renderLegendOptions()}
+            </View>
             :
             null
         }
