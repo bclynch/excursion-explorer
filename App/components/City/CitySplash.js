@@ -16,6 +16,8 @@ export default class CitySplash extends Component {
   constructor(props) {
     super(props);
 
+    console.log(props);
+
     function checkFavorite() {
       for(var i=0; i < props.favorites.cities.length; i++) {
         if (props.favorites.cities[i].name === props.destinationFeatures.name) {
@@ -83,8 +85,7 @@ export default class CitySplash extends Component {
 
     //Validating there are flickr photos
     if(photoArr.length < 5) {
-      //Need some placeholder that says it doesn't exist or something. Dunno
-      return null;
+      return ['no pics'];
     }
 
     let slides = [];
@@ -143,6 +144,7 @@ export default class CitySplash extends Component {
               autoPlaySpeed={5}
               slides={this.chopPictures(this.state.photos)}
               colors={this.props.colors}
+              backup={{primary: this.props.destinationFeatures.name, sub: this.props.destinationFeatures.country}}
             />
             <CityOptions
               cityInfo={this.state.cityInfo}

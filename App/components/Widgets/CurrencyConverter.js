@@ -133,7 +133,7 @@ export default class CurrencyConverter extends Component {
                 style={{flex: 3}}
                />
             </View>
-            <View style={{alignItems: 'center', marginTop: 25}}>
+            <View style={{alignItems: 'center', marginTop: 25, width: width * .85}}>
               <Text style={{fontSize: 25, color: this.props.colors.textColor, textAlign: 'center'}}>{this.state.baseValue} {this.state.baseValue === '1' ? this.state.currObj[this.state.baseCurrency].name : this.state.currObj[this.state.baseCurrency].name_plural} is equal to {this.state.altValue} {this.state.altValue === '1' ? this.state.currObj[this.state.altCurrency].name : this.state.currObj[this.state.altCurrency].name_plural}</Text>
             </View>
           </View>

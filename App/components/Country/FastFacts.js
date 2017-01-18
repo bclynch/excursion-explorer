@@ -36,10 +36,12 @@ export default class FastFacts extends Component {
   }
 
   componentWillMount() {
-    const photoData = this.props.countryData.flickr.photos.photo[10];
-    this.setState({
-      photo: `https://farm${photoData.farm}.staticflickr.com/${photoData.server}/${photoData.id}_${photoData.secret}_b.jpg`
-    })
+    if(this.props.countryData.flickr.photos.photo.length > 6) {
+      const photoData = this.props.countryData.flickr.photos.photo[6];
+      this.setState({photo: `https://farm${photoData.farm}.staticflickr.com/${photoData.server}/${photoData.id}_${photoData.secret}_b.jpg`});
+    } else {
+      this.setState({photo: null});
+    }
   }
 
   componentDidMount() {
@@ -129,7 +131,12 @@ export default class FastFacts extends Component {
           settings={this.props.settings}
         />
         <ScrollView contentContainerStyle={{alignItems: 'center'}}>
-          <HeaderContainer type='fastfacts' photo={this.state.photo} name={this.props.countryData.general.altSpellings[1] || this.props.countryData.general.name} />
+          <HeaderContainer
+            type='fastfacts'
+            photo={this.state.photo}
+            name={this.props.countryData.general.altSpellings[1] || this.props.countryData.general.name}
+            colors={this.props.colors}
+          />
           {
             this.state.data ?
               <View style={styles.factsContainer}>

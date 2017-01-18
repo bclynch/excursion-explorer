@@ -75,8 +75,7 @@ export default class CountrySplash extends Component {
 
     //Validating there are flickr photos
     if(picInfo.flickr.photos.photo.length < 5) {
-      //Need some placeholder that says it doesn't exist or something. Dunno
-      return null;
+      return ['no pics'];
     }
 
     let slides = [];
@@ -126,6 +125,7 @@ export default class CountrySplash extends Component {
             autoPlaySpeed={5}
             slides={this.chopPictures(this.state.selectedCountryData)}
             colors={this.props.colors}
+            backup={{primary: this.props.selectedCountry.name, sub: this.props.selectedCountry.subregion}}
           />
           <CountryOptions
             toggleFavorite={this.toggleFavorite}

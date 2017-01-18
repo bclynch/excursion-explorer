@@ -98,11 +98,23 @@ export default class GeoNav extends Component {
         }
         for(var i = 0; i < data.length; i++) {
           if(i === data.length - 1) {
-            societyData['precip'] = data[i];
+            if(data[i].length === 0) {
+              continue;
+            } else {
+              societyData['precip'] = data[i];
+            }
           } else if(i === data.length - 2) {
-            societyData['temp'] = data[i];
+            if(data[i].length === 0) {
+              continue;
+            } else {
+              societyData['temp'] = data[i];
+            }
           } else {
-            societyData[indentifierTags(data[i][1][0].indicator.id)] = data[i][1];
+            if(data[i].length < 2) {
+              continue;
+            } else {
+              societyData[indentifierTags(data[i][1][0].indicator.id)] = data[i][1];
+            }
           }
         }
 

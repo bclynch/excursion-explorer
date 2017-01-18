@@ -54,18 +54,18 @@ export default class HeaderContainer extends Component {
     return (
       <View style={styles.container}>
         {
-          this.props.type === 'fastfacts' ?
-          <Image resizeMode='stretch' style={styles.image} source={{uri: this.props.photo}}>
-            <View style={styles[this.props.type]}>
-              <Text style={styles[`${this.props.type}text`]}>{this.props.name}</Text>
+          this.props.photo ?
+            <Image resizeMode='stretch' style={styles.image} source={this.props.type === 'fastfacts' ? {uri: this.props.photo} : this.props.photo}>
+              <View style={styles[this.props.type]}>
+                <Text style={styles[`${this.props.type}text`]}>{this.props.name}</Text>
+              </View>
+            </Image>
+            :
+            <View style={{width: width, height: 175, backgroundColor: this.props.colors.primary}}>
+              <View style={styles[this.props.type]}>
+                <Text style={styles[`${this.props.type}text`]}>{this.props.name}</Text>
+              </View>
             </View>
-          </Image>
-          :
-          <Image resizeMode='stretch' style={styles.image} source={this.props.photo}>
-            <View style={styles[this.props.type]}>
-              <Text style={styles[`${this.props.type}text`]}>{this.props.name}</Text>
-            </View>
-          </Image>
         }
       </View>
     );

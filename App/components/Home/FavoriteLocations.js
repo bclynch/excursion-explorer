@@ -52,9 +52,13 @@ export default class FavoriteLocations extends Component {
       for(var i = 0; i < nextProps.favorites.countries.length; i++) {
         let obj = {};
         const country = nextProps.favorites.countries[i];
-        const photoData = nextProps.cachedCountries[country].flickr.photos.photo[0];
         obj.text = country;
-        obj.src = `https://farm${photoData.farm}.staticflickr.com/${photoData.server}/${photoData.id}_${photoData.secret}_b.jpg`;
+        if(nextProps.cachedCountries[country].flickr.photos.photo.length > 0) {
+          const photoData = nextProps.cachedCountries[country].flickr.photos.photo[0];
+          obj.src = `https://farm${photoData.farm}.staticflickr.com/${photoData.server}/${photoData.id}_${photoData.secret}_b.jpg`;
+        } else {
+          obj.src = 'no pic'
+        }
         obj.type = 'country';
         data.push(obj);
       }
@@ -67,9 +71,13 @@ export default class FavoriteLocations extends Component {
         const country = nextProps.favorites.cities[i].country;
         const city = nextProps.favorites.cities[i].name;
         const index = nextProps.favorites.cities[i].index;
-        const photoData = nextProps.cachedCountries[country].destinations[index].features.photos[0];
         obj.text = city;
-        obj.src = `https://farm${photoData.farm}.staticflickr.com/${photoData.server}/${photoData.id}_${photoData.secret}_b.jpg`;
+        if(nextProps.cachedCountries[country].destinations[index].features.photos.length > 0) {
+          const photoData = nextProps.cachedCountries[country].destinations[index].features.photos[0];
+          obj.src = `https://farm${photoData.farm}.staticflickr.com/${photoData.server}/${photoData.id}_${photoData.secret}_b.jpg`;
+        } else {
+          obj.src = 'no pic';
+        }
         obj.type = 'city';
         obj.country = country;
         obj.index = index;
@@ -83,11 +91,20 @@ export default class FavoriteLocations extends Component {
     return (
       <View style={styles.favoriteContainer} key={data.text}>
         <TouchableHighlight activeOpacity={0.1} underlayColor={this.props.colors.primary} onPress={() => {data.type === 'country' ? this.props.selectFavoriteCountry(data.text) : this.props.selectFavoriteCity(data.text, data.country, data.index)}}>
-          <Image resizeMode='cover' style={styles.image} source={{uri: data.src}}>
-            <View style={styles.textContainer}>
-              <Text style={styles.text}>{data.text}</Text>
-            </View>
-          </Image>
+          {
+            data.src === 'no pic' ?
+              <View style={{height: 200, width: width * .4, backgroundColor: this.props.colors.primary}}>
+                <View style={styles.textContainer}>
+                  <Text style={styles.text}>{data.text}</Text>
+                </View>
+              </View>
+              :
+              <Image resizeMode='cover' style={styles.image} source={{uri: data.src}}>
+                <View style={styles.textContainer}>
+                  <Text style={styles.text}>{data.text}</Text>
+                </View>
+              </Image>
+          }
         </TouchableHighlight>
       </View>
     );

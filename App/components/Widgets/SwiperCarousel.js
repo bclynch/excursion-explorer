@@ -43,6 +43,8 @@ export default class SwiperCarousel extends Component {
   constructor(props) {
     super(props);
 
+    console.log(props);
+
     this.state = {
       renderSwiper: this.props.slides
     }
@@ -72,16 +74,26 @@ export default class SwiperCarousel extends Component {
       <View style={this.props.style}>
         {
           this.state.renderSwiper ?
-            <Swiper
-              style={styles.wrapper}
-              height={this.props.height}
-              horizontal={this.props.horizontal}
-              autoPlayTimeout={this.props.autoplaySpeed}
-              autoplay
-              activeDotColor={this.props.colors.tertiary}
-            >
-              {this.renderSlides(this.state.renderSwiper)}
-            </Swiper>
+            [
+              (
+                this.state.renderSwiper[0] === 'no pics' ?
+                  <View style={{height: this.props.height, width: width, backgroundColor: this.props.colors.primary, justifyContent: 'center', alignItems: 'center'}}>
+                    <Text style={styles.text}>{this.props.backup.primary}</Text>
+                    <Text style={styles.subtext}>{this.props.backup.sub}</Text>
+                  </View>
+                  :
+                  <Swiper
+                    style={styles.wrapper}
+                    height={this.props.height}
+                    horizontal={this.props.horizontal}
+                    autoPlayTimeout={this.props.autoplaySpeed}
+                    autoplay
+                    activeDotColor={this.props.colors.tertiary}
+                  >
+                    {this.renderSlides(this.state.renderSwiper)}
+                  </Swiper>
+              )
+            ]
             :
             <ActivityIndicator
               style={{height: this.props.height}}
