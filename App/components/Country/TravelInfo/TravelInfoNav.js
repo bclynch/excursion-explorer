@@ -40,17 +40,19 @@ export default class TravelInfoNav extends Component {
         />
         <ScrollableTabView
           tabBarPosition='bottom'
-          renderTabBar={() => <CustomTabBar someProp={'here'} />}
+          renderTabBar={() => <CustomTabBar colors={this.props.colors} />}
         >
           <TravelInfoPortal
             tabLabel="Safety"
             colors={this.props.colors}
-            data={[{header: 'Safety', icon: 'warning', content: dataObj.safety}, {header: 'Health', icon: 'medkit', content: dataObj.health}, {header: 'Law', icon: 'gavel', content: dataObj.law}, {header: 'Embassy', icon: 'building', content: dataObj.embassy}]}
+            lastUpdated={dataObj.updated[0]}
+            data={[{header: 'Safety', content: dataObj.safety}, {header: 'Health', content: dataObj.health}, {header: 'Law', content: dataObj.law}, {header: 'Embassy', content: dataObj.embassy}]}
           />
           <TravelInfoPortal
             tabLabel="Getting In + Around"
             colors={this.props.colors}
-            data={[{header: 'Entry', icon: 'book', content: dataObj.entry}, {header: 'Transport', icon: 'bus', content: dataObj.transport}]}
+            lastUpdated={dataObj.updated[0]}
+            data={[{header: 'Entry', content: dataObj.entry}, {header: 'Transport', content: dataObj.transport}]}
           />
           <Money
             tabLabel="Money"

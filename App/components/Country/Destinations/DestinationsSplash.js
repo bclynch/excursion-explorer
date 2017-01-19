@@ -141,7 +141,7 @@ export default class DestinationsSplash extends Component {
   }
 
   selectDestination(data, index) {
-    Actions.citysplash({settings: this.props.settings, destinationFeatures: data, index: index, countryData: this.state.selectedCountryData, allCountries: this.props.allCountries, countryRegions: this.props.countryRegions, favorites: this.props.favorites, cachedCountries: this.state.cachedCountries});
+    Actions.citysplash({settings: this.props.settings, colors: this.props.colors, destinationFeatures: data, index: index, countryData: this.state.selectedCountryData, allCountries: this.props.allCountries, countryRegions: this.props.countryRegions, favorites: this.props.favorites, cachedCountries: this.state.cachedCountries});
   }
 
   render() {
@@ -178,7 +178,7 @@ export default class DestinationsSplash extends Component {
                        {this.state.markers.map((marker, i) => (
                           <MapView.Marker
                             key={i}
-                            pinColor='orange'
+                            pinColor={this.props.colors.tertiary}
                             identifier={`Marker${i+1}`}
                             coordinate={marker.latlng}
                           >
@@ -201,6 +201,7 @@ export default class DestinationsSplash extends Component {
                        demonym={this.props.countryData.general.demonym}
                        data={this.state.destinations}
                        handleSelection={this.selectDestination}
+                       colors={this.props.colors}
                      />
                   </View>
               )

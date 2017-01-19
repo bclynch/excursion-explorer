@@ -103,7 +103,7 @@ export default class CityNav extends Component {
         />
         {
           this.state.readyToDisplay ?
-            <ScrollableTabView tabBarPosition='bottom'  renderTabBar={() => <CustomTabBar someProp={'here'} />}>
+            <ScrollableTabView tabBarPosition='bottom'  renderTabBar={() => <CustomTabBar colors={this.props.colors} />}>
               {this.renderPortals()}
             </ScrollableTabView>
           :

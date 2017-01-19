@@ -24,8 +24,8 @@ const DefaultTabBar = React.createClass({
 
   getDefaultProps() {
     return {
-      activeTextColor: 'orange',
-      inactiveTextColor: 'black',
+      activeTextColor: '#f2a500',
+      inactiveTextColor: '#595959',
       backgroundColor: null,
     };
   },
@@ -61,7 +61,7 @@ const DefaultTabBar = React.createClass({
       position: 'absolute',
       width: containerWidth / numberOfTabs,
       height: 4,
-      backgroundColor: 'navy',
+      backgroundColor: '#f2a500',
       bottom: 0,
     };
 
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     borderWidth: 1,
-    borderTopWidth: 0,
+    borderTopWidth: 1,
     borderLeftWidth: 0,
     borderRightWidth: 0,
     borderColor: '#ccc',

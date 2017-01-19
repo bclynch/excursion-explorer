@@ -36,7 +36,7 @@ export default class DestinationsList extends Component {
     const self = this;
     return this.props.data.map(function(item, i) {
       return (
-        <TouchableHighlight key={i} onPress={self.props.handleSelection.bind(null, item, i)} >
+        <TouchableHighlight activeOpacity={0.1} underlayColor={self.props.colors.primary} key={i} onPress={self.props.handleSelection.bind(null, item, i)} >
           <View style={styles.factoid}>
             <Text style={{fontSize: 25, flex: 1}}>{item.name}</Text>
             <View style={{justifyContent: 'space-around', alignItems: 'flex-end', flex: 1}}>

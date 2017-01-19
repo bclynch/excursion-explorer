@@ -48,7 +48,7 @@ export default class FilterList extends Component {
 
   renderRow(data) {
     return (
-      <TouchableHighlight style={styles.listOption} onPress={() => Actions.countrysplash({settings: this.props.settings, selectedCountry: this.props.allCountries[data], allCountries: this.props.allCountries, countryRegions: this.props.countryRegions, favorites: this.props.favorites, cachedCountries: this.props.cachedCountries})}>
+      <TouchableHighlight activeOpacity={0.1} underlayColor={this.props.colors.primary} style={styles.listOption} onPress={() => Actions.countrysplash({settings: this.props.settings, selectedCountry: this.props.allCountries[data], allCountries: this.props.allCountries, countryRegions: this.props.countryRegions, favorites: this.props.favorites, cachedCountries: this.props.cachedCountries})}>
         <Text style={styles.text}>{data}</Text>
       </TouchableHighlight>
     );

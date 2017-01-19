@@ -146,7 +146,7 @@ export default class GeoNav extends Component {
         />
         {
           this.state.readyToDisplay ?
-            <ScrollableTabView tabBarPosition='bottom'  renderTabBar={() => <CustomTabBar someProp={'here'} />}>
+            <ScrollableTabView tabBarPosition='bottom'  renderTabBar={() => <CustomTabBar colors={this.props.colors} />}>
               <Weather tabLabel="Weather" colors={this.props.colors} countryData={this.state.countryData} settings={this.props.settings} />
               <Society tabLabel="Society" colors={this.props.colors} countryData={this.state.countryData} />
               <Terrain tabLabel="Terrain" colors={this.props.colors} countryData={this.state.countryData} />

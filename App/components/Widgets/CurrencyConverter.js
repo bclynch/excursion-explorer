@@ -35,7 +35,6 @@ export default class CurrencyConverter extends Component {
     //Check cache for valid results
     store.get('currencyInfo')
       .then((info) => {
-        console.log(info);
         this.storeLogic(info, this.state.baseCurrency);
       }).catch(err => {
         console.log(err);
@@ -55,18 +54,16 @@ export default class CurrencyConverter extends Component {
       API.currency(baseCurrency).then(data => {
         const existingObj = info;
         existingObj[baseCurrency] = {data: data, lastUpdated: Date.now()};
-        this.setState({stateReady: true});
         this.setState({data: data.rates, storeData: existingObj, multiplier: data.rates[this.state.altCurrency], altValue: (this.state.baseValue * data.rates[this.state.altCurrency]).toFixed(2).toString()});
-        console.log(this.state);
+        this.setState({stateReady: true});
         store.save('currencyInfo', existingObj);
       }).catch(error => {
         console.log(error)
       });
     } else {
       console.log('Using cached currency data');
-      this.setState({stateReady: true});
       this.setState({data: info[baseCurrency].data.rates, storeData: info, multiplier: info[baseCurrency].data.rates[this.state.altCurrency], altValue: (this.state.baseValue * info[baseCurrency].data.rates[this.state.altCurrency]).toFixed(2).toString()});
-      console.log(this.state);
+      this.setState({stateReady: true});
     }
   }
 
@@ -87,7 +84,7 @@ export default class CurrencyConverter extends Component {
     return (
       <View style={{ alignItems: 'center' }}>
         { this.state.multiplier ?
-          <View style={{width: width}}>
+          <View style={{width: width, alignItems: 'center'}}>
             <View style={{
                 padding: 30,
                 flexDirection: 'row',
@@ -133,8 +130,8 @@ export default class CurrencyConverter extends Component {
                 style={{flex: 3}}
                />
             </View>
-            <View style={{alignItems: 'center', marginTop: 25, width: width * .85}}>
-              <Text style={{fontSize: 25, color: this.props.colors.textColor, textAlign: 'center'}}>{this.state.baseValue} {this.state.baseValue === '1' ? this.state.currObj[this.state.baseCurrency].name : this.state.currObj[this.state.baseCurrency].name_plural} is equal to {this.state.altValue} {this.state.altValue === '1' ? this.state.currObj[this.state.altCurrency].name : this.state.currObj[this.state.altCurrency].name_plural}</Text>
+            <View style={{marginTop: 25, width: width * .85}}>
+              <Text style={{fontSize: 25, color: this.props.colors.textColor, textAlign: 'center'}}>{this.state.baseValue} {this.state.baseValue === '1' ? this.state.currObj[this.state.baseCurrency].name : this.state.currObj[this.state.baseCurrency].name_plural} ({this.state.currObj[this.state.baseCurrency].symbol_native}) is equal to {this.state.altValue} {this.state.altValue === '1' ? this.state.currObj[this.state.altCurrency].name : this.state.currObj[this.state.altCurrency].name_plural} ({this.state.currObj[this.state.altCurrency].symbol_native})</Text>
             </View>
           </View>
           :

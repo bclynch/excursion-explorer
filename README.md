@@ -44,4 +44,3 @@
 - Create better 'stories' for our society data
 - Gallery section?
 - Settings page (rate app)
-- Fix accordian style ***

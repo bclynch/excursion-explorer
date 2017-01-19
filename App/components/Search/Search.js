@@ -79,6 +79,7 @@ export default class Search extends Component {
               allCountries={this.props.allCountries}
               favorites= {this.props.favorites}
               cachedCountries= {this.props.cachedCountries}
+              colors={this.props.colors}
             />
             :
             <SuggestedResults

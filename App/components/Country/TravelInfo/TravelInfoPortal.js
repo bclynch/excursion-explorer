@@ -14,6 +14,8 @@ export default class TravelInfoPortal extends Component {
   constructor(props) {
     super(props);
 
+    console.log(props);
+
     this.state = {
       dataSource: this.props.data
     }
@@ -21,11 +23,11 @@ export default class TravelInfoPortal extends Component {
     this.renderContent = this.renderContent.bind(this);
   }
 
-  renderHeader(section) {
+  renderHeader(section, i) {
       return (
-        <View style={{height: 100, width: width * .85, borderColor: this.props.colors.primary, borderWidth: 5, alignItems:'center', justifyContent: 'center', marginTop: 15}}>
-          <Text style={{color: this.props.colors.primary, fontSize: 25, fontWeight: 'bold'}}>{section.header}</Text>
-          <Icon name={section.icon} size={40} color={this.props.colors.primary} />
+        <View style={{height: 80, width: width * .9, flexDirection: 'row', borderBottomWidth: 1, borderColor: this.props.colors.primary, alignItems:'center', justifyContent: 'space-between'}}>
+          <Text style={{color: this.props.colors.textColor, fontSize: 18, fontWeight: 'bold'}}>{section.header}</Text>
+          <Icon name={this.state.activeSection === i ? 'chevron-up' : 'chevron-down'} size={18} color={this.state.activeSection === i ? this.props.colors.tertiary : this.props.colors.primary} />
         </View>
       );
   }
@@ -33,7 +35,7 @@ export default class TravelInfoPortal extends Component {
   renderContent(section) {
       const self = this;
       return (
-        <View style={{width: width * .85, borderColor: self.props.colors.primary, borderBottomWidth: 5, borderLeftWidth: 5, borderRightWidth: 5, padding: 8}}>
+        <View style={{width: width * .9, marginTop: 10}}>
           {section.content.map(function(item, i) {
             return (
               <Text key={i} style={{marginBottom: 8, color: self.props.colors.textColor}}>{item}</Text>
@@ -43,19 +45,28 @@ export default class TravelInfoPortal extends Component {
       );
   }
 
+  setSection(section) {
+   this.setState({ activeSection: section });
+ }
+
   render() {
     return (
       <View style={{alignItems: 'center'}}>
         {this.props.data[0].content ?
           <ScrollView contentContainerStyle={{alignItems: 'center'}}>
             <Accordion
+              activeSection={this.state.activeSection}
               sections={this.state.dataSource}
               renderHeader={this.renderHeader}
               renderContent={this.renderContent}
-              duration={700}
+              duration={500}
               activeOpacity={0.1}
               underlayColor={this.props.colors.underlayColor}
+              onChange={this.setSection.bind(this)}
             />
+          <View style={{alignSelf: 'flex-end', marginTop: 30}}>
+              <Text style={{color: this.props.textColor}}>{this.props.lastUpdated}</Text>
+            </View>
           </ScrollView>
           :
           <View style={{alignItems:'center', width: width * .85}}>
