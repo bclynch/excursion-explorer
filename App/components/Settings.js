@@ -104,7 +104,8 @@ export default class Settings extends Component {
             },
             {
               title: 'About This App',
-              descr: 'Change log + about the developer'
+              descr: 'Change log + about the developer',
+              press: function() {Actions.about()}
             }
           ]
         },

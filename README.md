@@ -23,6 +23,11 @@
 - Can toggle inspector to look at your components styling
 - Can toggle performance to see how framerate is
 
+#Change app Icon
+- https://myexperimentswithweb.wordpress.com/2016/05/23/changing-app-icon-in-android-react-native-generated-apps/
+- http://makeappicon.com/
+- https://jsfiddle.net/bclynch/fm3wa415/7/
+
 #Maps
 - When installing maps follow this page https://github.com/airbnb/react-native-maps/blob/master/docs/installation.md
 - Running $ react-native link should do most of the job
@@ -33,13 +38,10 @@
 - To function on the emulator make sure the target of the emulator is Google APIs Intel x86 Atom System Image. Also be sure Google Play Services + Google Repository installed
 
 #Todos
-- Zoom into location on result press for destinations maps
-- Check on validation and fallback for errors (better visuals when no data available or none) (check)
 - App intro - Look into dynamic routing so only when no data (i.e. first time with app) ==> Use a splash/loading looking screen and route to intro or home based on component did mount check of whether the all countries store exists
 - Work on caching permissions (Settings information saved in store)
-- Create legend prop for graph component (check)
 - Current weather for capital
-- Alternative if flickr isn't returning anything (check)
 - Create better 'stories' for our society data
 - Gallery section?
-- Settings page (about, clear memory (check), rate app, unit settings (check))
+- Settings page (rate app)
+- Fix accordian style ***

@@ -12,11 +12,13 @@ const styles = {
     justifyContent: 'center'
   },
   text: {
-    fontSize: 18
+    fontSize: 18,
+    color: '#595959'
   },
   sectionHead: {
     fontSize: 25,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    color: '#f2a500'
   },
   listOption: {
     paddingTop: 15,
@@ -28,7 +30,6 @@ const styles = {
   },
   header: {
     height: 300,
-    backgroundColor: 'purple',
     width: width
   }
 }
@@ -43,10 +44,6 @@ export default class FilterList extends Component {
       dataSource: ds.cloneWithRowsAndSections(props.countryRegions[props.selectedRegion])
     }
     this.renderRow = this.renderRow.bind(this);
-  }
-
-  componentWillMount() {
-
   }
 
   renderRow(data) {

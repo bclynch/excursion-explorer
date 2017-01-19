@@ -7,6 +7,7 @@ import store from 'react-native-simple-store';
 import Intro from './components/Intro.js';
 import Home from './components/Home/Home.js';
 import Settings from './components/Settings.js';
+import About from './components/About.js';
 import Search from './components/Search/Search';
 import CountrySplash from './components/Country/CountrySplash.js';
 import FilterList from './components/Search/FilterList.js';
@@ -83,6 +84,7 @@ export default class ExcursionExplorer extends Component {
             <Scene key="intro" component={Intro} title="Intro" />
             <Scene key="home" component={Home} title="Home" initial />
             <Scene key="settings" component={Settings} title="Settings" />
+            <Scene key="about" component={About} title="About" />
             <Scene key="search" component={Search} title="Search" />
             <Scene key="filterlist" component={FilterList} title="FilterList" />
             <Scene key="countrysplash" component={CountrySplash} title="CountrySplash" />

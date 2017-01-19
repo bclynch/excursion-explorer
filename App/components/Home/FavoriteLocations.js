@@ -147,7 +147,7 @@ export default class FavoriteLocations extends Component {
                   this.state.countryData ?
                     <View key='a'>
                       <View style={{alignItems: 'center', marginTop: 15, marginBottom: 15}}>
-                        <Text style={{fontSize: 25}}>Favorite Countries</Text>
+                        <Text style={{fontSize: 25, color: this.props.colors.textColor}}>Favorite Countries</Text>
                       </View>
                       <View style={{justifyContent: 'center', marginBottom: 20}}>
                         <GridView
@@ -161,7 +161,7 @@ export default class FavoriteLocations extends Component {
                     :
                     <View key='b'>
                       <View style={{alignItems: 'center', marginTop: 15, marginBottom: 15}}>
-                        <Text style={{fontSize: 25}}>Favorite Cities</Text>
+                        <Text style={{fontSize: 25, color: this.props.colors.textColor}}>Favorite Cities</Text>
                       </View>
                       <View style={{justifyContent: 'center', marginBottom: 20}}>
                         <GridView

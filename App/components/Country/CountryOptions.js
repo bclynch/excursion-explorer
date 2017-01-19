@@ -99,7 +99,7 @@ export default class CountryOptions extends Component {
     return (
       <View>
         <View style={{alignItems: 'center', marginTop: 15, marginBottom: 15}}>
-          <Text style={{fontSize: 25}}>Explore</Text>
+          <Text style={{fontSize: 25, color: this.props.colors.textColor}}>Explore</Text>
         </View>
         <View style={{justifyContent: 'center'}}>
           <GridView
