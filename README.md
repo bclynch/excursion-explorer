@@ -26,7 +26,7 @@
 #Change app Icon
 - https://myexperimentswithweb.wordpress.com/2016/05/23/changing-app-icon-in-android-react-native-generated-apps/
 - http://makeappicon.com/
-- https://jsfiddle.net/bclynch/fm3wa415/7/
+- https://jsfiddle.net/bclynch/fm3wa415/10/
 
 #Maps
 - When installing maps follow this page https://github.com/airbnb/react-native-maps/blob/master/docs/installation.md
@@ -36,6 +36,14 @@
   - $ gradlew clean
   - cd back to project_folder then react-native run-android
 - To function on the emulator make sure the target of the emulator is Google APIs Intel x86 Atom System Image. Also be sure Google Play Services + Google Repository installed
+
+#Generate Release APK
+- Update version number for build in android/app/build.gradle
+- $ cd android
+- gradlew assembleRelease
+- apk for upload in android/app/build/outputs/apk/app-release.apk
+- To test build run $ react-native run-android --configuration=release (Be sure to uninstall other versions on device first!)
+- Head to the dev console to manage apk updates https://play.google.com/apps/publish/
 
 #Todos
 - App intro - Look into dynamic routing so only when no data (i.e. first time with app) ==> Use a splash/loading looking screen and route to intro or home based on component did mount check of whether the all countries store exists
