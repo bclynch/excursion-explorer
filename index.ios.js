@@ -1,10 +1,4 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
-import React, { Component } from 'react';
+/*import React, { Component } from 'react';
 import {
   AppRegistry,
   StyleSheet,
@@ -49,5 +43,10 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
 });
+
+AppRegistry.registerComponent('ExcursionExplorer', () => ExcursionExplorer);*/
+
+import { AppRegistry } from 'react-native';
+import ExcursionExplorer from './App/App.js';
 
 AppRegistry.registerComponent('ExcursionExplorer', () => ExcursionExplorer);

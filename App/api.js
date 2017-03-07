@@ -1,5 +1,3 @@
-import fetchJsonp from 'fetch-jsonp';
-
 function fetchData(URL) {
   return fetch(URL).then((response) => response.json())
 }
